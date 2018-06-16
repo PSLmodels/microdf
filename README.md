@@ -1,2 +1,2 @@
-# taxcalc-helpers
+# taxcalc_helpers
 Helper functions for Tax-Calculator.
