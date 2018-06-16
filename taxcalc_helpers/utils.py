@@ -27,6 +27,9 @@ def gini(x, w=None, zero_negatives=True):
 def fpl(XTOT):
     return 7820 + 4320 * XTOT
 
+def weight(df, col):
+    return df[col] * df.s006
+
 def weighted_sum(df, col):
     return (df[col] * df.s006).sum()
     
