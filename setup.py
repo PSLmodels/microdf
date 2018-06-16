@@ -8,4 +8,9 @@ setup(name='taxcalc_helpers',
       author_email='mghenis@gmail.com',
       license='MIT',
       packages=['taxcalc_helpers'],
+      install_requires=[
+          'numpy',
+          'pandas',
+          'taxcalc'
+      ],
       zip_safe=False)

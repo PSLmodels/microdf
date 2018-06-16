@@ -1,3 +1,7 @@
+import numpy as np
+import pandas as pd
+import taxcalc as tc
+
 def gini(x, w=None, zero_negatives=True):
     # Requires float numpy arrays (not pandas Series or lists) to work.
     x = np.array(x).astype('float')
