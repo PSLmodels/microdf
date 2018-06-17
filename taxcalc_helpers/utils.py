@@ -192,3 +192,41 @@ def calc_df(records=None,
     # Set RECID to int and set it as index before returning.
     df['RECID'] = df.RECID.map(int)
     return df.set_index('RECID')
+
+def cash_income(df):
+    """Calculates income after taxes and cash transfers.
+
+    Defined as aftertax_income minus non-cash benefits.
+
+    Args:
+        df: A Tax-Calculator pandas DataFrame with columns for
+            * aftertax_income
+            * snap_ben
+            * 
+    
+    Returns:
+        A pandas Series with the cash income for each row in df.
+    """
+    # Constants for share of each benefit that is cash.
+    HOUSING_CASH_SHARE = 0.
+    MCAID_CASH_SHARE = 0.
+    MCARE_CASH_SHARE = 0.
+    # https://github.com/open-source-economics/taxdata/issues/148
+    # https://docs.google.com/spreadsheets/d/1g_YdFd5idgLL764G0pZBiBnIlnCBGyxBmapXCOZ1OV4
+    OTHER_CASH_SHARE = 0.35
+    SNAP_CASH_SHARE = 0.
+    SSI_CASH_SHARE = 1.
+    TANF_CASH_SHARE = 0.25
+    # https://github.com/open-source-economics/C-TAM/issues/62.
+    VET_CASH_SHARE = 0.48
+    WIC_CASH_SHARE = 0.
+    return (df.aftertax_income -
+            (1 - HOUSING_CASH_SHARE) * df.housing_ben -
+            (1 - MCAID_CASH_SHARE) * df.mcaid_ben -
+            (1 - MCARE_CASH_SHARE) * df.mcare_ben -
+            (1 - OTHER_CASH_SHARE) * df.other_ben -
+            (1 - SNAP_CASH_SHARE) * df.snap_ben -
+            (1 - SSI_CASH_SHARE) * df.ssi_ben -
+            (1 - TANF_CASH_SHARE) * df.tanf_ben -
+            (1 - VET_CASH_SHARE) * df.vet_ben -
+            (1 - WIC_CASH_SHARE) * df.wic_ben)
