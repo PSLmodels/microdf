@@ -119,7 +119,6 @@ def add_weighted_quantiles(df, col):
     df[col + '_decile'] = np.ceil(df[col_pctile] / 10).astype(int)
     df[col + '_quintile'] = np.ceil(df[col_pctile] / 20).astype(int)
     df[col + '_quartile'] = np.ceil(df[col_pctile] / 25).astype(int)
-    return df
 
 def static_baseline_calc(recs, year):
     """Creates a static Calculator object.
