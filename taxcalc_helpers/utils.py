@@ -59,3 +59,32 @@ def static_baseline_calc(recs, year):
     calc.advance_to_year(year)
     calc.calc_all()
     return calc
+
+def add_weighted_metrics(df, metric_vars):
+    df['s006_m'] = df.s006 / 1e6
+    for metric_var in metric_vars:
+        df[metric_var + '_m'] = df[metric_var] * df.s006_m
+
+def calc_df(records=None,
+            policy=None,
+            year=2018,
+            reform=None,
+            group_vars=None,
+            metric_vars=None):
+    # Assign defaults.
+    if records is None:
+        records = tc.Records.cps_constructor()
+    if policy is None:
+        policy = tc.Policy()
+    if reform is not None:
+        policy.implement_reform(reform)
+    # Calculate.
+    calc = tc.Calculator(records=records, policy=policy, verbose=False)
+    calc.advance_to_year(year)
+    calc.calc_all()
+    # Get columns.
+    all_cols = list(set(['RECID', 's006'] + group_vars + metric_vars))
+    df = calc.dataframe(all_cols)
+    # Add calculated columns for metrics.
+    add_weighted_metrics(df, metric_vars)
+    return df.set_index('RECID')
