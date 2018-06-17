@@ -184,9 +184,11 @@ def calc_df(records=None,
     calc = tc.Calculator(records=records, policy=policy, verbose=False)
     calc.advance_to_year(year)
     calc.calc_all()
-    # Get columns.
+    # Get a deduplicated list of all columns.
     all_cols = list(set(['RECID', 's006'] + group_vars + metric_vars))
     df = calc.dataframe(all_cols)
     # Add calculated columns for metrics.
     add_weighted_metrics(df, metric_vars)
+    # Set RECID to int and set it as index before returning.
+    df['RECID'] = df.RECID.map(int)
     return df.set_index('RECID')
