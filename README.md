@@ -1,5 +1,5 @@
 # taxcalc_helpers
-Helper functions for Tax-Calculator.
+Helper functions for [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator).
 
 Install with:
 
