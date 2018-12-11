@@ -2,22 +2,27 @@ import numpy as np
 import pandas as pd
 import taxcalc as tc
 
-def gini(x, w=None, zero_negatives=True):
+def gini(x, w=None, negatives=None):
     """Calculates Gini index.
 
     Args:
         x: A float numpy array of data to calculate Gini index on.
         w: An optional float numpy array of weights. Should be the same length as x.
-        zero_negatives: An optional boolean indicating whether negative values of x
-            should be replaced with zeroes. Defaults to True.
+        negatives: An optional string indicating how to treat negative values of x:
+                   'zero' replaces negative values with zeroes.
+                   'shift' subtracts the minimum value from all values of x, 
+                   when this minimum is negative. That is, it adds the absolute minimum value.
+                   Defaults to None, which leaves negative values as they are.
 
     Returns:
         A float, the Gini index.
     """
     # Requires float numpy arrays (not pandas Series or lists) to work.
     x = np.array(x).astype('float')
-    if zero_negatives:
+    if negatives='zero':
         x[x < 0] = 0
+    if negatives='shift' and np.amin(x) < 0:
+        x -= np.amin(x)
     if w is not None:
         w = np.array(w).astype('float')
         sorted_indices = np.argsort(x)
