@@ -19,9 +19,9 @@ def gini(x, w=None, negatives=None):
     """
     # Requires float numpy arrays (not pandas Series or lists) to work.
     x = np.array(x).astype('float')
-    if negatives='zero':
+    if negatives=='zero':
         x[x < 0] = 0
-    if negatives='shift' and np.amin(x) < 0:
+    if negatives=='shift' and np.amin(x) < 0:
         x -= np.amin(x)
     if w is not None:
         w = np.array(w).astype('float')
