@@ -156,10 +156,10 @@ def add_weighted_metrics(df, metric_vars):
     for metric_var in metric_vars:
         df[metric_var + '_m'] = df[metric_var] * df.s006_m
 
-def n65(age_head, age_spouse, elderly_dependent):
+def n65(age_head, age_spouse, elderly_dependents):
     return ((age_head >= 65).astype(int) +
             (age_spouse >= 65).astype(int) +
-            elderly_dependent)
+            elderly_dependents)
         
 def calc_df(records=None,
             policy=None,
@@ -197,12 +197,12 @@ def calc_df(records=None,
     calc.calc_all()
     # Get a deduplicated list of all columns.
     if group_n65:
-        group_vars = group_vars + ['age_head', 'age_spouse', 'elderly_dependent']
+        group_vars = group_vars + ['age_head', 'age_spouse', 'elderly_dependents']
     all_cols = list(set(['RECID', 's006'] + group_vars + metric_vars))
     df = calc.dataframe(all_cols)
     if group_n65:
-        df['n65'] = n65(df.age_head, df.age_spouse, df.elderly_dependent)
-        df.drop(['age_head', 'age_spouse', 'elderly_dependent'], axis=1, inplace=True)
+        df['n65'] = n65(df.age_head, df.age_spouse, df.elderly_dependents)
+        df.drop(['age_head', 'age_spouse', 'elderly_dependents'], axis=1, inplace=True)
     # Add calculated columns for metrics.
     add_weighted_metrics(df, metric_vars)
     # Set RECID to int and set it as index before returning.
