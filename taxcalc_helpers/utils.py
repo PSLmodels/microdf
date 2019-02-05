@@ -157,6 +157,16 @@ def add_weighted_metrics(df, metric_vars):
         df[metric_var + '_m'] = df[metric_var] * df.s006_m
 
 def n65(age_head, age_spouse, elderly_dependents):
+    """Calculates number of people in the tax unit age 65 or older.
+
+    Args:
+        age_head: Series representing age_head from taxcalc data.
+        age_spouse: Series representing age_spouse from taxcalc data.
+        elderly_dependents: Series representing elderly_dependents from taxcalc data.
+
+    Returns:
+        Series representing the number of people age 65 or older.
+    """
     return ((age_head >= 65).astype(int) +
             (age_spouse >= 65).astype(int) +
             elderly_dependents)
