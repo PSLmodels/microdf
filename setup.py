@@ -13,6 +13,7 @@ setup(name='taxcalc_helpers',
           'pandas',
           'taxcalc',
           'matplotlib',
-          'seaborn'
+          'seaborn',
+          'labellines'
       ],
       zip_safe=False)

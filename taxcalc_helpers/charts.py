@@ -2,6 +2,7 @@ import taxcalc_helpers as tch
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import labellines as ll
 
 def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
                       label1='Base', label2='Reform'):
@@ -20,8 +21,13 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     Returns:
         Nothing. Print plot.
     """
+    # Calculate weighted quantiles.
     df = tch.quantile_chg(v1, v2, w1, w2, q)
     ax = df.plot()
+    # Label the start and end points.
     plt.xticks([0, 1], [label1, label2])
     sns.despine(left=True, bottom=True)
+    # Label the lines instead of using a legend.
+    ax.get_legend().remove()
+    ll.labelLines(plt.gca().get_lines())
     return ax
