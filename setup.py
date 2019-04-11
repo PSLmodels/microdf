@@ -11,6 +11,7 @@ setup(name='taxcalc_helpers',
       install_requires=[
           'numpy',
           'pandas',
-          'taxcalc'
+          'taxcalc',
+          'matplotlib'
       ],
       zip_safe=False)
