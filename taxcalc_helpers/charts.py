@@ -19,6 +19,6 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     Returns:
         Nothing. Print plot.
     """
-    df = tch.quantile_chg(v1, w1, v2, w2, q)
+    df = tch.quantile_chg(v1, v2, w1, w2, q)
     ax = df.plot()
     plt.xticks([0, 1], [label1, label2])
