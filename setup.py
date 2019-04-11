@@ -14,6 +14,6 @@ setup(name='taxcalc_helpers',
           'taxcalc',
           'matplotlib',
           'seaborn',
-          'labellines'
+          # 'labellines'  # Causing an error, but works without.
       ],
       zip_safe=False)
