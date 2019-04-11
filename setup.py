@@ -12,6 +12,7 @@ setup(name='taxcalc_helpers',
           'numpy',
           'pandas',
           'taxcalc',
-          'matplotlib'
+          'matplotlib',
+          'seaborn'
       ],
       zip_safe=False)
