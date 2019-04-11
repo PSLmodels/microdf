@@ -1,6 +1,7 @@
 import taxcalc_helpers as tch
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 
 def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
                       label1='Base', label2='Reform'):
