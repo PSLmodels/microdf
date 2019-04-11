@@ -297,6 +297,20 @@ def weighted_quantile(values, quantiles, sample_weight=None,
         weighted_quantiles /= np.sum(sample_weight)
     return np.interp(quantiles, weighted_quantiles, values)
 
+def ordinal_label(n):
+    """ Creates ordinal label from number.
+
+    Adapted from https://stackoverflow.com/a/20007730/1840471.
+    
+    Args:
+        n: Number.
+    
+    Returns:
+        Ordinal label, e.g., 1st, 3rd, 24th, etc.
+    """
+    n = int(n)
+    return "%d%s" % (n,"tsnrhtdd"[(n/10%10!=1)*(n%10<4)*n%10::4])
+
 
 def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     """ Create table with two sets of quantiles.
@@ -317,8 +331,7 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     q2 = weighted_quantile(v2, q, w2)
     df = pd.DataFrame([q1, q2])
     # Set decile labels.
-    q_print = ((q * 10).round().astype(int).astype(str) +
-               np.char.array('th'))
+    q_print = [ordinal_label((i * 10)) for i in q]
     # TODO: Check if other values are median
     if q[4] == 0.5:
         q_print[4] += ' (median)'
