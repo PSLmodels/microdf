@@ -316,9 +316,9 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     q1 = weighted_quantile(v1, q, w1)
     q2 = weighted_quantile(v2, q, w2)
     df = pd.DataFrame([q1, q2])
-    # Set labels.
-    q_print = ((q * 100).round().astype(int).astype(str) +
-               np.char.array('th percentile'))
+    # Set decile labels.
+    q_print = ((q * 10).round().astype(int).astype(str) +
+               np.char.array('th'))
     # TODO: Check if other values are median
     if q[4] == 0.5:
         q_print[4] += ' (median)'
