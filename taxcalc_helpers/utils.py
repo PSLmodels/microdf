@@ -296,3 +296,31 @@ def weighted_quantile(values, quantiles, sample_weight=None,
     else:
         weighted_quantiles /= np.sum(sample_weight)
     return np.interp(quantiles, weighted_quantiles, values)
+
+
+def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
+    """ Create table with two sets of quantiles.
+
+    Args:
+        v1: First set of values.
+        v2: Second set of values.
+        w1: First set of weights.
+        w2: Second set of weights.
+        q: Quantiles. Defaults to decile boundaries.
+
+    Returns:
+        DataFrame with two rows and a column for each quantile.
+        Column labels are "xth percentile" and a label is added
+        to the median.
+    """ 
+    q1 = tch.weighted_quantile(v1, q, w1)
+    q2 = tch.weighted_quantile(v2, q, w2)
+    df = pd.DataFrame([q1, q2])
+    # Set labels.
+    q_print = ((q * 100).round().astype(int).astype(str) +
+               np.char.array('th percentile'))
+    # TODO: Check if other values are median
+    if q[4] == 0.5:
+        q_print[4] += ' (median)'
+    df.columns = q_print
+    return df
