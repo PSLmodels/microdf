@@ -304,8 +304,8 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     Args:
         v1: First set of values.
         v2: Second set of values.
-        w1: First set of weights.
-        w2: Second set of weights.
+        w1: First set of weights. Defaults to equal weight.
+        w2: Second set of weights. Defaults to equal weight.
         q: Quantiles. Defaults to decile boundaries.
 
     Returns:
