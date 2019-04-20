@@ -31,6 +31,7 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     # Label the lines instead of using a legend.
     ax.get_legend().remove()
     ll.labelLines(plt.gca().get_lines())
+    ax.grid(color=tch.GRID_COLOR, axis='y')
     return ax
 
 
@@ -64,5 +65,6 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     plt.ylabel('Change in disposable income at the decile boundary')
     plt.xlabel('Disposable income decile')
     sns.despine(left=True, bottom=True)
+    ax.grid(color=tch.GRID_COLOR, axis='y')
     plt.xticks(rotation=0)
     return ax
