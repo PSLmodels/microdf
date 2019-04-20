@@ -27,11 +27,14 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     ax = df.plot()
     # Label the start and end points.
     plt.xticks([0, 1], [label1, label2])
-    sns.despine(left=True, bottom=True)
     # Label the lines instead of using a legend.
     ax.get_legend().remove()
     ll.labelLines(plt.gca().get_lines())
+    # Formatting.
     ax.grid(color=tch.GRID_COLOR, axis='y')
+    ax.yaxis.set_major_formatter(tch.dollar_format())
+    ax.yaxis.set_minor_formatter(tch.dollar_format())
+    sns.despine(left=True, bottom=True)
     return ax
 
 
