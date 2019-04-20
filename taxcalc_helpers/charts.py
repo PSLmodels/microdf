@@ -37,6 +37,7 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     ax.yaxis.set_major_formatter(tch.dollar_format())
     ax.yaxis.set_minor_formatter(tch.dollar_format())
     sns.despine(left=True, bottom=True)
+    ax.axhline(0, color='lightgray', zorder=-1)
     # Looks better narrower.
     plt.gcf().set_size_inches(4, 6)
     return ax
