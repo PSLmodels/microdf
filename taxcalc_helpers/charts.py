@@ -32,6 +32,7 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     ll.labelLines(plt.gca().get_lines())
     # Formatting.
     plt.title('Change in disposable income deciles')
+    plt.ylim(0, None)
     ax.grid(color=tch.GRID_COLOR, axis='y')
     ax.yaxis.set_major_formatter(tch.dollar_format())
     ax.yaxis.set_minor_formatter(tch.dollar_format())
