@@ -1,8 +1,11 @@
 import matplotlib as mpl
 import seaborn as sns
 
+
 TITLE_COLOR = '#212121'
 AXIS_COLOR = '#757575'
+GRID_COLOR = '#eeeeee'  # Previously lighter #f5f5f5.
+
 
 def set_plot_style():
     """ Set plot style.
