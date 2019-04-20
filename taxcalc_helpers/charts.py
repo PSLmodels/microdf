@@ -61,7 +61,6 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         lambda x, _: '{:.0%}'.format(x)))
     ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(integer=True))
     plt.title('Change to disposable income deciles', loc='left')
-    ax.grid(color=GRID_COLOR, axis='y')
     plt.ylabel('Change in disposable income at the decile boundary')
     plt.xlabel('Disposable income decile')
     sns.despine(left=True, bottom=True)
