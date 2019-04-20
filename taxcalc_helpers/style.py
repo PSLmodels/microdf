@@ -1,6 +1,9 @@
 import matplotlib as mpl
 import seaborn as sns
 
+TITLE_COLOR = '#212121'
+AXIS_COLOR = '#757575'
+
 def set_plot_style():
     """ Set plot style.
 
@@ -19,11 +22,9 @@ def set_plot_style():
     mpl.rcParams['font.family'] = 'sans-serif'
         
     # Set title text color to dark gray (https://material.io/color) not black.
-    TITLE_COLOR = '#212121'
     mpl.rcParams['text.color'] = TITLE_COLOR
         
     # Axis titles and tick marks are medium gray.
-    AXIS_COLOR = '#757575'
     mpl.rcParams['axes.labelcolor'] = AXIS_COLOR
     mpl.rcParams['xtick.color'] = AXIS_COLOR
     mpl.rcParams['ytick.color'] = AXIS_COLOR
