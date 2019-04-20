@@ -166,7 +166,7 @@ def add_weighted_metrics(df, metric_vars, w='s006'):
     """
     df[w + '_m'] = df[w] / 1e6
     for metric_var in metric_vars:
-        df[metric_var + '_m'] = df[metric_var] * df.[w + '_m']
+        df[metric_var + '_m'] = df[metric_var] * df[w + '_m']
 
         
 def n65(age_head, age_spouse, elderly_dependents):
