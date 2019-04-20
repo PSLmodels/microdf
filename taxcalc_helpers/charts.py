@@ -34,7 +34,7 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     return ax
 
 
-def quantile_chg_pct_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
+def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     """ Create stem plot with percent change in decile boundaries.
 
     Args:
@@ -48,7 +48,7 @@ def quantile_chg_pct_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         Axis.
     """
     # Calculate weighted quantiles.
-    df = tch.quantile_chg(v1, v2, w1, w2, q)
+    df = tch.quantile_chg(v1, v2, w1, w2, q).transpose()
     # Prepare dataset for plotting.
     df.columns = ['base', 'reform']
     df['pct_chg'] = df.reform / df.base - 1
