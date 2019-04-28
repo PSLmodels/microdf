@@ -11,6 +11,9 @@ setup(name='taxcalc_helpers',
       install_requires=[
           'numpy',
           'pandas',
-          'taxcalc'
+          'taxcalc',
+          'matplotlib',
+          'seaborn',
+          # 'labellines'  # Causing an error, but works without.
       ],
       zip_safe=False)

@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import taxcalc as tc
 
+
 def gini(x, w=None, negatives=None):
     """Calculates Gini index.
 
@@ -51,44 +52,51 @@ def fpl(XTOT):
     """
     return 7820 + 4320 * XTOT
 
-def weight(df, col):
+
+def weight(df, col, w='s006'):
     """Calculates the weighted value of a column in a Tax-Calculator pandas DataFrame.
 
     Args:
         df: A pandas DataFrame containing Tax-Calculator data.
         col: A string indicating the column in the DataFrame to weight.
+        w: Weight column. Defaults to s006.
 
     Returns:
-        A pandas Series multiplying the column by its weight (s006).
+        A pandas Series multiplying the column by its weight.
     """
-    return df[col] * df.s006
+    return df[col] * df[w]
 
-def weighted_sum(df, col):
+
+def weighted_sum(df, col, w='s006'):
     """Calculates the weighted sum of a column in a Tax-Calculator pandas DataFrame.
 
     Args:
         df: A pandas DataFrame containing Tax-Calculator data.
         col: A string indicating the column in the DataFrame.
+        w: Weight column. Defaults to s006.
 
     Returns:
-        The s006-weighted sum of a DataFrame's column.
+        The weighted sum of a DataFrame's column.
     """
 
-    return (df[col] * df.s006).sum()
-    
-def weighted_mean(df, col):
+    return (df[col] * df[w]).sum()
+
+
+def weighted_mean(df, col, w='s006'):
     """Calculates the weighted mean of a column in a Tax-Calculator pandas DataFrame.
 
     Args:
         df: A pandas DataFrame containing Tax-Calculator data.
         col: A string indicating the column in the DataFrame.
+        w: Weight column. Defaults to s006.
 
     Returns:
-        The s006-weighted mean of a DataFrame's column.
+        The weighted mean of a DataFrame's column.
     """
-    return weighted_sum(df, col) / df.s006.sum()
+    return weighted_sum(df, col, w) / df[w].sum()
 
-def add_weighted_quantiles(df, col):
+
+def add_weighted_quantiles(df, col, w='s006'):
     """Adds weighted quantiles of a column to a Tax-Calculator pandas DataFrame.
 
     Adds columns for each of these types of quantiles to a DataFrame:
@@ -105,13 +113,14 @@ def add_weighted_quantiles(df, col):
     Args:
         df: A pandas DataFrame containing Tax-Calculator data.
         col: A string indicating the column in the DataFrame to calculate.
+        w: Weight column. Defaults to s006.
 
     Returns:
         Nothing. Columns are added in place.
     """
     df.sort_values(by=col, inplace=True)
     col_pctile = col + '_percentile_exact'
-    df[col_pctile] = 100 * df.s006.cumsum() / df.s006.sum()
+    df[col_pctile] = 100 * df[w].cumsum() / df[w].sum()
     # "Null out" negatives using -1, since integer arrays can't be NaN.
     # TODO: Should these be null floats?
     df[col_pctile] = np.where(df[col] >= 0, df[col_pctile], 0)
@@ -125,6 +134,7 @@ def add_weighted_quantiles(df, col):
     df[col + '_quintile'] = np.ceil(df[col_pctile] / 20).astype(int)
     df[col + '_quartile'] = np.ceil(df[col_pctile] / 25).astype(int)
 
+    
 def static_baseline_calc(recs, year):
     """Creates a static Calculator object.
 
@@ -140,27 +150,41 @@ def static_baseline_calc(recs, year):
     calc.calc_all()
     return calc
 
-def add_weighted_metrics(df, metric_vars):
-    """Adds s006-weighted metrics in millions to a Tax-Calculator pandas DataFrame.
+
+def add_weighted_metrics(df, metric_vars, w='s006'):
+    """Adds weighted metrics in millions to a Tax-Calculator pandas DataFrame.
 
     Columns are renamed to *_m.
 
     Args:
         df: A pandas DataFrame containing Tax-Calculator data.
         metric_vars: A list of column names to weight.
+        w: Weight column. Defaults to s006.
 
     Returns:
         Nothing. Weighted columns are added in place.
     """
-    df['s006_m'] = df.s006 / 1e6
+    df[w + '_m'] = df[w] / 1e6
     for metric_var in metric_vars:
-        df[metric_var + '_m'] = df[metric_var] * df.s006_m
+        df[metric_var + '_m'] = df[metric_var] * df[w + '_m']
 
+        
 def n65(age_head, age_spouse, elderly_dependents):
+    """Calculates number of people in the tax unit age 65 or older.
+
+    Args:
+        age_head: Series representing age_head from taxcalc data.
+        age_spouse: Series representing age_spouse from taxcalc data.
+        elderly_dependents: Series representing elderly_dependents from taxcalc data.
+
+    Returns:
+        Series representing the number of people age 65 or older.
+    """
     return ((age_head >= 65).astype(int) +
             (age_spouse >= 65).astype(int) +
             elderly_dependents)
-        
+
+
 def calc_df(records=None,
             policy=None,
             year=2018,
@@ -209,6 +233,7 @@ def calc_df(records=None,
     df['RECID'] = df.RECID.map(int)
     return df.set_index('RECID')
 
+
 def cash_income(df):
     """Calculates income after taxes and cash transfers.
 
@@ -246,6 +271,7 @@ def cash_income(df):
             (1 - TANF_CASH_SHARE) * df.tanf_ben -
             (1 - VET_CASH_SHARE) * df.vet_ben -
             (1 - WIC_CASH_SHARE) * df.wic_ben)
+
 
 def weighted_quantile(values, quantiles, sample_weight=None, 
                       values_sorted=False, old_style=False):
@@ -286,3 +312,45 @@ def weighted_quantile(values, quantiles, sample_weight=None,
     else:
         weighted_quantiles /= np.sum(sample_weight)
     return np.interp(quantiles, weighted_quantiles, values)
+
+
+def ordinal_label(n):
+    """ Creates ordinal label from number.
+
+    Adapted from https://stackoverflow.com/a/20007730/1840471.
+    
+    Args:
+        n: Number.
+    
+    Returns:
+        Ordinal label, e.g., 1st, 3rd, 24th, etc.
+    """
+    n = int(n)
+    return "%d%s" % (n,"tsnrhtdd"[(n/10%10!=1)*(n%10<4)*n%10::4])
+
+
+def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
+    """ Create table with two sets of quantiles.
+
+    Args:
+        v1: First set of values.
+        v2: Second set of values.
+        w1: First set of weights. Defaults to equal weight.
+        w2: Second set of weights. Defaults to equal weight.
+        q: Quantiles. Defaults to decile boundaries.
+
+    Returns:
+        DataFrame with two rows and a column for each quantile.
+        Column labels are "xth percentile" and a label is added
+        to the median.
+    """ 
+    q1 = weighted_quantile(v1, q, w1)
+    q2 = weighted_quantile(v2, q, w2)
+    df = pd.DataFrame([q1, q2])
+    # Set decile labels.
+    q_print = [ordinal_label((i * 10)) for i in q]
+    # TODO: Check if other values are median
+    if q[4] == 0.5:
+        q_print[4] += ' (median)'
+    df.columns = q_print
+    return df
