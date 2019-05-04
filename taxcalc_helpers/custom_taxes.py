@@ -24,7 +24,8 @@ FTT_INCIDENCE = pd.Series(
 FTT_INCIDENCE /= 100
 
 
-def add_custom_tax(df, segment_income, w, base_income, incidence, name):
+def add_custom_tax(df, segment_income, w, base_income, incidence,
+                   name, total=None):
     """Add a custom tax based on incidence analysis driven by percentiles.
 
     Args:
@@ -36,6 +37,8 @@ def add_custom_tax(df, segment_income, w, base_income, incidence, name):
         incidence: pandas Series indexed on the floor of an income percentile,
             with values for the tax rate.
         name: Name of the column to add.
+        total: Total amount the tax should generate. If not provided, liabilities
+            are calculated only based on the incidence schedule.
 
     Returns:
         Nothing. Adds the column name to df representing the tax liability.
@@ -49,43 +52,66 @@ def add_custom_tax(df, segment_income, w, base_income, incidence, name):
                bins=incidence.index.tolist() + [101],
                labels=False)].values
     df[name] = np.maximum(0, tu_incidence * df[base_income])
+    if total is not None:
+        initial_total = tch.weighted_sum(df, name)
+        df[name] *= total / initial_total
     
 
-def add_vat(df):
+def add_vat(df,
+            segment_income='tpc_eci',
+            w='XTOT_m',
+            base_income='aftertax_income',
+            incidence=VAT_INCIDENCE,
+            name='vat',
+            total=None):
     """Add value added tax based on incidence estimate from Tax Policy Center.
     
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
+        Other arguments: Args to add_custom_tax with VAT defaults.
 
     Returns:
         Nothing. Adds vat to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income', VAT_INCIDENCE, 'vat')
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, total)
 
 
-def add_carbon_tax(df):
+def add_carbon_tax(df,
+                   segment_income='tpc_eci',
+                   w='XTOT_m',
+                   base_income='aftertax_income',
+                   incidence=CARBON_TAX_INCIDENCE,
+                   name='carbon_tax',
+                   total=None):
     """Add carbon tax based on incidence estimate from the US Treasury Department.
     
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
+        Other arguments: Args to add_custom_tax with VAT defaults.
 
     Returns:
         Nothing. Adds carbon_tax to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income',
-                   CARBON_TAX_INCIDENCE, 'carbon_tax')
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, total)
 
     
-def add_ftt(df):
+def add_ftt(df,
+            segment_income='tpc_eci',
+            w='XTOT_m',
+            base_income='aftertax_income',
+            incidence=FTT_INCIDENCE,
+            name='ftt',
+            total=None):
     """Add financial transaction tax based on incidence estimate from Tax Policy Center.
     
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
+        Other arguments: Args to add_custom_tax with VAT defaults.
 
     Returns:
         Nothing. Adds ftt to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income', FTT_INCIDENCE, 'ftt')
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, total)
