@@ -45,7 +45,7 @@ def add_custom_tax(df, segment_income, w, base_income, incidence, prefix):
     """
     df.sort_values(segment_income, inplace=True)
     income_percentile = 100 * df[w].cumsum() / df[w].sum()
-    df[prefix + 'incidence'] = incidence.iloc[
+    df[prefix + '_incidence'] = incidence.iloc[
         pd.cut(income_percentile,
                # Add a right endpoint. Should be 100 but sometimes a decimal gets added.
                bins=incidence.index.tolist() + [101],
