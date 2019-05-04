@@ -3,6 +3,9 @@ import pandas as pd
 import taxcalc as tc
 
 
+"""See https://docs.google.com/spreadsheets/d/1I-Qe8uD58bLnPkimc9eaPgs4AE7x5FZYmTZwVX_WyT8
+   for a comparison of income measures used here."""
+
 def cash_income(df):
     """Calculates income after taxes and cash transfers.
 
