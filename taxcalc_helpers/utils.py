@@ -151,7 +151,7 @@ def static_baseline_calc(recs, year):
     return calc
 
 
-def add_weighted_metrics(df, metric_vars, w='s006'):
+def add_weighted_metrics(df, metric_vars, w='s006', divisor=1e6, suffix='_m'):
     """Adds weighted metrics in millions to a Tax-Calculator pandas DataFrame.
 
     Columns are renamed to *_m.
@@ -160,13 +160,16 @@ def add_weighted_metrics(df, metric_vars, w='s006'):
         df: A pandas DataFrame containing Tax-Calculator data.
         metric_vars: A list of column names to weight.
         w: Weight column. Defaults to s006.
+        divisor: Number by which the product is divided. Defaults to 1e6.
+        suffix: Suffix to add to each weighted total. Defaults to '_m'
+            to match divisor default of 1e6.        
 
     Returns:
         Nothing. Weighted columns are added in place.
     """
-    df[w + '_m'] = df[w] / 1e6
+    df[w + suffix] = df[w] / divisor
     for metric_var in metric_vars:
-        df[metric_var + '_m'] = df[metric_var] * df[w + '_m']
+        df[metric_var + suffix] = df[metric_var] * df[w + suffix]
 
         
 def n65(age_head, age_spouse, elderly_dependents):
@@ -341,21 +344,3 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         q_print[4] += ' (median)'
     df.columns = q_print
     return df
-
-
-def add_weighted_columns(df, cols, w='s006', divisor=1e6, suffix='_m'):
-    """Add weighted totals to a DataFrame.
-    
-    Args:
-        df: DataFrame.
-        cols: List of column names, or individual column name.
-        w: Weight column. Defaults to 's006'.
-        divisor: Number by which the product is divided. Defaults to 1e6.
-        suffix: Suffix to add to each weighted total. Defaults to '_m'
-            to match divisor default of 1e6.
-
-    Returns:
-        Nothing. Columns are added to df.
-    """
-    for col in cols:
-        df[col + suffix] = weight(df, col, w)
