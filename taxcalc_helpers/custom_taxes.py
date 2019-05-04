@@ -38,19 +38,17 @@ def add_custom_tax(df, segment_income, w, base_income, incidence, prefix):
         prefix: Prefix for columns added.
 
     Returns:
-        Nothing. Adds two columns to df:
-        * [prefix]_incidence: Rate.
-        * [prefix]_liability: Rate * base_income.
+        Nothing. Adds the column [prefix]_liability to df.
         df is also sorted by segment_income.
     """
     df.sort_values(segment_income, inplace=True)
     income_percentile = 100 * df[w].cumsum() / df[w].sum()
-    df[prefix + '_incidence'] = incidence.iloc[
+    tu_incidence = incidence.iloc[
         pd.cut(income_percentile,
                # Add a right endpoint. Should be 100 but sometimes a decimal gets added.
                bins=incidence.index.tolist() + [101],
                labels=False)].values
-    df[prefix + '_liability'] = np.maximum(0, df[prefix + '_incidence'] * df[base_income])
+    df[prefix + '_liability'] = np.maximum(0, tu_incidence * df[base_income])
     
 
 def add_vat(df):
@@ -60,9 +58,7 @@ def add_vat(df):
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
 
     Returns:
-        Nothing. Adds two columns to df:
-        * vat_incidence: Rate.
-        * vat_liability: Rate * aftertax_income.
+        Nothing. Adds vat_liability to df.
         df is also sorted by tpc_eci.
     """
     add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income', VAT_INCIDENCE, 'vat')
@@ -75,9 +71,7 @@ def add_carbon_tax(df):
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
 
     Returns:
-        Nothing. Adds two columns to df:
-        * carbon_tax_incidence: Rate.
-        * carbon_tax_liability: Rate * aftertax_income.
+        Nothing. Adds carbon_tax_liability to df.
         df is also sorted by tpc_eci.
     """
     add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income',
@@ -91,9 +85,7 @@ def add_ftt(df):
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
 
     Returns:
-        Nothing. Adds two columns to df:
-        * ftt_incidence: Rate.
-        * ftt_liability: Rate * aftertax_income.
+        Nothing. Adds ftt_liability to df.
         df is also sorted by tpc_eci.
     """
     add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income', FTT_INCIDENCE, 'ftt')
