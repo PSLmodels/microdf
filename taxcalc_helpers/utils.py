@@ -190,7 +190,7 @@ def n65(age_head, age_spouse, elderly_dependents):
 
 def calc_df(records=None,
             policy=None,
-            year=2018,
+            year=2019,
             reform=None,
             group_vars=None,
             metric_vars=None,
@@ -202,7 +202,7 @@ def calc_df(records=None,
     Args:
         records: An optional Records object. If not provided, uses CPS records.
         policy: An optional Policy object. If not provided, uses default Policy.
-        year: An optional year to advance to. If not provided, defaults to 2018.
+        year: An optional year to advance to. If not provided, defaults to 2019.
         reform: An optional reform to implement for the Policy object.
         group_vars: An optional list of column names to include in the DataFrame.
         metric_vars: An optional list of column names to include and calculate
