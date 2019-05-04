@@ -341,3 +341,21 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         q_print[4] += ' (median)'
     df.columns = q_print
     return df
+
+
+def add_weighted_columns(df, cols, w='s006', divisor=1e6, suffix='_m'):
+    """Add weighted totals to a DataFrame.
+    
+    Args:
+        df: DataFrame.
+        cols: List of column names, or individual column name.
+        w: Weight column. Defaults to 's006'.
+        divisor: Number by which the product is divided. Defaults to 1e6.
+        suffix: Suffix to add to each weighted total. Defaults to '_m'
+            to match divisor default of 1e6.
+
+    Returns:
+        Nothing. Columns are added to df.
+    """
+    for col in cols:
+        df[col + suffix] = weight(df, col, w)
