@@ -11,3 +11,6 @@ TANF_CASH_SHARE = 0.25
 # https://github.com/open-source-economics/C-TAM/issues/62.
 VET_CASH_SHARE = 0.48
 WIC_CASH_SHARE = 0.
+
+# Columns to remove from expanded_income to approximate TPC's Expanded Cash Income.
+ECI_REMOVE_COLS = ['wic_ben', 'housing_ben', 'vet_ben', 'mcare_ben', 'mcaid_ben']

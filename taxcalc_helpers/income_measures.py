@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
-import taxcalc as tc
-
+import taxcalc_helpers as tch
 
 """See https://docs.google.com/spreadsheets/d/1I-Qe8uD58bLnPkimc9eaPgs4AE7x5FZYmTZwVX_WyT8
    for a comparison of income measures used here."""
@@ -46,5 +45,4 @@ def tpc_eci(df):
     Returns:
         pandas Series with TPC's ECI.
     """
-    ECI_REMOVE_COLS = ['wic_ben', 'housing_ben', 'vet_ben', 'mcare_ben', 'mcaid_ben']
-    return df.expanded_income - df[ECI_REMOVE_COLS].sum(axis=1)
+    return df.expanded_income - df[tch.ECI_REMOVE_COLS].sum(axis=1)
