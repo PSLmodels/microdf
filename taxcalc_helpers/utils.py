@@ -344,3 +344,17 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         q_print[4] += ' (median)'
     df.columns = q_print
     return df
+
+
+def weighted_median(df, col, w='s006'):
+    """Calculates the weighted median of a column in a Tax-Calculator pandas DataFrame.
+
+    Args:
+        df: A pandas DataFrame containing Tax-Calculator data.
+        col: A string indicating the column in the DataFrame.
+        w: Weight column. Defaults to s006.
+
+    Returns:
+        The weighted median of a DataFrame's column.
+    """
+    return weighted_quantile(df[col], 0.5, df[w])
