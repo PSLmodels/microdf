@@ -50,7 +50,7 @@ def add_custom_tax(df, segment_income, w, base_income, incidence, prefix):
                # Add a right endpoint. Should be 100 but sometimes a decimal gets added.
                bins=incidence.index.tolist() + [101],
                labels=False)].values
-    df[prefix + '_liability'] = df[prefix + '_incidence'] * df[base_income]
+    df[prefix + '_liability'] = np.maximum(0, df[prefix + '_incidence'] * df[base_income])
     
 
 def add_vat(df):
