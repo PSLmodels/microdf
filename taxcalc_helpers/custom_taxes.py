@@ -24,7 +24,7 @@ FTT_INCIDENCE = pd.Series(
 FTT_INCIDENCE /= 100
 
 
-def add_custom_tax(df, segment_income, w, base_income, incidence, prefix):
+def add_custom_tax(df, segment_income, w, base_income, incidence, name):
     """Add a custom tax based on incidence analysis driven by percentiles.
 
     Args:
@@ -35,10 +35,10 @@ def add_custom_tax(df, segment_income, w, base_income, incidence, prefix):
             liability.
         incidence: pandas Series indexed on the floor of an income percentile,
             with values for the tax rate.
-        prefix: Prefix for columns added.
+        name: Name of the column to add.
 
     Returns:
-        Nothing. Adds the column [prefix]_liability to df.
+        Nothing. Adds the column name to df representing the tax liability.
         df is also sorted by segment_income.
     """
     df.sort_values(segment_income, inplace=True)
@@ -48,7 +48,7 @@ def add_custom_tax(df, segment_income, w, base_income, incidence, prefix):
                # Add a right endpoint. Should be 100 but sometimes a decimal gets added.
                bins=incidence.index.tolist() + [101],
                labels=False)].values
-    df[prefix + '_liability'] = np.maximum(0, tu_incidence * df[base_income])
+    df[name] = np.maximum(0, tu_incidence * df[base_income])
     
 
 def add_vat(df):
@@ -58,7 +58,7 @@ def add_vat(df):
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
 
     Returns:
-        Nothing. Adds vat_liability to df.
+        Nothing. Adds vat to df.
         df is also sorted by tpc_eci.
     """
     add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income', VAT_INCIDENCE, 'vat')
@@ -71,7 +71,7 @@ def add_carbon_tax(df):
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
 
     Returns:
-        Nothing. Adds carbon_tax_liability to df.
+        Nothing. Adds carbon_tax to df.
         df is also sorted by tpc_eci.
     """
     add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income',
@@ -85,7 +85,7 @@ def add_ftt(df):
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
 
     Returns:
-        Nothing. Adds ftt_liability to df.
+        Nothing. Adds ftt to df.
         df is also sorted by tpc_eci.
     """
     add_custom_tax(df, 'tpc_eci', 'XTOT_m', 'aftertax_income', FTT_INCIDENCE, 'ftt')
