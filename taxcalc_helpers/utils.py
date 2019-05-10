@@ -334,3 +334,22 @@ def weighted_median(df, col, w='s006'):
         The weighted median of a DataFrame's column.
     """
     return weighted_quantile(df[col], 0.5, df[w])
+
+
+def recalculate(df):
+    """ Recalculates fields in the DataFrame for after components have changed.
+
+    Args:
+        df: DataFrame for use in taxcalc_helpers.
+
+    Returns:
+        Nothing. Updates the DataFrame in place.
+    """
+    # Recalculate aggregate income measures.
+    AGG_INCOME_MEASURES = ['expanded_income', 'aftertax_income', 'tpc_eci']
+    if 'tpc_eci' in df.columns:
+        df.tpc_eci = tch.tpc_eci(df)
+    # Recalculate weighted metrics (anything ending in _m).
+    mcols = df.columns  # TODO
+    add_weighted_metrics(df, mcols)
+    # Might need to edit calc_df to add market_income and/or UBI.
