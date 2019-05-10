@@ -168,6 +168,7 @@ def add_weighted_metrics(df, metric_vars, w='s006', divisor=1e6, suffix='_m'):
         Nothing. Weighted columns are added in place.
     """
     df[w + suffix] = df[w] / divisor
+    # TODO: Check if it's a list.
     for metric_var in metric_vars:
         df[metric_var + suffix] = df[metric_var] * df[w + suffix]
 
