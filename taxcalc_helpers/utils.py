@@ -223,6 +223,7 @@ def calc_df(records=None,
     calc = tc.Calculator(records=records, policy=policy, verbose=False)
     calc.advance_to_year(year)
     calc.calc_all()
+    # TODO: Make n65, ECI, etc. part of the list of columns you can request.
     # Get a deduplicated list of all columns.
     if group_n65:
         group_vars = group_vars + ['age_head', 'age_spouse', 'elderly_dependents']
