@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 import taxcalc_helpers as tch
 
-def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens'):
+def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens',
+                update_income_measures=['expanded_income', 'aftertax_income']):
     """Calculates whether a tax unit will take UBI or benefits,
        and adjusts values accordingly.
 
@@ -14,6 +15,8 @@ def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens'):
         ubi: Column name to add representing the UBI. Defaults to 'ubi'.
         bens: Column name to add representing total benefits (after adjustment).
             Defaults to 'bens'.
+        update_income_measures: List of income measures to update.
+            Defaults to ['expanded_income', 'aftertax_income'].
 
     Returns:
         Nothing. Benefits in ben_cols are adjusted, ubi and bens columns
@@ -28,5 +31,5 @@ def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens'):
     df[bens] = df[ben_cols].sum(axis=1)
     # Update expanded and aftertax income.
     diff = df.ubi + df.bens - total_bens
-    df.expanded_income += diff
-    df.aftertax_income += diff
+    for i in update_income_measures:
+        df[i] += diff
