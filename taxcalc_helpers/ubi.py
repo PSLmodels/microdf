@@ -16,8 +16,9 @@ def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens'):
             Defaults to 'bens'.
 
     Returns:
-        Nothing. Benefits in ben_cols are adjusted, and ubi and bens columns
-        are added.
+        Nothing. Benefits in ben_cols are adjusted, ubi and bens columns
+        are added, and expanded_income and aftertax_income are updated
+        according to the net difference.
     """
     total_bens = df[ben_cols].sum(axis=1)
     take_ubi = df[max_ubi] > total_bens
@@ -25,3 +26,7 @@ def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens'):
     for ben in ben_cols:
         df[ben] *= np.where(take_ubi, 0, 1)
     df[bens] = df[ben_cols].sum(axis=1)
+    # Update expanded and aftertax income.
+    diff = df.ubi + df.bens - total_bens
+    df.expanded_income += diff
+    df.aftertax_income += diff
