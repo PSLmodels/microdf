@@ -238,7 +238,6 @@ def calc_df(records=None,
     return df.set_index('RECID')
 
 
-
 def weighted_quantile(values, quantiles, sample_weight=None, 
                       values_sorted=False, old_style=False):
     """ Very close to numpy.percentile, but supports weights.

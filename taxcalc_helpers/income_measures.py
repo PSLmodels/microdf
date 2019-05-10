@@ -46,3 +46,16 @@ def tpc_eci(df):
         pandas Series with TPC's ECI.
     """
     return df.expanded_income - df[tch.ECI_REMOVE_COLS].sum(axis=1)
+
+
+def market_income(df):
+    """ Approximates CBO's market income concept, which is income
+        before social insurance, means-tested transfers, and taxes.
+
+    Args:
+        df: DataFrame with expanded_income and benefits.
+    
+    Returns:
+        pandas Series of the same length as df.
+    """
+    return df.expanded_income - df[tch.BENS].sum(axis=1)
