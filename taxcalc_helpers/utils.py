@@ -210,7 +210,7 @@ def calc_df(records=None,
              weighted sums of (in millions named as *_m) in the DataFrame.
 
     Returns:
-        A pandas DataFrame.
+        A pandas DataFrame. market_income is also always calculated.
     """
     # Assign defaults.
     if records is None:
@@ -226,8 +226,14 @@ def calc_df(records=None,
     # Get a deduplicated list of all columns.
     if group_n65:
         group_vars = group_vars + ['age_head', 'age_spouse', 'elderly_dependents']
-    all_cols = list(set(['RECID', 's006'] + group_vars + metric_vars))
+    # Include expanded_income and benefits to produce market_income.
+    all_cols = list(set(['RECID', 's006', 'expanded_income', 'aftertax_income'] +
+                        tch.BENS + group_vars + metric_vars))
     df = calc.dataframe(all_cols)
+    # Create core elements.
+    df['market_income'] = tch.market_income(df)
+    df['bens'] = df[tch.BENS].sum(axis=1)
+    df['tax'] = df.expanded_income - df.aftertax_income
     if group_n65:
         df['n65'] = n65(df.age_head, df.age_spouse, df.elderly_dependents)
         df.drop(['age_head', 'age_spouse', 'elderly_dependents'], axis=1, inplace=True)
