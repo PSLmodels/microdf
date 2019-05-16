@@ -25,7 +25,7 @@ FTT_INCIDENCE /= 100
 
 
 def add_custom_tax(df, segment_income, w, base_income, incidence,
-                   name, total=None):
+                   name, total=None, ratio=None):
     """Add a custom tax based on incidence analysis driven by percentiles.
 
     Args:
@@ -39,11 +39,16 @@ def add_custom_tax(df, segment_income, w, base_income, incidence,
         name: Name of the column to add.
         total: Total amount the tax should generate. If not provided, liabilities
             are calculated only based on the incidence schedule.
+        ratio: Ratio to adjust the tax by, compared to the original tax.
+            This acts as a multiplier for the incidence argument.
 
     Returns:
         Nothing. Adds the column name to df representing the tax liability.
         df is also sorted by segment_income.
     """
+    if ratio is not None:
+        incidence = incidence * ratio
+        assert total is None, "ratio and total cannot both be provided."
     df.sort_values(segment_income, inplace=True)
     income_percentile = 100 * df[w].cumsum() / df[w].sum()
     tu_incidence = incidence.iloc[
