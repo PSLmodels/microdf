@@ -158,7 +158,7 @@ def add_weighted_metrics(df, metric_vars, w='s006', divisor=1e6, suffix='_m'):
 
     Args:
         df: A pandas DataFrame containing Tax-Calculator data.
-        metric_vars: A list of column names to weight.
+        metric_vars: A list of column names to weight, or a single column name.
         w: Weight column. Defaults to s006.
         divisor: Number by which the product is divided. Defaults to 1e6.
         suffix: Suffix to add to each weighted total. Defaults to '_m'
@@ -271,12 +271,10 @@ def weighted_quantile(values, quantiles, sample_weight=None,
     sample_weight = np.array(sample_weight)
     assert np.all(quantiles >= 0) and np.all(quantiles <= 1), \
         'quantiles should be in [0, 1]'
-
     if not values_sorted:
         sorter = np.argsort(values)
         values = values[sorter]
         sample_weight = sample_weight[sorter]
-
     weighted_quantiles = np.cumsum(sample_weight) - 0.5 * sample_weight
     if old_style:
         # To be convenient with numpy.percentile
@@ -354,9 +352,10 @@ def recalculate(df):
     """
     # Recalculate aggregate income measures.
     AGG_INCOME_MEASURES = ['expanded_income', 'aftertax_income', 'tpc_eci']
-    if 'tpc_eci' in df.columns:
+    cols = df.columns
+    if 'tpc_eci' in cols:
         df.tpc_eci = tch.tpc_eci(df)
     # Recalculate weighted metrics (anything ending in _m).
-    mcols = df.columns  # TODO
+    mcols = cols[cols.str.endswith('_m')]
     add_weighted_metrics(df, mcols)
     # Might need to edit calc_df to add market_income and/or UBI.

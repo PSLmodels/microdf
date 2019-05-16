@@ -63,7 +63,7 @@ def add_vat(df,
             base_income='aftertax_income',
             incidence=VAT_INCIDENCE,
             name='vat',
-            total=None):
+            **kwargs):
     """Add value added tax based on incidence estimate from Tax Policy Center.
     
     Args:
@@ -74,7 +74,7 @@ def add_vat(df,
         Nothing. Adds vat to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, segment_income, w, base_income, incidence, name, total)
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
 
 
 def add_carbon_tax(df,
@@ -83,18 +83,18 @@ def add_carbon_tax(df,
                    base_income='aftertax_income',
                    incidence=CARBON_TAX_INCIDENCE,
                    name='carbon_tax',
-                   total=None):
+                   **kwargs):
     """Add carbon tax based on incidence estimate from the US Treasury Department.
     
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
-        Other arguments: Args to add_custom_tax with VAT defaults.
+        Other arguments: Args to add_custom_tax with carbon tax defaults.
 
     Returns:
         Nothing. Adds carbon_tax to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, segment_income, w, base_income, incidence, name, total)
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
 
     
 def add_ftt(df,
@@ -103,15 +103,15 @@ def add_ftt(df,
             base_income='aftertax_income',
             incidence=FTT_INCIDENCE,
             name='ftt',
-            total=None):
+            **kwargs):
     """Add financial transaction tax based on incidence estimate from Tax Policy Center.
     
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
-        Other arguments: Args to add_custom_tax with VAT defaults.
+        Other arguments: Args to add_custom_tax with FTT defaults.
 
     Returns:
         Nothing. Adds ftt to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, segment_income, w, base_income, incidence, name, total)
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
