@@ -33,12 +33,9 @@ def agg(base, reform, groupby, metrics):
     Returns:
         DataFrame with groupby and metrics, and _pctchg metrics.
     """
-    groupby = tch.listify(groupby)
-    metrics = tch.listify(metrics)
-    metrics_m = [i + '_m' for i in metrics]
-    combined = base[groupby + metrics_m].join(
-        reform[metrics_m], lsuffix='_base', rsuffix='_reform')
-    
+    metrics_m = [i + '_m' for i in tch.listify(metrics)]
+    combined = combine_base_reform(base, reform,
+                                   base_cols=groupby, cols=metrics_m)    
     for i in metrics:
         combined[i + '_pctchg'] = (
             combined[i + '_m_reform'] / combined[i + '_m_base'] - 1)
