@@ -169,8 +169,7 @@ def add_weighted_metrics(df, metric_vars, w='s006', divisor=1e6, suffix='_m'):
         Nothing. Weighted columns are added in place.
     """
     df[w + suffix] = df[w] / divisor
-    if not isinstance(metric_vars, list):
-        metric_vars = [metric_vars]
+    metric_vars = listify(metric_vars)
     for metric_var in metric_vars:
         df[metric_var + suffix] = df[metric_var] * df[w + suffix]
 
@@ -360,3 +359,17 @@ def recalculate(df):
     mcols = cols[cols.str.endswith('_m')]
     add_weighted_metrics(df, mcols)
     # Might need to edit calc_df to add market_income and/or UBI.
+
+
+def listify(x):
+    """ Return x as a list, if it isn't one already.
+
+    Args:
+        x: A single item or a list.
+   
+    Returns:
+        x if x is a list, otherwise [x].
+    """
+    if isinstance(x, list):
+        return x
+    return [x]
