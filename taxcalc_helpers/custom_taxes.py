@@ -59,6 +59,7 @@ def add_custom_tax(df, segment_income, w, base_income, incidence,
     df[name] = np.maximum(0, tu_incidence * df[base_income])
     if total is not None:
         initial_total = tch.weighted_sum(df, name)
+        print("Multiplying tax by " + str(round(total / initial_total, 2)) + ".")
         df[name] *= total / initial_total
     
 
