@@ -16,9 +16,10 @@ def combine_base_reform(base, reform, base_cols=None,
         DataFrame with columns for base ("_base") and 
             reform ("_reform").
     """
-    return base[base_cols + cols].join(
-        reform[reform_cols + cols],
+    return base[tch.listify([base_cols] + [cols])].join(
+        reform[tch.listify([reform_cols] + [cols])],
         lsuffix='_base', rsuffix='_reform')
+
 
 def agg(base, reform, groupby, metrics):
     """ Aggregates differences between base and reform.
