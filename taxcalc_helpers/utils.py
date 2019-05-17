@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import taxcalc as tc
 import taxcalc_helpers as tch
-
+import collections
 
 def gini(x, w=None, negatives=None):
     """Calculates Gini index.
@@ -368,8 +368,26 @@ def listify(x):
         x: A single item or a list.
    
     Returns:
-        x if x is a list, otherwise [x].
+        x if x is a list, otherwise [x]. Also flattens the list
+            and removes Nones.
     """
-    if isinstance(x, list):
-        return x
-    return [x]
+    if not isinstance(x, list):
+        x = [x]
+    res = flatten(x)
+    return [x for x in res if x is not None]
+
+
+def flatten(l):
+    """ Flatten list. From https://stackoverflow.com/a/2158532/1840471.
+
+    Args:
+        l: List.
+    
+    Returns:
+        Flattened version.
+    """
+    for el in l:
+        if isinstance(el, collections.Iterable) and not isinstance(el, (str, bytes)):
+            yield from flatten(el)
+        else:
+            yield el
