@@ -16,9 +16,11 @@ def combine_base_reform(base, reform, base_cols=None,
         DataFrame with columns for base ("_base") and 
             reform ("_reform").
     """
-    return base[tch.listify([base_cols] + [cols])].join(
-        reform[tch.listify([reform_cols] + [cols])],
-        lsuffix='_base', rsuffix='_reform')
+    all_base_cols = tch.listify([base_cols] + [cols])
+    all_reform_cols = tch.listify([reform_cols] + [cols])
+    return base[all_base_cols].join(reform[all_reform_cols],
+                                    lsuffix='_base',
+                                    rsuffix='_reform')
 
 
 def agg(base, reform, groupby, metrics):
