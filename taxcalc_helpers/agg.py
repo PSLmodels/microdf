@@ -38,7 +38,7 @@ def pctchg_base_reform(combined, metric):
     return combined[metric + '_m_reform'] / combined[metric + '_m_base'] - 1
 
 
-def agg(base, reform, groupby, metrics):
+def agg(base, reform, groupby, metrics, base_metrics=None, reform_metrics=None):
     """ Aggregates differences between base and reform.
 
     Args:
@@ -46,13 +46,17 @@ def agg(base, reform, groupby, metrics):
         reform: Reform DataFrame. Index must match base.
         groupby: Variable in base to group on.
         metrics: List of variables to agg and calculate the % change of.
+        base_metrics: List of variables from base to sum. Defaults to None.
+        reform_metrics: List of variables from reform to sum. Defaults to None.
 
     Returns:
         DataFrame with groupby and metrics, and _pctchg metrics.
     """
     metrics_m = [i + '_m' for i in tch.listify(metrics)]
     combined = combine_base_reform(base, reform,
-                                   base_cols=groupby, cols=metrics_m)
+                                   base_cols=tch.listify(groupby + base_metrics),
+                                   cols=metrics_m,
+                                   reform_cols=reform_metrics)
     grouped = combined.groupby(groupby).sum()
     for metric in metrics:
          grouped[metric + '_pctchg'] = pctchg_base_reform(grouped, metric)
