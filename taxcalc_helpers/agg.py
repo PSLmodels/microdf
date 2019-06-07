@@ -54,5 +54,5 @@ def agg(base, reform, groupby, metrics):
     combined = combine_base_reform(base, reform,
                                    base_cols=groupby, cols=metrics_m)    
     for metric in metrics:
-        combined[i + '_pctchg'] = pctchg_base_reform(combined, metric)
+         combined[metric + '_pctchg'] = pctchg_base_reform(combined, metric)
     return combined
