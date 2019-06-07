@@ -54,7 +54,7 @@ def agg(base, reform, groupby, metrics, base_metrics=None, reform_metrics=None):
     """
     metrics_m = [i + '_m' for i in tch.listify(metrics)]
     combined = combine_base_reform(base, reform,
-                                   base_cols=tch.listify(groupby + base_metrics),
+                                   base_cols=tch.listify(groupby) + tch.listify(base_metrics),
                                    cols=metrics_m,
                                    reform_cols=reform_metrics)
     grouped = combined.groupby(groupby).sum()
