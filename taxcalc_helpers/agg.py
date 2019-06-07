@@ -46,17 +46,20 @@ def agg(base, reform, groupby, metrics, base_metrics=None, reform_metrics=None):
         reform: Reform DataFrame. Index must match base.
         groupby: Variable in base to group on.
         metrics: List of variables to agg and calculate the % change of.
+                 These should have associated weighted columns ending in _m
+                 in base and reform.
         base_metrics: List of variables from base to sum. Defaults to None.
         reform_metrics: List of variables from reform to sum. Defaults to None.
 
     Returns:
         DataFrame with groupby and metrics, and _pctchg metrics.
     """
-    metrics_m = [i + '_m' for i in tch.listify(metrics)]
+    metrics = tch.listify(metrics)
+    metrics_m = [i + '_m' for i in metrics]
     combined = combine_base_reform(base, reform,
-                                   base_cols=tch.listify(groupby) + tch.listify(base_metrics),
-                                   cols=metrics_m,
-                                   reform_cols=reform_metrics)
+                                   base_cols=tch.listify([groupby, base_metrics]),
+                                   cols=tch.listify(metrics_m),
+                                   reform_cols=tch.listify(reform_metrics))
     grouped = combined.groupby(groupby).sum()
     for metric in metrics:
          grouped[metric + '_pctchg'] = pctchg_base_reform(grouped, metric)
