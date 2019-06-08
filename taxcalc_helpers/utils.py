@@ -229,8 +229,8 @@ def calc_df(records=None,
     if group_n65:
         group_vars = group_vars + ['age_head', 'age_spouse', 'elderly_dependents']
     # Include expanded_income and benefits to produce market_income.
-    all_cols = list(set(['RECID', 's006', 'expanded_income', 'aftertax_income'] +
-                        tch.BENS + group_vars + metric_vars))
+    all_cols = listify(['RECID', 's006', 'expanded_income', 'aftertax_income',
+                        tch.BENS, group_vars, metric_vars])
     df = calc.dataframe(all_cols)
     # Create core elements.
     df['market_income'] = tch.market_income(df)
@@ -361,7 +361,19 @@ def recalculate(df):
     # Might need to edit calc_df to add market_income and/or UBI.
 
 
-def listify(x):
+def dedup_list(l):
+    """ Remove duplicate items from a list.
+    
+    Args:
+        l: List.
+
+    Returns:
+        List with duplicate items removed from l.
+    """
+    return list(set(l))
+
+    
+def listify(x, dedup=True):
     """ Return x as a list, if it isn't one already.
 
     Args:
@@ -374,7 +386,10 @@ def listify(x):
     if not isinstance(x, list):
         x = [x]
     res = flatten(x)
-    return [x for x in res if x is not None]
+    res = [x for x in res if x is not None]
+    if dedup:
+        return dedup_list(res)
+    return res
 
 
 def flatten(l):
