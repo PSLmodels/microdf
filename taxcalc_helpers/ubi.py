@@ -23,6 +23,8 @@ def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens',
         are added, and expanded_income and aftertax_income are updated
         according to the net difference.
     """
+    # Prep list args.
+    update_income_measures = tch.listify(update_income_measures)
     total_bens = df[ben_cols].sum(axis=1)
     take_ubi = df[max_ubi] > total_bens
     df[ubi] = np.where(take_ubi, df[max_ubi], 0)
