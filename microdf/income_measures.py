@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import taxcalc_helpers as tch
+import microdf as mdf
 
 """See https://docs.google.com/spreadsheets/d/1I-Qe8uD58bLnPkimc9eaPgs4AE7x5FZYmTZwVX_WyT8
    for a comparison of income measures used here."""
@@ -45,7 +45,7 @@ def tpc_eci(df):
     Returns:
         pandas Series with TPC's ECI.
     """
-    return df.expanded_income - df[tch.ECI_REMOVE_COLS].sum(axis=1)
+    return df.expanded_income - df[mdf.ECI_REMOVE_COLS].sum(axis=1)
 
 
 def market_income(df):
@@ -58,4 +58,4 @@ def market_income(df):
     Returns:
         pandas Series of the same length as df.
     """
-    return df.expanded_income - df[tch.BENS].sum(axis=1)
+    return df.expanded_income - df[mdf.BENS].sum(axis=1)

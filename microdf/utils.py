@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import taxcalc as tc
-import taxcalc_helpers as tch
+import microdf as mdf
 import collections
 
 def gini(x, w=None, negatives=None):
@@ -230,11 +230,11 @@ def calc_df(records=None,
         group_vars = group_vars + ['age_head', 'age_spouse', 'elderly_dependents']
     # Include expanded_income and benefits to produce market_income.
     all_cols = listify(['RECID', 's006', 'expanded_income', 'aftertax_income',
-                        tch.BENS, group_vars, metric_vars])
+                        mdf.BENS, group_vars, metric_vars])
     df = calc.dataframe(all_cols)
     # Create core elements.
-    df['market_income'] = tch.market_income(df)
-    df['bens'] = df[tch.BENS].sum(axis=1)
+    df['market_income'] = mdf.market_income(df)
+    df['bens'] = df[mdf.BENS].sum(axis=1)
     df['tax'] = df.expanded_income - df.aftertax_income
     if group_n65:
         df['n65'] = n65(df.age_head, df.age_spouse, df.elderly_dependents)
@@ -354,7 +354,7 @@ def recalculate(df):
     AGG_INCOME_MEASURES = ['expanded_income', 'aftertax_income', 'tpc_eci']
     cols = df.columns
     if 'tpc_eci' in cols:
-        df.tpc_eci = tch.tpc_eci(df)
+        df.tpc_eci = mdf.tpc_eci(df)
     # Recalculate weighted metrics (anything ending in _m).
     mcols = cols[cols.str.endswith('_m')]
     add_weighted_metrics(df, mcols)

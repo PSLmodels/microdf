@@ -1,4 +1,4 @@
-import taxcalc_helpers as tch
+import microdf as mdf
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -23,7 +23,7 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
         Axis.
     """
     # Calculate weighted quantiles.
-    df = tch.quantile_chg(v1, v2, w1, w2, q)
+    df = mdf.quantile_chg(v1, v2, w1, w2, q)
     ax = df.plot()
     # Label the start and end points.
     plt.xticks([0, 1], [label1, label2])
@@ -33,9 +33,9 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     # Formatting.
     plt.title('Change in disposable income deciles')
     plt.ylim(0, None)
-    ax.grid(color=tch.GRID_COLOR, axis='y')
-    ax.yaxis.set_major_formatter(tch.dollar_format())
-    ax.yaxis.set_minor_formatter(tch.dollar_format())
+    ax.grid(color=mdf.GRID_COLOR, axis='y')
+    ax.yaxis.set_major_formatter(mdf.dollar_format())
+    ax.yaxis.set_minor_formatter(mdf.dollar_format())
     sns.despine(left=True, bottom=True)
     ax.axhline(0, color='lightgray', zorder=-1)
     # Looks better narrower.
@@ -57,7 +57,7 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         Axis.
     """
     # Calculate weighted quantiles.
-    df = tch.quantile_chg(v1, v2, w1, w2, q).transpose()
+    df = mdf.quantile_chg(v1, v2, w1, w2, q).transpose()
     # Prepare dataset for plotting.
     df.columns = ['base', 'reform']
     df['pct_chg'] = df.reform / df.base - 1
@@ -73,6 +73,6 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     plt.ylabel('Change in disposable income at the decile boundary')
     plt.xlabel('Disposable income decile')
     sns.despine(left=True, bottom=True)
-    ax.grid(color=tch.GRID_COLOR, axis='y')
+    ax.grid(color=mdf.GRID_COLOR, axis='y')
     plt.xticks(rotation=0)
     return ax
