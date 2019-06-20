@@ -209,6 +209,7 @@ def calc_df(records=None,
         group_vars: An optional list of column names to include in the DataFrame.
         metric_vars: An optional list of column names to include and calculate
              weighted sums of (in millions named as *_m) in the DataFrame.
+        group_n65: Whether to calculate and group by n65. Defaults to False.
 
     Returns:
         A pandas DataFrame. market_income is also always calculated.
