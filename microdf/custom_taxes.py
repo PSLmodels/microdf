@@ -25,7 +25,7 @@ FTT_INCIDENCE /= 100
 
 
 def add_custom_tax(df, segment_income, w, base_income, incidence,
-                   name, total=None, ratio=None):
+                   name, total=None, ratio=None, verbose=True):
     """Add a custom tax based on incidence analysis driven by percentiles.
 
     Args:
@@ -41,6 +41,8 @@ def add_custom_tax(df, segment_income, w, base_income, incidence,
             are calculated only based on the incidence schedule.
         ratio: Ratio to adjust the tax by, compared to the original tax.
             This acts as a multiplier for the incidence argument.
+        verbose: Whether to print the tax adjustment factor if needed.
+            Defaults to True.
 
     Returns:
         Nothing. Adds the column name to df representing the tax liability.
@@ -59,7 +61,8 @@ def add_custom_tax(df, segment_income, w, base_income, incidence,
     df[name] = np.maximum(0, tu_incidence * df[base_income])
     if total is not None:
         initial_total = mdf.weighted_sum(df, name)
-        print("Multiplying tax by " + str(round(total / initial_total, 2)) + ".")
+        if verbose:
+            print("Multiplying tax by " + str(round(total / initial_total, 2)) + ".")
         df[name] *= total / initial_total
     
 
