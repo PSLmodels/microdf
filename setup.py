@@ -11,9 +11,11 @@ setup(name='microdf',
       install_requires=[
           'numpy',
           'pandas',
-          'taxcalc',
           'matplotlib',
           'seaborn',
           # 'labellines'  # Causing an error, but works without.
+      ],
+      extras_require=[
+          'taxcalc',
       ],
       zip_safe=False)
