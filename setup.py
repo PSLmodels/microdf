@@ -15,7 +15,7 @@ setup(name='microdf',
           'seaborn',
           # 'labellines'  # Causing an error, but works without.
       ],
-      extras_require=[
-          'taxcalc',
-      ],
+      extras_require={
+          'taxcalc':  ['taxcalc'],
+      },
       zip_safe=False)
