@@ -41,22 +41,15 @@ def gini(x, w=None, negatives=None):
         return (n + 1 - 2 * np.sum(cumxw) / cumxw[-1]) / n
 
 
-def top_bottom_x_pct_share(val, top_x_pct, w=None, top=True):
-    threshold  = mdf.weighted_quantile(val, top_x_pct, w)
-    if top:
-        x_pct_sum = (val[val > threshold] * w[val > threshold]).sum()
-    else:
-        x_pct_sum = (val[val < threshold] * w[val < threshold]).sum()
-    total_sum = (val * w).sum()
-    return x_pct_sum / total_sum
-
-
 def top_x_pct_share(val, top_x_pct, w=None):
-    return top_bottom_x_pct_share(val, top_x_pct, w, top=True)
+    threshold  = mdf.weighted_quantile(val, 1 - top_x_pct, w)
+    top_x_pct_sum = (val[val > threshold] * w[val > threshold]).sum()
+    total_sum = (val * w).sum()
+    return top_x_pct_sum / total_sum
 
 
 def bottom_x_pct_share(val, bottom_x_pct, w=None):
-    return top_bottom_x_pct_share(val, top_x_pct, w, top=False)
+    return 1 - top_x_pct_share(val, 1 - bottom_x_pct, w, top=False)
 
 
 def bottom_50_pct_share(val, w=None):
