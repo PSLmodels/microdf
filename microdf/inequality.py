@@ -42,36 +42,115 @@ def gini(x, w=None, negatives=None):
 
 
 def top_x_pct_share(val, top_x_pct, w=None):
+    """Calculates top x% share.
+
+    Args:
+        val: Value (list-like).
+        top_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1, 0.001.
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the top x%.
+    """
     val = pd.Series(val)
-    w = np.ones(val.size)
+    if w is None:
+        w = np.ones(val.size)
+    w = pd.Series(w)
     threshold  = mdf.weighted_quantile(val, 1 - top_x_pct, w)
-    top_x_pct_sum = (val[val >= threshold] * w[val >= threshold]).sum()
+    filt = val >= threshold
+    top_x_pct_sum = (val[filt] * w[filt]).sum()
     total_sum = (val * w).sum()
     return top_x_pct_sum / total_sum
 
 
 def bottom_x_pct_share(val, bottom_x_pct, w=None):
+    """Calculates bottom x% share.
+
+    Args:
+        val: Value (list-like).
+        bottom_x_pct: Decimal between 0 and 1 of the bottom %, e.g. 0.1, 0.001.
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the bottom x%.
+    """
     return 1 - top_x_pct_share(val, 1 - bottom_x_pct, w, top=False)
 
 
 def bottom_50_pct_share(val, w=None):
+    """Calculates bottom 50% share.
+
+    Args:
+        val: Value (list-like).
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the bottom 50%.
+    """
     return bottom_x_pct_share(val, 0.5, w)
 
 
 def top_50_pct_share(val, w=None):
+    """Calculates top 50% share.
+
+    Args:
+        val: Value (list-like).
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the top 50%.
+    """
     return top_x_pct_share(val, 0.5, w)
 
 
 def top_10_pct_share(val, w=None):
+    """Calculates top 10% share.
+
+    Args:
+        val: Value (list-like).
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the top 10%.
+    """
     return top_x_pct_share(val, 0.1, w)
 
 
 def top_1_pct_share(val, w=None):
+    """Calculates top 1% share.
+
+    Args:
+        val: Value (list-like).
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the top 1%.
+    """
     return top_x_pct_share(val, 0.01, w)
 
 
 def top_0_1_pct_share(val, w=None):
+    """Calculates top 0.1% share.
+
+    Args:
+        val: Value (list-like).
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the top 0.1%.
+    """
     return top_x_pct_share(val, 0.001, w)
 
+
 def t10_b50(val, w=None):
+    """Calculates ratio between the top 10% and bottom 50% shares.
+
+    Args:
+        val: Value (list-like).
+        w: Weight (list-like, same length as val).
+
+    Returns:
+        The share of w-weighted val held by the top 10% divided by
+        the share of w-weighted val held by the bottom 50%.
+    """
     return top_10_pct_share(val, w) / bottom_50_pct_share(val, w)
