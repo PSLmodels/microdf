@@ -42,6 +42,8 @@ def gini(x, w=None, negatives=None):
 
 
 def top_x_pct_share(val, top_x_pct, w=None):
+    val = pd.Series(val)
+    w = pd.Series(w)
     threshold  = mdf.weighted_quantile(val, 1 - top_x_pct, w)
     top_x_pct_sum = (val[val > threshold] * w[val > threshold]).sum()
     total_sum = (val * w).sum()
