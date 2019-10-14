@@ -13,7 +13,7 @@ setup(name='microdf',
           'pandas',
           'matplotlib',
           'seaborn',
-          # 'labellines'  # Causing an error, but works without.
+          'matplotlib-label-lines'  # Causing an error, but works without.
       ],
       extras_require={
           'taxcalc':  ['taxcalc'],
