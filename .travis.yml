@@ -22,6 +22,5 @@ install:
   - conda info -a
   - conda create -q -n test-environment -c pslmodels taxcalc python=$TRAVIS_PYTHON_VERSION
   - conda activate test-environment
-  - python setup.py install
   - pip install ".[test]" .  # Install package + test dependencies + extras.
 script: pytest
