@@ -55,14 +55,16 @@ def add_custom_tax(df, segment_income, w, base_income, incidence,
     income_percentile = 100 * df[w].cumsum() / df[w].sum()
     tu_incidence = incidence.iloc[
         pd.cut(income_percentile,
-               # Add a right endpoint. Should be 100 but sometimes a decimal gets added.
+               # Add a right endpoint. Should be 100 but sometimes a decimal
+               # gets added.
                bins=incidence.index.tolist() + [101],
                labels=False)].values
     df[name] = np.maximum(0, tu_incidence * df[base_income])
     if total is not None:
         initial_total = mdf.weighted_sum(df, name)
         if verbose:
-            print("Multiplying tax by " + str(round(total / initial_total, 2)) + ".")
+            print("Multiplying tax by " +
+                  str(round(total / initial_total, 2)) + ".")
         df[name] *= total / initial_total
     
 

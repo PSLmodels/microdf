@@ -8,11 +8,14 @@ def gini(x, w=None, negatives=None):
 
     Args:
         x: A float numpy array of data to calculate Gini index on.
-        w: An optional float numpy array of weights. Should be the same length as x.
-        negatives: An optional string indicating how to treat negative values of x:
+        w: An optional float numpy array of weights. Should be the same length
+           as x.
+        negatives: An optional string indicating how to treat negative values
+                   of x:
                    'zero' replaces negative values with zeroes.
-                   'shift' subtracts the minimum value from all values of x, 
-                   when this minimum is negative. That is, it adds the absolute minimum value.
+                   'shift' subtracts the minimum value from all values of x,
+                   when this minimum is negative. That is, it adds the absolute
+                   minimum value.
                    Defaults to None, which leaves negative values as they are.
 
     Returns:
@@ -20,9 +23,9 @@ def gini(x, w=None, negatives=None):
     """
     # Requires float numpy arrays (not pandas Series or lists) to work.
     x = np.array(x).astype('float')
-    if negatives=='zero':
+    if negatives =='zero':
         x[x < 0] = 0
-    if negatives=='shift' and np.amin(x) < 0:
+    if negatives =='shift' and np.amin(x) < 0:
         x -= np.amin(x)
     if w is not None:
         w = np.array(w).astype('float')
@@ -56,7 +59,7 @@ def top_x_pct_share(val, top_x_pct, w=None):
     if w is None:
         w = np.ones(val.size)
     w = pd.Series(w)
-    threshold  = mdf.weighted_quantile(val, 1 - top_x_pct, w)
+    threshold = mdf.weighted_quantile(val, 1 - top_x_pct, w)
     filt = val >= threshold
     top_x_pct_sum = (val[filt] * w[filt]).sum()
     total_sum = (val * w).sum()

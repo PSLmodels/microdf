@@ -61,7 +61,8 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     # Prepare dataset for plotting.
     df.columns = ['base', 'reform']
     df['pct_chg'] = df.reform / df.base - 1
-    df['index_newline'] = np.where(df.index == '50th (median)', '50th\n(median)', df.index)
+    df['index_newline'] = np.where(df.index == '50th (median)',
+                                   '50th\n(median)', df.index)
     # Plot.
     fig, ax = plt.subplots()
     markerline, stemlines, baseline = ax.stem(df.index_newline, df.pct_chg)
