@@ -13,8 +13,7 @@ setup(name='microdf',
           'matplotlib-label-lines',
           'numpy',
           'pandas',
-          'seaborn',
-          'taxcalc'
+          'seaborn'
       ],
       extras_require={
           'taxcalc':  ['taxcalc'],

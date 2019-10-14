@@ -5,5 +5,5 @@ before_install:
   - pip install -U pytest
   - pip install codecov
 install:
-  - pip install ".[test]" .  # Install package + test dependencies.
+  - pip install ".[test][extras]" .  # Install package + test dependencies + extras.
 script: pytest
