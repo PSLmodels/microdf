@@ -31,7 +31,7 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     ax.get_legend().remove()
     ll.labelLines(plt.gca().get_lines())
     # Formatting.
-    plt.title('Change in disposable income deciles')
+    plt.title('Change in disposable income percentiles')
     plt.ylim(0, None)
     ax.grid(color=mdf.GRID_COLOR, axis='y')
     ax.yaxis.set_major_formatter(mdf.dollar_format())
@@ -61,7 +61,8 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     # Prepare dataset for plotting.
     df.columns = ['base', 'reform']
     df['pct_chg'] = df.reform / df.base - 1
-    df['index_newline'] = np.where(df.index == '5th (median)', '5th\n(median)', df.index)
+    df['index_newline'] = np.where(df.index == '50th (median)',
+                                   '50th\n(median)', df.index)
     # Plot.
     fig, ax = plt.subplots()
     markerline, stemlines, baseline = ax.stem(df.index_newline, df.pct_chg)
@@ -69,9 +70,9 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(
         lambda x, _: '{:.0%}'.format(x)))
     ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(integer=True))
-    plt.title('Change to disposable income deciles', loc='left')
-    plt.ylabel('Change in disposable income at the decile boundary')
-    plt.xlabel('Disposable income decile')
+    plt.title('Change to disposable income percentiles', loc='left')
+    plt.ylabel('Change in disposable income at the percentile boundary')
+    plt.xlabel('Disposable income percentile')
     sns.despine(left=True, bottom=True)
     ax.grid(color=mdf.GRID_COLOR, axis='y')
     plt.xticks(rotation=0)
