@@ -5,6 +5,7 @@ channels:
 dependencies:
 - taxcalc
 - matplotlib
+- pip
 - seaborn
 - pip:
   - matplotlib-label-lines
