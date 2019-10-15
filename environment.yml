@@ -10,6 +10,7 @@ dependencies:
 - pip
 - pytest
 - seaborn
+- setuptools
 - taxcalc
 - pip:
   - matplotlib-label-lines
