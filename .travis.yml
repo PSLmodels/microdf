@@ -4,6 +4,7 @@ before_install:
   - pip install -U pip
   - pip install -U pytest
   - pip install codecov
+  - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
 install:
   - sudo apt-get update
   # We do this conditionally because it saves us some downloading if the	
@@ -14,14 +15,15 @@ install:
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
     fi
   - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
   - source "$HOME/miniconda/etc/profile.d/conda.sh"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  -  conda create -n microdf-env python=$TRAVIS_PYTHON_VERSION;
+  - conda create -n microdf-env python=$TRAVIS_PYTHON_VERSION;
   - source activate microdf-env
   - conda env update -f environment.yml
   - source activate microdf-env
-script: pytest
+script: pytest -v
