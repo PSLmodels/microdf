@@ -9,7 +9,8 @@ def tax_from_mtrs(val, brackets, rates, avoidance_rate=0):
     #     brackets: Left side of each bracket (list or Series).
     #     rates: Rate corresponding to each bracket.
     #     avoidance_rate: Constant avoidance/evasion rate in percentage terms.
-    #                     Defaults to zero.
+    #                     Can be a list or Series of the same size as val.
+    #                     Defaults to zero. 
     #
     # Returns:
     #     Series of tax liabilities with the same size as val.
@@ -17,7 +18,7 @@ def tax_from_mtrs(val, brackets, rates, avoidance_rate=0):
     df_tax['base_tax'] = df_tax.brackets.\
         sub(df_tax.brackets.shift(fill_value=0)).\
         mul(df_tax.rates.shift(fill_value=0)).cumsum()
-    taxable = val * (1 - avoidance_rate)
+    taxable = pd.Series(val) * (1 - pd.Series(avoidance_rate))
     rows = df_tax.brackets.searchsorted(taxable, side='right') - 1
     income_bracket_df = df_tax.loc[rows].reset_index(drop=True)
     return pd.Series(taxable).sub(income_bracket_df.brackets).\
