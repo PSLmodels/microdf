@@ -12,7 +12,7 @@ def test_tax():
     res = mdf.tax_from_mtrs(INCOME, BRACKETS, RATES)
     pd.testing.assert_series_equal(res, pd.Series(EXPECTED))
     # Try with 10% avoidance.
-    EXPECTED_10PCT_AVOIDANCE = [0, 0, 0, 0, 800]
+    EXPECTED_10PCT_AVOIDANCE = [0, 0, 0, 0, 800.]
     res_10pct_avoidance = mdf.tax_from_mtrs(INCOME, BRACKETS, RATES, 0.1)
     pd.testing.assert_series_equal(res_10pct_avoidance,
                                    pd.Series(EXPECTED_10PCT_AVOIDANCE))
