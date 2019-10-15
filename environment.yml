@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - PSLmodels
 dependencies:
+- codecov
 - matplotlib
 - numpy
 - pandas
