@@ -4,6 +4,8 @@ channels:
 - PSLmodels
 dependencies:
 - matplotlib
+- numpy
+- pandas
 - pip
 - seaborn
 - taxcalc
