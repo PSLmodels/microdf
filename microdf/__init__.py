@@ -6,6 +6,7 @@ from .custom_taxes import *
 from .income_measures import *
 from .inequality import *
 from .style import *
+from .tax import *
 from .ubi import *
 from .utils import *
 
