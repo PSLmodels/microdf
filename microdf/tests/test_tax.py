@@ -17,10 +17,10 @@ def test_tax():
     pd.testing.assert_series_equal(res_10pct_avoidance,
                                    pd.Series(EXPECTED_10PCT_AVOIDANCE))
     # Try with avoidance elasticity of 2.
-    EXPECTED_E2_AVOIDANCE =
-    [0, 0, 0,
-     0,  # Taxable base becomes (10e3 + 1) * (1 - 2 * 0.1)
-     600.]  # Taxable base becomes 20e3 * (1 - 2 * 0.1) = 16e3.
+    EXPECTED_E2_AVOIDANCE = [
+        0, 0, 0,
+        0,  # Taxable base becomes (10e3 + 1) * (1 - 2 * 0.1)
+        600.]  # Taxable base becomes 20e3 * (1 - 2 * 0.1) = 16e3.
     res_e2_avoidance = mdf.tax_from_mtrs(INCOME, BRACKETS, RATES,
                                          avoidance_elasticity=2)
     pd.testing.assert_series_equal(res_e2_avoidance,
