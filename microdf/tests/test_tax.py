@@ -1,4 +1,5 @@
 import pytest
+import pandas as pd
 import microdf as mdf
 
 
@@ -9,4 +10,4 @@ def test_tax():
     INCOME = [0, 5e3, 10e3, 10e3 + 1, 20e3]
     EXPECTED = [0, 0, 0, 0.1, 1e3]
     res = mdf.tax_from_mtrs(INCOME, BRACKETS, RATES)
-    assert res.tolist() == EXPECTED
+    pd.testing.assert_series_equal(res, pd.Series(EXPECTED))
