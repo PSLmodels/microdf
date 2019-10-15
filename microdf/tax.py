@@ -1,7 +1,8 @@
 import pandas as pd
 
 
-def tax_from_mtrs(val, brackets, rates, avoidance_rate=0):
+def tax_from_mtrs(val, brackets, rates, avoidance_rate=0,
+                  avoidance_elasticity=0):
     # Calculates tax liability based on a marginal tax rate schedule.
     #
     # Args:
@@ -9,10 +10,15 @@ def tax_from_mtrs(val, brackets, rates, avoidance_rate=0):
     #     brackets: Left side of each bracket (list or Series).
     #     rates: Rate corresponding to each bracket.
     #     avoidance_rate: Constant avoidance/evasion rate in percentage terms.
-    #                     Defaults to zero. 
+    #                     Defaults to zero.
+    #     avoidance_elasticity: Avoidance/evasion elasticity.
+    #                           Response of taxable value with respect to tax rate.
+    #                           Defaults to zero.
     #
     # Returns:
     #     Series of tax liabilities with the same size as val.
+    assert avoidance_rate == 0 or avoidance_elasticity == 0, \
+        "Cannot supply both avoidance_rate and avoidance_elasticity."
     df_tax = pd.DataFrame({'brackets': brackets, 'rates': rates})
     df_tax['base_tax'] = df_tax.brackets.\
         sub(df_tax.brackets.shift(fill_value=0)).\
