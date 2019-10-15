@@ -8,3 +8,5 @@ from .inequality import *
 from .style import *
 from .ubi import *
 from .utils import *
+
+name = "microdf"

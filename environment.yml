@@ -1,0 +1,14 @@
+name: microdf-env
+channels:
+- conda-forge
+- PSLmodels
+dependencies:
+- matplotlib
+- numpy
+- pandas
+- pip
+- pytest
+- seaborn
+- taxcalc
+- pip:
+  - matplotlib-label-lines
