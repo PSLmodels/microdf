@@ -14,7 +14,7 @@ install:
   - source "$HOME/miniconda/etc/profile.d/conda.sh"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
-  - conda update -n base -c defaults conda
+  # Note: Build throws a warning here because conda isn't updated, but doing so causes a RemoveError.
   # Useful for debugging any issues with conda
   - conda info -a
   - conda env create --name microdf-env --file=environment.yml python=$TRAVIS_PYTHON_VERSION
