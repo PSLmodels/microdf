@@ -23,5 +23,8 @@ def test_tax():
     ]
     res_e2_avoidance = mdf.tax_from_mtrs(INCOME, BRACKETS, RATES,
                                          avoidance_elasticity=2)
-    pd.testing.assert_series_equal(res_10pct, EXPECTED_E2_AVOIDANCE)
-    
+    pd.testing.assert_series_equal(res_e2_avoidance,
+                                   pd.Series(EXPECTED_E2_AVOIDANCE))
+    # Ensure error when passing both rate and elasticity.
+    with pytest.raises(Exception) as e_info:
+        mdf.tax_from_mtrs(INCOME, BRACKETS, RATES, 0.1, 2)
