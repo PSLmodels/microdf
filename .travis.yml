@@ -20,8 +20,6 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda create -n microdf-env python=$TRAVIS_PYTHON_VERSION;
-  - conda activate microdf-env
-  - conda env update -f environment.yml
+  - conda create -n microdf-env python=$TRAVIS_PYTHON_VERSION --file=environment.yml
   - conda activate microdf-env
 script: pytest -v
