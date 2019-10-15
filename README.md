@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/MaxGhenis/microdf.svg?branch=master)](https://travis-ci.com/MaxGhenis/microdf)
+[![Codecov](https://codecov.io/gh/MaxGhenis/microdf/branch/master/graph/badge.svg)](https://codecov.io/gh/MaxGhenis/microdf)
+
 # microdf
 Analysis tools for working with survey microdata as DataFrames.
 
