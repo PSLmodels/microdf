@@ -1,8 +1,10 @@
 language: python
+
 before_install:
   - python --version
   - pip install -U pip
   - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
+
 install:
   - sudo apt-get update
   # We do this conditionally because it saves us some downloading if the	
@@ -22,4 +24,6 @@ install:
   - conda info -a
   - conda env create --name microdf-env --file=environment.yml python=$TRAVIS_PYTHON_VERSION
   - conda activate microdf-env
-script: pytest -v
+
+script:
+  - pytest -v
