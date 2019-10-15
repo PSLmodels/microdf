@@ -1,5 +1,0 @@
-numpy
-pandas
-matplotlib
-seaborn
-matplotlib-label-lines

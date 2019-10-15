@@ -20,7 +20,8 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda create -q -n test-environment -c conda-forge matplotlib -c pslmodels taxcalc python=$TRAVIS_PYTHON_VERSION
-  - conda activate test-environment
-  - pip install -e .  # Install package + test dependencies + extras. Skip ".[test]"
+  -  conda create -n microdf-env python=$TRAVIS_PYTHON_VERSION;
+  - source activate microdf-env
+  - conda env update -f environment.yml
+  - source activate microdf-env
 script: pytest
