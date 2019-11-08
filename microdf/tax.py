@@ -53,12 +53,12 @@ def tax_from_mtrs(val, brackets, rates, avoidance_rate=0,
     df_tax['base_tax'] = df_tax.brackets.\
         sub(df_tax.brackets.shift(fill_value=0)).\
         mul(df_tax.rates.shift(fill_value=0)).cumsum()
-    if avoidance_rate == 0:
+    if avoidance_rate == 0:  # Only need MTRs if elasticity is supplied.
         mtrs = mtr(val, brackets, rates)
     if avoidance_elasticity > 0:
         avoidance_rate = 1 - np.exp(-avoidance_elasticity * mtrs)
     if avoidance_elasticity_flat > 0:
-        avoidance_rate = avoidance_elasticity * mtrs
+        avoidance_rate = avoidance_elasticity_flat * mtrs
     taxable = pd.Series(val) * (1 - avoidance_rate)
     rows = df_tax.brackets.searchsorted(taxable, side='right') - 1
     income_bracket_df = df_tax.loc[rows].reset_index(drop=True)
