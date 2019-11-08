@@ -22,7 +22,7 @@ def mtr(val, brackets, rates):
 
 
 def tax_from_mtrs(val, brackets, rates, avoidance_rate=0,
-                  avoidance_elasticity=0, avoidance_elasticity_flat):
+                  avoidance_elasticity=0, avoidance_elasticity_flat=0):
     # Calculates tax liability based on a marginal tax rate schedule.
     #
     # Args:
@@ -42,8 +42,8 @@ def tax_from_mtrs(val, brackets, rates, avoidance_rate=0,
     #
     # Returns:
     #     Series of tax liabilities with the same size as val.
-    assert (avoidance_rate == 0
-            or avoidance_elasticity == 0
+    assert (avoidance_rate == 0 \
+            or avoidance_elasticity == 0 \
             or avoidance_elasticity_flat == 0), \
         "Cannot supply multiple avoidance parameters."
     assert avoidance_elasticity >= 0, \
@@ -56,7 +56,7 @@ def tax_from_mtrs(val, brackets, rates, avoidance_rate=0,
         mtrs = mtr(val, brackets, rates)
     if avoidance_elasticity > 0:
         avoidance_rate = 1 - np.exp(-avoidance_elasticity * mtrs)
-    if avoidance_elasticity_rate > 0:
+    if avoidance_elasticity_flat > 0:
         avoidance_rate = avoidance_elasticity * mtrs
     taxable = pd.Series(val) * (1 - avoidance_rate)
     rows = df_tax.brackets.searchsorted(taxable, side='right') - 1
