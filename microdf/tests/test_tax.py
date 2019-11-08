@@ -22,10 +22,10 @@ def test_tax():
         0, 0, 0,
         0,  # Taxable base becomes (10e3 + 1) * (1 - 2 * 0.1)
         20e3 * np.exp(-0.2)]  # Taxable base becomes 20e3 * (exp(-2 * 0.1)).
-    res_e2_avoidance_flat = mdf.tax_from_mtrs(INCOME, BRACKETS, RATES,
-                                              avoidance_elasticity_flat=2)
-    pd.testing.assert_series_equal(res_e2_avoidance_flat,
-                                   pd.Series(EXPECTED_E2_AVOIDANCE_FLAT))
+    res_e2_avoidance = mdf.tax_from_mtrs(INCOME, BRACKETS, RATES,
+                                         avoidance_elasticity=2)
+    pd.testing.assert_series_equal(res_e2_avoidance,
+                                   pd.Series(EXPECTED_E2_AVOIDANCE))
     # Try with flat avoidance elasticity of 2.
     EXPECTED_E2_AVOIDANCE_FLAT = [
         0, 0, 0,
