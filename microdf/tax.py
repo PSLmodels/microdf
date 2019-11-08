@@ -43,8 +43,8 @@ def tax_from_mtrs(val, brackets, rates, avoidance_rate=0,
     #
     # Returns:
     #     Series of tax liabilities with the same size as val.
-    assert (avoidance_rate == 0 \
-            or avoidance_elasticity == 0 \
+    assert (avoidance_rate == 0
+            or avoidance_elasticity == 0
             or avoidance_elasticity_flat == 0), \
         "Cannot supply multiple avoidance parameters."
     assert avoidance_elasticity >= 0, \
