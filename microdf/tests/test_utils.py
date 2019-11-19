@@ -15,6 +15,3 @@ def test_cartesian_product():
                              'c': [100, 101, 100, 101, 100, 101,
                                    100, 101, 100, 101, 100, 101]})
     pd.testing.assert_frame_equal(res, EXPECTED)
-
-
-   
