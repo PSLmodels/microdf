@@ -4,9 +4,9 @@ import pandas as pd
 
 
 def test_cartesian_product():
-    res = cartesian_product({'a': [1, 2, 3],
-                             'b': ['val1', 'val2'],
-                             'c': [100, 101]})
+    res = mdf.cartesian_product({'a': [1, 2, 3],
+                                 'b': ['val1', 'val2'],
+                                 'c': [100, 101]})
     EXPECTED = pd.DataFrame({'a': [1, 1, 1, 1, 2, 2, 2, 2,
                                    3, 3, 3, 3],
                              'b': ['val1', 'val1', 'val2', 'val2',
@@ -15,3 +15,10 @@ def test_cartesian_product():
                              'c': [100, 101, 100, 101, 100, 101,
                                    100, 101, 100, 101, 100, 101]})
     pd.testing.assert_frame_equal(res, EXPECTED)
+
+
+def test_flatten():
+    L = [[[1, 2, 3], [4, 5]], 6]
+    res = list(mdf.flatten(L))
+    EXPECTED = [1, 2, 3, 4, 5, 6]
+    assert res == EXPECTED
