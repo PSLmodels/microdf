@@ -366,7 +366,8 @@ def flatten(l):
         Flattened version.
     """
     for el in l:
-        if isinstance(el, collections.abc.Iterable) and not isinstance(el, (str, bytes)):
+        if isinstance(el, collections.abc.Iterable) \
+           and not isinstance(el, (str, bytes)):
             yield from flatten(el)
         else:
             yield el
