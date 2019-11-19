@@ -8,7 +8,7 @@ def test_cartesian_product():
                              'b': ['val1', 'val2'],
                              'c': [100, 101]})
     EXPECTED = pd.DataFrame({'a': [1, 1, 1, 1, 2, 2, 2, 2,
-                                   3, 3, 3, 3]
+                                   3, 3, 3, 3],
                              'b': ['val1', 'val1', 'val2', 'val2',
                                    'val1', 'val1', 'val2', 'val2',
                                    'val1', 'val1', 'val2', 'val2'],
