@@ -1,6 +1,7 @@
 import io
-import zipfile
+import pandas as pd
 import requests
+import zipfile
 
 def read_stata_zip(url):
     """Reads zipped Stata file by URL.
