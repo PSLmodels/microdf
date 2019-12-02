@@ -1,12 +1,12 @@
 import io
 import pandas as pd
-import requests
+from urllib.request import urlopen
 import zipfile
 
 def read_stata_zip(url):
     """Reads zipped Stata file by URL.
 
-       From https://stackoverflow.com/a/59122697/1840471
+       From https://stackoverflow.com/a/59122689/1840471
 
        Pending native support in https://github.com/pandas-dev/pandas/issues/26599. 
     
@@ -17,7 +17,8 @@ def read_stata_zip(url):
     Returns:
         DataFrame.
     """
-    response = requests.get(url)
-    a = zipfile.ZipFile(io.BytesIO(response.content))
-    b = a.read(a.namelist()[0])
-    return pd.read_stata(io.BytesIO(b))
+    with urlopen(url) as request:
+        data = io.BytesIO(request.read())
+    with zipfile.ZipFile(data) as archive:
+        with archive.open(archive.namelist()[0]) as stata:
+            return pd.read_stata(stata)
