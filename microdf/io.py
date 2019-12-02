@@ -18,7 +18,7 @@ def read_stata_zip(url):
         DataFrame.
     """
     with urlopen(url) as request:
-        data = BytesIO(request.read())
+        data = io.BytesIO(request.read())
     with zipfile.ZipFile(data) as archive:
         with archive.open(archive.namelist()[0]) as stata:
             return pd.read_stata(stata)
