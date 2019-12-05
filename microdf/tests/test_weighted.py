@@ -2,6 +2,7 @@ import numpy as np
 import microdf as mdf
 import pytest
 
+
 def test_weighted_quantile():
     X = [1, 5, 2]
     W = [4, 1, 1]
