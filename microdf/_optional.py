@@ -24,7 +24,8 @@ def _get_version(module: types.ModuleType) -> str:
 
 
 def import_optional_dependency(
-    name: str, extra: str = "", raise_on_missing: bool = True, on_version: str = "raise"
+    name: str, extra: str = "", raise_on_missing: bool = True,
+        on_version: str = "raise"
 ):
     """
     Import an optional dependency.
@@ -74,7 +75,8 @@ def import_optional_dependency(
         if distutils.version.LooseVersion(version) < minimum_version:
             assert on_version in {"warn", "raise", "ignore"}
             msg = (
-                f"microdf requires version '{minimum_version}' or newer of '{name}' "
+                f"microdf requires version '{minimum_version}' or newer of "
+                f"'{name}' "
                 f"(version '{version}' currently installed)."
             )
             if on_version == "warn":
