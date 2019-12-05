@@ -1,5 +1,5 @@
 import microdf as mdf
-from microdf.compat._optional import import_optional_dependency
+from ._optional import import_optional_dependency
 import taxcalc as tc
 
 
