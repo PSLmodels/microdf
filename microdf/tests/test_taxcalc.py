@@ -8,5 +8,5 @@ def test_calc_df():
 
 
 def test_static_baseline_calc():
-    recs = tc.Records()
+    recs = tc.Records.cps_constructor()
     calc = mdf.static_baseline_calc(recs, 2020)

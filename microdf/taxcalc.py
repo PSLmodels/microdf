@@ -101,8 +101,9 @@ def calc_df(records=None,
         group_vars = group_vars + ['age_head', 'age_spouse',
                                    'elderly_dependents']
     # Include expanded_income and benefits to produce market_income.
-    all_cols = listify(['RECID', 's006', 'expanded_income', 'aftertax_income',
-                        mdf.BENS, group_vars, metric_vars])
+    all_cols = mdf.listify(
+        ['RECID', 's006', 'expanded_income', 'aftertax_income',
+         mdf.BENS, group_vars, metric_vars])
     df = calc.dataframe(all_cols)
     # Create core elements.
     df['market_income'] = mdf.market_income(df)
@@ -113,7 +114,7 @@ def calc_df(records=None,
         df.drop(['age_head', 'age_spouse', 'elderly_dependents'], axis=1,
                 inplace=True)
     # Add calculated columns for metrics.
-    add_weighted_metrics(df, metric_vars)
+    mdf.add_weighted_metrics(df, metric_vars)
     # Set RECID to int and set it as index before returning.
     df['RECID'] = df.RECID.map(int)
     return df.set_index('RECID')
@@ -135,5 +136,5 @@ def recalculate(df):
         df.tpc_eci = mdf.tpc_eci(df)
     # Recalculate weighted metrics (anything ending in _m).
     mcols = cols[cols.str.endswith('_m')]
-    add_weighted_metrics(df, mcols)
+    mdf.add_weighted_metrics(df, mcols)
     # Might need to edit calc_df to add market_income and/or UBI.
