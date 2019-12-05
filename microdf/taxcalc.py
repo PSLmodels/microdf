@@ -29,7 +29,7 @@ def add_weighted_metrics(df, metric_vars, w='s006', divisor=1e6, suffix='_m'):
         w: Weight column. Defaults to s006.
         divisor: Number by which the product is divided. Defaults to 1e6.
         suffix: Suffix to add to each weighted total. Defaults to '_m'
-            to match divisor default of 1e6.        
+            to match divisor default of 1e6.
 
     Returns:
         Nothing. Weighted columns are added in place.
@@ -39,14 +39,15 @@ def add_weighted_metrics(df, metric_vars, w='s006', divisor=1e6, suffix='_m'):
     for metric_var in metric_vars:
         df[metric_var + suffix] = df[metric_var] * df[w + suffix]
 
-        
+
 def n65(age_head, age_spouse, elderly_dependents):
     """Calculates number of people in the tax unit age 65 or older.
 
     Args:
         age_head: Series representing age_head from taxcalc data.
         age_spouse: Series representing age_spouse from taxcalc data.
-        elderly_dependents: Series representing elderly_dependents from taxcalc data.
+        elderly_dependents: Series representing elderly_dependents from
+            taxcalc data.
 
     Returns:
         Series representing the number of people age 65 or older.
@@ -64,15 +65,18 @@ def calc_df(records=None,
             metric_vars=None,
             group_n65=False):
     """Creates a pandas DataFrame for given Tax-Calculator data.
-    
+
     s006 is always included, and RECID is used as an index.
 
     Args:
         records: An optional Records object. If not provided, uses CPS records.
-        policy: An optional Policy object. If not provided, uses default Policy.
-        year: An optional year to advance to. If not provided, defaults to 2019.
+        policy: An optional Policy object. If not provided, uses default
+            Policy.
+        year: An optional year to advance to. If not provided, defaults to
+            2019.
         reform: An optional reform to implement for the Policy object.
-        group_vars: An optional list of column names to include in the DataFrame.
+        group_vars: An optional list of column names to include in the
+            DataFrame.
         metric_vars: An optional list of column names to include and calculate
              weighted sums of (in millions named as *_m) in the DataFrame.
         group_n65: Whether to calculate and group by n65. Defaults to False.
@@ -94,7 +98,8 @@ def calc_df(records=None,
     # TODO: Make n65, ECI, etc. part of the list of columns you can request.
     # Get a deduplicated list of all columns.
     if group_n65:
-        group_vars = group_vars + ['age_head', 'age_spouse', 'elderly_dependents']
+        group_vars = group_vars + ['age_head', 'age_spouse',
+                                   'elderly_dependents']
     # Include expanded_income and benefits to produce market_income.
     all_cols = listify(['RECID', 's006', 'expanded_income', 'aftertax_income',
                         mdf.BENS, group_vars, metric_vars])
@@ -105,7 +110,8 @@ def calc_df(records=None,
     df['tax'] = df.expanded_income - df.aftertax_income
     if group_n65:
         df['n65'] = n65(df.age_head, df.age_spouse, df.elderly_dependents)
-        df.drop(['age_head', 'age_spouse', 'elderly_dependents'], axis=1, inplace=True)
+        df.drop(['age_head', 'age_spouse', 'elderly_dependents'], axis=1,
+                inplace=True)
     # Add calculated columns for metrics.
     add_weighted_metrics(df, metric_vars)
     # Set RECID to int and set it as index before returning.

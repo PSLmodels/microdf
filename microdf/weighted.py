@@ -45,12 +45,12 @@ def weighted_mean(df, col, w):
     return weighted_sum(df, col, w) / df[w].sum()
 
 
-def weighted_quantile(values, quantiles, sample_weight=None, 
+def weighted_quantile(values, quantiles, sample_weight=None,
                       values_sorted=False, old_style=False):
     """ Very close to numpy.percentile, but supports weights.
-    
+
     From https://stackoverflow.com/a/29677616/1840471.
-    
+
     Args:
         values: numpy array with data.
         quantiles: array-like with many quantiles needed ([0, 1]).
@@ -59,7 +59,7 @@ def weighted_quantile(values, quantiles, sample_weight=None,
             initial array
         old_style: if True, will correct output to be consistent
             with numpy.percentile.
-    
+
     Returns:
         numpy.array with computed quantiles.
     """
@@ -111,7 +111,7 @@ def add_weighted_quantiles(df, col, w):
     * *_quartile: Integer quartile.
 
     Negative values are assigned -1.
-    
+
     Args:
         df: A pandas DataFrame.
         col: A string indicating the column in the DataFrame to calculate.
@@ -151,7 +151,7 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         DataFrame with two rows and a column for each quantile.
         Column labels are "xth percentile" and a label is added
         to the median.
-    """ 
+    """
     q1 = weighted_quantile(v1, q, w1)
     q2 = weighted_quantile(v2, q, w2)
     df = pd.DataFrame([q1, q2])
@@ -162,5 +162,3 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         q_print[4] += ' (median)'
     df.columns = q_print
     return df
-
-

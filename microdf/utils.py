@@ -70,11 +70,11 @@ def flatten(l):
 def cartesian_product(d):
     """ Produces a DataFrame as a Cartesian product of dictionary
         keys and values.
-    
+
     Args:
         d: Dictionary where each item's key corresponds to a column
            name, and each value is a list of values.
-    
+
     Returns:
         DataFrame with a Cartesian product of each dictionary item.
     """

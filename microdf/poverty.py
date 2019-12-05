@@ -1,5 +1,6 @@
 def fpl(people):
-    """Calculates the federal poverty guideline for a household of a certain size.
+    """Calculates the federal poverty guideline for a household of a certain 
+       size.
 
     Args:
         XTOT: The number of people in the household.
