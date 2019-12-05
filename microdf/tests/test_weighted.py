@@ -8,6 +8,7 @@ X = [1, 5, 2]
 W = [4, 1, 1]
 df = pd.DataFrame({'x': X, 'w': W})
 
+
 def test_weighted_quantile():
     Q = [0, 0.5, 1]
     EXPECTED_UNWEIGHTED = [1, 2, 5]
