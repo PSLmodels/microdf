@@ -16,13 +16,13 @@ def fpl(XTOT):
     return 7820 + 4320 * XTOT
 
 
-def weight(df, col, w='s006'):
-    """Calculates the weighted value of a column in a Tax-Calculator pandas DataFrame.
+def weight(df, col, w):
+    """Calculates the weighted value of a column in a DataFrame.
 
     Args:
-        df: A pandas DataFrame containing Tax-Calculator data.
+        df: A pandas DataFrame.
         col: A string indicating the column in the DataFrame to weight.
-        w: Weight column. Defaults to s006.
+        w: Weight column.
 
     Returns:
         A pandas Series multiplying the column by its weight.
@@ -30,13 +30,13 @@ def weight(df, col, w='s006'):
     return df[col] * df[w]
 
 
-def weighted_sum(df, col, w='s006'):
-    """Calculates the weighted sum of a column in a Tax-Calculator pandas DataFrame.
+def weighted_sum(df, col, w):
+    """Calculates the weighted sum of a column in a DataFrame.
 
     Args:
-        df: A pandas DataFrame containing Tax-Calculator data.
+        df: A pandas DataFrame.
         col: A string indicating the column in the DataFrame.
-        w: Weight column. Defaults to s006.
+        w: Weight column.
 
     Returns:
         The weighted sum of a DataFrame's column.
@@ -45,13 +45,13 @@ def weighted_sum(df, col, w='s006'):
     return (df[col] * df[w]).sum()
 
 
-def weighted_mean(df, col, w='s006'):
-    """Calculates the weighted mean of a column in a Tax-Calculator pandas DataFrame.
+def weighted_mean(df, col, w):
+    """Calculates the weighted mean of a column in a DataFrame.
 
     Args:
-        df: A pandas DataFrame containing Tax-Calculator data.
+        df: A pandas DataFrame.
         col: A string indicating the column in the DataFrame.
-        w: Weight column. Defaults to s006.
+        w: Weight column.
 
     Returns:
         The weighted mean of a DataFrame's column.
@@ -59,8 +59,8 @@ def weighted_mean(df, col, w='s006'):
     return weighted_sum(df, col, w) / df[w].sum()
 
 
-def add_weighted_quantiles(df, col, w='s006'):
-    """Adds weighted quantiles of a column to a Tax-Calculator pandas DataFrame.
+def add_weighted_quantiles(df, col, w):
+    """Adds weighted quantiles of a column to a DataFrame.
 
     Adds columns for each of these types of quantiles to a DataFrame:
     * *_percentile_exact: Exact percentile.
@@ -74,9 +74,9 @@ def add_weighted_quantiles(df, col, w='s006'):
     Negative values are assigned -1.
     
     Args:
-        df: A pandas DataFrame containing Tax-Calculator data.
+        df: A pandas DataFrame.
         col: A string indicating the column in the DataFrame to calculate.
-        w: Weight column. Defaults to s006.
+        w: Weight column.
 
     Returns:
         Nothing. Columns are added in place.
@@ -179,13 +179,13 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     return df
 
 
-def weighted_median(df, col, w='s006'):
-    """Calculates the weighted median of a column in a Tax-Calculator pandas DataFrame.
+def weighted_median(df, col, w):
+    """Calculates the weighted median of a column in a DataFrame.
 
     Args:
         df: A pandas DataFrame containing Tax-Calculator data.
         col: A string indicating the column in the DataFrame.
-        w: Weight column. Defaults to s006.
+        w: Weight column.
 
     Returns:
         The weighted median of a DataFrame's column.
