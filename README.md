@@ -4,7 +4,7 @@
 # microdf
 Analysis tools for working with survey microdata as DataFrames.
 
-Includes the `taxcalc` module for working with [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator).
+Includes functions for working with [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator) (`taxcalc` is an optional dependency).
 
 ## Installation
 Install with:
