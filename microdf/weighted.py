@@ -47,9 +47,12 @@ def weighted_mean(df, col, w):
 
 def weighted_quantile(values, quantiles, sample_weight=None,
                       values_sorted=False, old_style=False):
-    """ Very close to numpy.percentile, but supports weights.
+    """Calculates weighted quantiles of a set of values.
 
     From https://stackoverflow.com/a/29677616/1840471.
+
+    Doesn't exactly match unweighted quantiles of stacked values.
+    See stackoverflow.com/q/21844024#comment102342137_29677616.
 
     Args:
         values: numpy array with data.
