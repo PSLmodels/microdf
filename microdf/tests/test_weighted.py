@@ -1,11 +1,14 @@
 import numpy as np
+import pandas as pd
 import microdf as mdf
 import pytest
 
 
+X = [1, 5, 2]
+W = [4, 1, 1]
+df = pd.DataFrame({'x': X, 'w': W})
+
 def test_weighted_quantile():
-    X = [1, 5, 2]
-    W = [4, 1, 1]
     Q = [0, 0.5, 1]
     EXPECTED_UNWEIGHTED = [1, 2, 5]
     res_unweighted = mdf.weighted_quantile(X, Q).tolist()
@@ -17,3 +20,9 @@ def test_weighted_quantile():
     # EXPECTED_WEIGHTED = [1, 1, 5]
     # For now, check that median is less than the unweighted median.
     assert res_weighted[1] < res_unweighted[1]
+
+
+def test_weighted_mean():
+    # TODO: Add None default to w.
+    # assert mdf.weighted_mean(df, 'x') == 8 / 3
+    assert mdf.weighted_mean(df, 'x', 'w') == 11 / 6
