@@ -4,18 +4,6 @@ import microdf as mdf
 import collections
 
 
-def fpl(XTOT):
-    """Calculates the federal poverty guideline for a household of a certain size.
-
-    Args:
-        XTOT: The number of people in the household.
-
-    Returns:
-        The federal poverty guideline for the contiguous 48 states.
-    """
-    return 7820 + 4320 * XTOT
-
-
 def weight(df, col, w):
     """Calculates the weighted value of a column in a DataFrame.
 
