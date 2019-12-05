@@ -1,3 +1,7 @@
+import numpy as np
+import pandas as pd
+
+
 def weight(df, col, w):
     """Calculates the weighted value of a column in a DataFrame.
 
