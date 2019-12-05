@@ -1,5 +1,5 @@
 import microdf as mdf
-import taxcalc as tc
+from microdf._optional import import_optional_dependency
 
 
 def static_baseline_calc(recs, year):
@@ -12,6 +12,7 @@ def static_baseline_calc(recs, year):
     Returns:
         Calculator object.
     """
+    tc = import_optional_dependency("taxcalc")
     calc = tc.Calculator(records=recs, policy=tc.Policy())
     calc.advance_to_year(year)
     calc.calc_all()
@@ -84,6 +85,7 @@ def calc_df(records=None,
     Returns:
         A pandas DataFrame. market_income is also always calculated.
     """
+    tc = import_optional_dependency("taxcalc")
     # Assign defaults.
     if records is None:
         records = tc.Records.cps_constructor()
