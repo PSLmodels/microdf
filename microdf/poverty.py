@@ -1,5 +1,5 @@
 def fpl(people):
-    """Calculates the federal poverty guideline for a household of a certain 
+    """Calculates the federal poverty guideline for a household of a certain
        size.
 
     Args:
