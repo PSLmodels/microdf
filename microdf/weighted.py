@@ -27,7 +27,6 @@ def weighted_sum(df, col, w):
     Returns:
         The weighted sum of a DataFrame's column.
     """
-
     return (df[col] * df[w]).sum()
 
 
