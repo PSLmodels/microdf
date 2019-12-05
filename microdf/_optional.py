@@ -74,7 +74,7 @@ def import_optional_dependency(
         if distutils.version.LooseVersion(version) < minimum_version:
             assert on_version in {"warn", "raise", "ignore"}
             msg = (
-                f"Pandas requires version '{minimum_version}' or newer of '{name}' "
+                f"microdf requires version '{minimum_version}' or newer of '{name}' "
                 f"(version '{version}' currently installed)."
             )
             if on_version == "warn":
