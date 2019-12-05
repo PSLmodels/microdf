@@ -12,5 +12,6 @@ from .tax import *
 from .taxcalc import *
 from .ubi import *
 from .utils import *
+from .weighted import *
 
 name = "microdf"
