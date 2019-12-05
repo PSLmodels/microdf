@@ -1,5 +1,5 @@
 import microdf as mdf
-from ._optional import import_optional_dependency
+from microdf._optional import import_optional_dependency
 
 
 def static_baseline_calc(recs, year):
