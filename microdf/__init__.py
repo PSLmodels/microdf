@@ -8,6 +8,7 @@ from .inequality import *
 from .io import *
 from .style import *
 from .tax import *
+from .taxcalc import *
 from .ubi import *
 from .utils import *
 
