@@ -3,6 +3,7 @@ import pandas as pd
 from urllib.request import urlopen
 import zipfile
 
+
 def read_stata_zip(url, **kwargs):
     """Reads zipped Stata file by URL.
 
