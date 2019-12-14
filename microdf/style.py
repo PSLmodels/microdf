@@ -26,7 +26,7 @@ def set_plot_style():
     STYLE = {
         'savefig.dpi': DPI,
         'figure.dpi': DPI,
-        'figure.figsize': 6.4, 4.8,  # Default.
+        'figure.figsize': (6.4, 4.8),  # Default.
         'font.sans-serif': 'Roboto',
         'font.family': 'sans-serif',
         # Set title text color to dark gray (https://material.io/color) not black.
