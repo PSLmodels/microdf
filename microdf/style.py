@@ -39,3 +39,9 @@ def set_plot_style():
 
     # Grid is light gray.
     mpl.rcParams['grid.color'] = GRID_COLOR
+
+    # Equivalent to seaborn.despine(left=True, bottom=True).
+    mpl.rcParams['axes.spines.left'] = False
+    mpl.rcParams['axes.spines.right'] = False
+    mpl.rcParams['axes.spines.top'] = False
+    mpl.rcParams['axes.spines.bottom'] = False
