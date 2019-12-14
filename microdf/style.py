@@ -31,3 +31,6 @@ def set_plot_style():
     mpl.rcParams['axes.labelcolor'] = AXIS_COLOR
     mpl.rcParams['xtick.color'] = AXIS_COLOR
     mpl.rcParams['ytick.color'] = AXIS_COLOR
+
+    # Grid is light gray.
+    mpl.rcParams['grid.color'] = GRID_COLOR
