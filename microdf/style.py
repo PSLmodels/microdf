@@ -1,4 +1,5 @@
 import matplotlib as mpl
+import matplotlib.font_manager as fm
 import seaborn as sns
 
 
@@ -21,6 +22,10 @@ def set_plot_style():
     mpl.rc('savefig', dpi=DPI)
     mpl.rcParams['figure.dpi'] = DPI
     mpl.rcParams['figure.figsize'] = 6.4, 4.8  # Default.
+    
+    # Set up Roboto. Must be downloaded in the current directory.
+    # See https://stackoverflow.com/a/51844978/1840471.
+    fm.fontManager.ttflist += fm.createFontList(['Roboto-Regular.ttf'])
     mpl.rcParams['font.sans-serif'] = 'Roboto'
     mpl.rcParams['font.family'] = 'sans-serif'
         
