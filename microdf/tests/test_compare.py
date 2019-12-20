@@ -31,5 +31,7 @@ def test_scf_percentile_agg_compare(tests_path):
     F_ACTUAL = 'scf_percentile_actual.csv'
     F_EXPECTED = 'scf_percentile_expected.csv'
     percentile_sum.to_csv(os.path.join(tests_path, F_ACTUAL))
+    # Re-read as CSV to remove index and ensure CSVs are equal.
+    actual = pd.read_csv(os.path.join(tests_path, F_ACTUAL))
     expected = pd.read_csv(os.path.join(tests_path, F_EXPECTED))
-    differences(percentile_sum, expected, F_ACTUAL, F_EXPECTED)
+    differences(actual, expected, F_ACTUAL, F_EXPECTED)
