@@ -6,7 +6,7 @@ import os
 def differences(actual, expected, f_actual, f_expected):
     """
     Check for differences between results in afilename and efilename files.
-    
+
     Args:
         f_actual: Filename of the actual CSV.
         f_expected: Filename of the expected CSV.
