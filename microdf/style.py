@@ -8,6 +8,7 @@ AXIS_COLOR = '#757575'
 GRID_COLOR = '#eeeeee'  # Previously lighter #f5f5f5.
 DPI = 200
 
+
 def set_plot_style(dpi=DPI):
     """ Set plot style.
 
