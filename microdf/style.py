@@ -8,7 +8,8 @@ AXIS_COLOR = '#757575'
 GRID_COLOR = '#eeeeee'  # Previously lighter #f5f5f5.
 DPI = 200
 
-def set_plot_style():
+
+def set_plot_style(dpi=DPI):
     """ Set plot style.
 
     Args:
@@ -24,8 +25,8 @@ def set_plot_style():
     fm.fontManager.ttflist += fm.createFontList(['Roboto-Regular.ttf'])
     
     STYLE = {
-        'savefig.dpi': DPI,
-        'figure.dpi': DPI,
+        'savefig.dpi': dpi,
+        'figure.dpi': dpi,
         'figure.figsize': (6.4, 4.8),  # Default.
         'font.sans-serif': 'Roboto',
         'font.family': 'sans-serif',
