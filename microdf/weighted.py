@@ -160,8 +160,8 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     df = pd.DataFrame([q1, q2])
     # Set decile labels.
     q_print = [mdf.ordinal_label((i * 100)) for i in q]
-    # TODO: Check if other values are median
-    if q[4] == 0.5:
-        q_print[4] += ' (median)'
+    try:  # List index throws an error if the value is not found.
+        median_index = q.tolist().index(0.1)
+        q_print[median_index] += ' (median)'
     df.columns = q_print
     return df
