@@ -163,7 +163,7 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     try:  # List index throws an error if the value is not found.
         median_index = q.tolist().index(0.5)
         q_print[median_index] += ' (median)'
-    except:
-        pass
+    except ValueError:
+        pass  # Don't assign median to any label.
     df.columns = q_print
     return df
