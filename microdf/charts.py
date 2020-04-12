@@ -24,7 +24,9 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     """
     # Calculate weighted quantiles.
     df = mdf.quantile_chg(v1, v2, w1, w2, q)
-    ax = df.plot()
+    # Make shades of green, removing the lightest 10 shades.
+    with sns.color_palette(sns.color_palette('Greens', q.size + 11)[11:]):
+        ax = df.plot()
     # Label the start and end points.
     plt.xticks([0, 1], [label1, label2])
     # Label the lines instead of using a legend.
@@ -65,7 +67,8 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
                                    '50th\n(median)', df.index)
     # Plot.
     fig, ax = plt.subplots()
-    markerline, stemlines, baseline = ax.stem(df.index_newline, df.pct_chg)
+    markerline, stemlines, baseline = ax.stem(
+        df.index_newline, df.pct_chg, use_line_collection=True)
     plt.setp(baseline, color='gray', linewidth=0)
     ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(
         lambda x, _: '{:.0%}'.format(x)))
