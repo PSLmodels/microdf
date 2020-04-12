@@ -25,7 +25,7 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     # Calculate weighted quantiles.
     df = mdf.quantile_chg(v1, v2, w1, w2, q)
     # Make shades of green, removing the lightest 10 shades.
-    with sns.color_palette('Greens', q.size + 11)[11:]:
+    with sns.color_palette(sns.color_palette('Greens', q.size + 11)[11:]):
         ax = df.plot()
     # Label the start and end points.
     plt.xticks([0, 1], [label1, label2])
