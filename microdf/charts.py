@@ -67,7 +67,8 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
                                    '50th\n(median)', df.index)
     # Plot.
     fig, ax = plt.subplots()
-    markerline, stemlines, baseline = ax.stem(df.index_newline, df.pct_chg)
+    markerline, stemlines, baseline = ax.stem(
+        df.index_newline, df.pct_chg, use_line_collection=True)
     plt.setp(baseline, color='gray', linewidth=0)
     ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(
         lambda x, _: '{:.0%}'.format(x)))
