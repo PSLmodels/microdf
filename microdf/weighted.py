@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import microdf as mdf
 
 
 def weight(df, col, w):
@@ -158,7 +159,7 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     q2 = weighted_quantile(v2, q, w2)
     df = pd.DataFrame([q1, q2])
     # Set decile labels.
-    q_print = [ordinal_label((i * 100)) for i in q]
+    q_print = [mdf.ordinal_label((i * 100)) for i in q]
     # TODO: Check if other values are median
     if q[4] == 0.5:
         q_print[4] += ' (median)'
