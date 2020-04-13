@@ -63,6 +63,8 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     # Prepare dataset for plotting.
     df.columns = ['base', 'reform']
     df['pct_chg'] = df.reform / df.base - 1
+    # Multiply by 100 pending github.com/matplotlib/matplotlib/issues/17113
+    df.pct_chg *= 100
     df['index_newline'] = np.where(df.index == '50th (median)',
                                    '50th\n(median)', df.index)
     # Plot.
@@ -70,8 +72,7 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     markerline, stemlines, baseline = ax.stem(
         df.index_newline, df.pct_chg, use_line_collection=True)
     plt.setp(baseline, color='gray', linewidth=0)
-    ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(
-        lambda x, _: '{:.0%}'.format(x)))
+    ax.yaxis.set_major_formatter(mpl.ticker.PercentFormatter(xmax=100))
     ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(integer=True))
     plt.title('Change to disposable income percentiles', loc='left')
     plt.ylabel('Change in disposable income at the percentile boundary')
