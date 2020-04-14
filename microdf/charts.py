@@ -31,7 +31,8 @@ def quantile_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1),
     plt.xticks([0, 1], [label1, label2])
     # Label the lines instead of using a legend.
     ax.get_legend().remove()
-    ll.labelLines(plt.gca().get_lines())
+    # Move line labels closer to the center.
+    ll.labelLines(plt.gca().get_lines(), xvals=(0.1, 0.9))
     # Formatting.
     plt.title('Change in disposable income percentiles')
     plt.ylim(0, None)
