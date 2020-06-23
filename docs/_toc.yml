@@ -1,0 +1,10 @@
+- file: home
+- file: examples
+  sections:
+    - file: agg
+    - file: charts
+    - file: custom_taxes
+    - file: demo
+    - file: gini
+    - file: income_measures
+    - file: weighting
