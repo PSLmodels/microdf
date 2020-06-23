@@ -64,20 +64,25 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   
   <ul class="nav sidenav_l1">
-  <li class="">
-    <a href="agg.html">The agg function</a>
-  </li>
-  <li class="">
-    <a href="charts.html">microdf charts</a>
-  </li>
-  <li class="">
-    <a href="demo.html">microdf demo</a>
-  </li>
   <li class="active">
-    <a href="">gini example</a>
-  </li>
-  <li class="">
-    <a href="income_measures.html">Income measures</a>
+    <a href="examples.html">Examples</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="agg.html">The agg function</a>
+    </li>
+    <li class="">
+      <a href="charts.html">microdf charts</a>
+    </li>
+    <li class="">
+      <a href="demo.html">microdf demo</a>
+    </li>
+    <li class="active">
+      <a href="">gini example</a>
+    </li>
+    <li class="">
+      <a href="income_measures.html">Income measures</a>
+    </li>
+  </ul>
   </li>
 </ul>
 </nav>
@@ -243,7 +248,7 @@
 </div>
 <div class="section" id="dealing-with-negatives">
 <h2>Dealing with negatives<a class="headerlink" href="#dealing-with-negatives" title="Permalink to this headline">¶</a></h2>
-<p>This will be equivalent to <code class="docutils literal notranslate"><span class="pre">tch.gini([0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">5,</span> <span class="pre">100])</span></code>.</p>
+<p>This will be equivalent to <code class="docutils literal notranslate"><span class="pre">mdf.gini([0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">5,</span> <span class="pre">100])</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">negatives</span><span class="o">=</span><span class="s1">&#39;zero&#39;</span><span class="p">)</span>
@@ -268,7 +273,7 @@
 </div>
 </div>
 </div>
-<p>This will be equivalent to <code class="docutils literal notranslate"><span class="pre">tch.gini([0,</span> <span class="pre">9,</span> <span class="pre">10,</span> <span class="pre">15,</span> <span class="pre">110])</span></code>.</p>
+<p>This will be equivalent to <code class="docutils literal notranslate"><span class="pre">mdf.gini([0,</span> <span class="pre">9,</span> <span class="pre">10,</span> <span class="pre">15,</span> <span class="pre">110])</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">negatives</span><span class="o">=</span><span class="s1">&#39;shift&#39;</span><span class="p">)</span>

@@ -64,20 +64,25 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   
   <ul class="nav sidenav_l1">
-  <li class="">
-    <a href="agg.html">The agg function</a>
-  </li>
-  <li class="">
-    <a href="charts.html">microdf charts</a>
-  </li>
   <li class="active">
-    <a href="">microdf demo</a>
-  </li>
-  <li class="">
-    <a href="gini.html">gini example</a>
-  </li>
-  <li class="">
-    <a href="income_measures.html">Income measures</a>
+    <a href="examples.html">Examples</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="agg.html">The agg function</a>
+    </li>
+    <li class="">
+      <a href="charts.html">microdf charts</a>
+    </li>
+    <li class="active">
+      <a href="">microdf demo</a>
+    </li>
+    <li class="">
+      <a href="gini.html">gini example</a>
+    </li>
+    <li class="">
+      <a href="income_measures.html">Income measures</a>
+    </li>
+  </ul>
   </li>
 </ul>
 </nav>
@@ -251,30 +256,7 @@
 <p>Chart options.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
-<span class="n">DPI</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">DPI</span><span class="p">)</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DPI</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">6.4</span><span class="p">,</span> <span class="mf">4.8</span>  <span class="c1"># Default.</span>
-
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Roboto&#39;</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sans-serif&#39;</span>
-
-<span class="c1"># Set title text color to dark gray (https://material.io/color) not black.</span>
-<span class="n">TITLE_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#212121&#39;</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TITLE_COLOR</span>
-
-<span class="c1"># Axis titles and tick marks are medium gray.</span>
-<span class="n">AXIS_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#757575&#39;</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.labelcolor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">AXIS_COLOR</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;xtick.color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">AXIS_COLOR</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;ytick.color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">AXIS_COLOR</span>
-
-<span class="n">GRID_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#eeeeee&#39;</span>  <span class="c1"># Previously lighter #f5f5f5.</span>
-
-<span class="c1"># Use Seaborn&#39;s default color palette.</span>
-<span class="c1"># https://stackoverflow.com/q/48958426/1840471 for reproducibility.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">())</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">set_plot_style</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -297,11 +279,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;tanf_ben&#39;, &#39;e02300&#39;, &#39;snap_ben&#39;, &#39;s006&#39;, &#39;wic_ben&#39;, &#39;XTOT&#39;,
-       &#39;mcaid_ben&#39;, &#39;other_ben&#39;, &#39;housing_ben&#39;, &#39;mcare_ben&#39;, &#39;e02400&#39;,
-       &#39;aftertax_income&#39;, &#39;ssi_ben&#39;, &#39;MARS&#39;, &#39;expanded_income&#39;, &#39;vet_ben&#39;,
-       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
-       &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;wic_ben&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;XTOT&#39;, &#39;e02300&#39;, &#39;tanf_ben&#39;,
+       &#39;e02400&#39;, &#39;s006&#39;, &#39;expanded_income&#39;, &#39;mcare_ben&#39;, &#39;snap_ben&#39;, &#39;ssi_ben&#39;,
+       &#39;mcaid_ben&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;other_ben&#39;, &#39;market_income&#39;,
+       &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;, &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -333,11 +314,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;tanf_ben&#39;, &#39;wic_ben&#39;, &#39;e02400&#39;, &#39;XTOT&#39;, &#39;s006&#39;, &#39;mcaid_ben&#39;,
-       &#39;mcare_ben&#39;, &#39;aftertax_income&#39;, &#39;vet_ben&#39;, &#39;snap_ben&#39;,
-       &#39;expanded_income&#39;, &#39;other_ben&#39;, &#39;MARS&#39;, &#39;e02300&#39;, &#39;housing_ben&#39;,
-       &#39;ssi_ben&#39;, &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
-       &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;wic_ben&#39;, &#39;ssi_ben&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;other_ben&#39;,
+       &#39;snap_ben&#39;, &#39;housing_ben&#39;, &#39;XTOT&#39;, &#39;tanf_ben&#39;, &#39;mcare_ben&#39;, &#39;vet_ben&#39;,
+       &#39;e02300&#39;, &#39;e02400&#39;, &#39;s006&#39;, &#39;expanded_income&#39;, &#39;mcaid_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
+       &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
