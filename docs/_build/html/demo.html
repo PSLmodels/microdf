@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>microdf demo &#8212; microdf documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/mystnb.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gini example" href="gini.html" />
+    <link rel="prev" title="microdf charts" href="charts.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">microdf documentation</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="active">
+    <a href="examples.html">Examples</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="agg.html">The agg function</a>
+    </li>
+    <li class="">
+      <a href="charts.html">microdf charts</a>
+    </li>
+    <li class="active">
+      <a href="">microdf demo</a>
+    </li>
+    <li class="">
+      <a href="gini.html">gini example</a>
+    </li>
+    <li class="">
+      <a href="income_measures.html">Income measures</a>
+    </li>
+  </ul>
+  </li>
+</ul>
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+                    class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="_sources/demo.ipynb"><button type="button"
+                        class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                        data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                    onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Source interaction buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+                aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+            <div class="dropdown-buttons sourcebuttons">
+                <a class="repository-button"
+                    href="https://github.com/MaxGhenis/microdf"><button type="button" class="btn btn-secondary topbarbtn"
+                        data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                            class="fab fa-github"></i>repository</button></a>
+                <a class="issues-button"
+                    href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fdemo.html&body=Your%20issue%20content%20here."><button
+                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                        title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/demo.ipynb"><button
+                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                        title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+            </div>
+        </div>
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+                aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+            <div class="dropdown-buttons">
+                
+                
+                
+                <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/demo.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                        title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                            src="_static/images/logo_colab.png"
+                            alt="Interact on Colab">Colab</button></a>
+                
+                
+            </div>
+        </div>
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#setup" class="nav-link">Setup</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#generate-data" class="nav-link">Generate data</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#calculate-senior-ubi" class="nav-link">Calculate senior UBI.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#add-senior-ubi-to-aftertax-income-and-recalculate" class="nav-link">Add senior UBI to aftertax_income and recalculate</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#analyze" class="nav-link">Analyze</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#change-to-gini-index" class="nav-link">Change to Gini index</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#change-to-poverty-rate" class="nav-link">Change to poverty rate</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/MaxGhenis/microdf/edit/master/docs/demo.ipynb">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="microdf-demo">
+<h1><code class="docutils literal notranslate"><span class="pre">microdf</span></code> demo<a class="headerlink" href="#microdf-demo" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
+<span class="kn">import</span> <span class="nn">microdf</span> <span class="k">as</span> <span class="nn">mdf</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Chart options.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">set_plot_style</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="generate-data">
+<h2>Generate data<a class="headerlink" href="#generate-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;expanded_income&#39;</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">],</span>
+                   <span class="n">metric_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;wic_ben&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;XTOT&#39;, &#39;e02300&#39;, &#39;tanf_ben&#39;,
+       &#39;e02400&#39;, &#39;s006&#39;, &#39;expanded_income&#39;, &#39;mcare_ben&#39;, &#39;snap_ben&#39;, &#39;ssi_ben&#39;,
+       &#39;mcaid_ben&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;other_ben&#39;, &#39;market_income&#39;,
+       &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;, &#39;XTOT_m&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define a reform that treats capital gains as ordinary income and sets the top marginal rate to 70%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CG_REFORM</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;CG_nodiff&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">2019</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s1">&#39;II_rt7&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">2019</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">reform</span><span class="o">=</span><span class="n">CG_REFORM</span><span class="p">,</span> <span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MARS&#39;</span><span class="p">],</span> <span class="n">group_n65</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                     <span class="n">metric_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;wic_ben&#39;, &#39;ssi_ben&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;other_ben&#39;,
+       &#39;snap_ben&#39;, &#39;housing_ben&#39;, &#39;XTOT&#39;, &#39;tanf_ben&#39;, &#39;mcare_ben&#39;, &#39;vet_ben&#39;,
+       &#39;e02300&#39;, &#39;e02400&#39;, &#39;s006&#39;, &#39;expanded_income&#39;, &#39;mcaid_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
+       &#39;XTOT_m&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="calculate-senior-ubi">
+<h3>Calculate senior UBI.<a class="headerlink" href="#calculate-senior-ubi" title="Permalink to this headline">¶</a></h3>
+<p>Start with total revenue ($ billions).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_rev_m</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">new_rev_m</span> <span class="o">/</span> <span class="mf">1e3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>285.3912110110819
+</pre></div>
+</div>
+</div>
+</div>
+<p>How many seniors are there?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;n65&#39;</span><span class="p">)</span>
+
+<span class="n">n65_total_m</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">n65_total_m</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>49.42475806000002
+</pre></div>
+</div>
+</div>
+</div>
+<p>Divide.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">senior_ubi</span> <span class="o">=</span> <span class="n">new_rev_m</span> <span class="o">/</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">senior_ubi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>5774.256105910047
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="add-senior-ubi-to-aftertax-income-and-recalculate">
+<h3>Add senior UBI to <code class="docutils literal notranslate"><span class="pre">aftertax_income</span></code> and recalculate<a class="headerlink" href="#add-senior-ubi-to-aftertax-income-and-recalculate" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="p">[</span><span class="s1">&#39;ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">senior_ubi</span> <span class="o">*</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65</span>
+<span class="n">reform</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span> <span class="o">+</span> <span class="n">reform</span><span class="o">.</span><span class="n">ubi</span>
+<span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analyze">
+<h2>Analyze<a class="headerlink" href="#analyze" title="Permalink to this headline">¶</a></h2>
+<p>Gini, FPL, distributional impact chart</p>
+<div class="section" id="change-to-gini-index">
+<h3>Change to Gini index<a class="headerlink" href="#change-to-gini-index" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">s006</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.45337829830561854
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">s006</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.43932368472754535
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="change-to-poverty-rate">
+<h3>Change to poverty rate<a class="headerlink" href="#change-to-poverty-rate" title="Permalink to this headline">¶</a></h3>
+<p>Add federal poverty line with <code class="docutils literal notranslate"><span class="pre">mdf.fpl</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span><span class="p">[</span><span class="s1">&#39;fpl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">fpl</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">XTOT</span><span class="p">)</span>
+<span class="n">reform</span><span class="p">[</span><span class="s1">&#39;fpl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">fpl</span><span class="p">(</span><span class="n">reform</span><span class="o">.</span><span class="n">XTOT</span><span class="p">)</span>
+
+<span class="n">base</span><span class="p">[</span><span class="s1">&#39;fpl_XTOT_m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span> <span class="o">&lt;</span> <span class="n">base</span><span class="o">.</span><span class="n">fpl</span><span class="p">,</span>
+                              <span class="n">base</span><span class="o">.</span><span class="n">XTOT_m</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">reform</span><span class="p">[</span><span class="s1">&#39;fpl_XTOT_m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span> <span class="o">&lt;</span> <span class="n">reform</span><span class="o">.</span><span class="n">fpl</span><span class="p">,</span>
+                                <span class="n">reform</span><span class="o">.</span><span class="n">XTOT_m</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="o">.</span><span class="n">fpl_XTOT_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">base</span><span class="o">.</span><span class="n">fpl_XTOT_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>-0.006896976279523792
+</pre></div>
+</div>
+</div>
+</div>
+<p>Add chart.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">quantile_chg_plot</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span>
+                           <span class="n">base</span><span class="o">.</span><span class="n">XTOT_m</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">XTOT_m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/demo_28_0.png" src="_images/demo_28_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="charts.html" title="previous page"><code class="docutils literal notranslate"><span class="pre">microdf</span></code> charts</a>
+    <a class='right-next' id="next-link" href="gini.html" title="next page"><code class="docutils literal notranslate"><span class="pre">gini</span></code> example</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Max Ghenis<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+  </body>
+</html>
