@@ -1,0 +1,16 @@
+# Book settings
+title: microdf documentation
+author: Max Ghenis
+
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
+
+repository:
+  url: https://github.com/MaxGhenis/microdf
+  branch: master
+  path_to_book: docs
+
+html:
+  use_edit_page_button  : true
+  use_repository_button : true
+  use_issues_button     : true

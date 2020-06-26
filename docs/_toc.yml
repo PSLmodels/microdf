@@ -1,0 +1,8 @@
+- file: home
+- file: examples
+  sections:
+    - file: agg
+    - file: charts
+    - file: demo
+    - file: gini
+    - file: income_measures
