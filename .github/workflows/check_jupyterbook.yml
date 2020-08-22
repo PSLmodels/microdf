@@ -15,7 +15,7 @@ jobs:
         with:
           activate-environment: microdf
           environment-file: environment.yml
-          python-version: 3.8
+          python-version: 3.7
           auto-activate-base: false
 
       - name: Build  # Build Jupyter Book
