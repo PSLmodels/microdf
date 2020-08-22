@@ -1,7 +1,7 @@
 name: Test that Jupyter-Book builds
 on: [push, pull_request]
 jobs:
-  build-and-deploy:
+  build:
     if: github.repository == 'MaxGhenis/microdf'
     runs-on: ubuntu-latest
     steps:
