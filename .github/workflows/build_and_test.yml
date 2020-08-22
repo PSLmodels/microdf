@@ -30,5 +30,6 @@ jobs:
 
       - name: Run tests
         run: |
+          pip install wheel
           pip install pytest
           pytest
