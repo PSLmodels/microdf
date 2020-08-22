@@ -1,6 +1,7 @@
 # Book settings
 title: microdf documentation
 author: Max Ghenis
+logo: microdf_logo.png
 
 launch_buttons:
   colab_url: "https://colab.research.google.com"
