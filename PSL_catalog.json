@@ -1,0 +1,51 @@
+{
+    "project_one_line": {
+	"start_header": null,
+	"end_header": null,
+	"source": null,
+	"type": "html",
+	"data": "<p>microdf is a Python package for analyzing economic microdata as pandas DataFrames, with special functions for Tax-Calculator.</p>"
+    },
+    "project_overview": {
+	"start_header": null,
+	"end_header": null,
+	"source": null,
+	"type": "html",
+	"data": "<a href=\"https://github.com/MaxGhenis/microdf\">What is microdf?</a>"
+    },
+    "core_maintainers": {
+	"start_header": null,
+	"end_header": null,
+	"source": null,
+	"type": "html",
+	"data": "<ul><li>Max Ghenis</li><ul><li>email: max@ubicenter.org</li></ul>"
+    },
+    "user_documentation": {
+	"start_header": null,
+	"end_header": null,
+	"source": null,
+	"type": "html",
+	"data": "<a href=\"http://maxghenis.com/microdf/\"></a>"
+    },
+    "contributor_overview": {
+	"start_header": null,
+	"end_header": null,
+	"source": null,
+	"type": "html",
+	"data": "<a href=\"http://github.com/MaxGhenis/microdf/\"></a>"
+    },
+    "user_changelog_recent": {
+	"start_header": null,
+	"end_header": null,
+	"source": null,
+	"type": "html",
+	"data": "<a href=\"https://github.com/MaxGhenis/microdf/releases\"></a>"
+    },
+    "link_to_webapp": {
+	"start_header": null,
+	"end_header": null,
+	"source": null,
+	"type": null,
+	"data": null
+    }
+}
