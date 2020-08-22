@@ -18,14 +18,14 @@
 	"end_header": null,
 	"source": null,
 	"type": "html",
-	"data": "<ul><li>Max Ghenis</li><ul><li>email: mghenis@gmail.com</li></ul>"
+	"data": "<ul><li>Max Ghenis</li><ul><li>email: max@ubicenter.org</li></ul>"
     },
     "user_documentation": {
 	"start_header": null,
 	"end_header": null,
 	"source": null,
 	"type": "html",
-	"data": "<a href=\"http://github.com/MaxGhenis/microdf/\"></a>"
+	"data": "<a href=\"http://maxghenis.com/microdf/\"></a>"
     },
     "contributor_overview": {
 	"start_header": null,
@@ -39,7 +39,7 @@
 	"end_header": null,
 	"source": null,
 	"type": "html",
-	"data": "<a href=\"https://github.com/MaxGhenis/microdf/pulls?q=is%3Apr+is%3Aclosed\"></a>"
+	"data": "<a href=\"https://github.com/MaxGhenis/microdf/releases\"></a>"
     },
     "link_to_webapp": {
 	"start_header": null,
