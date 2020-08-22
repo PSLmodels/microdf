@@ -14,4 +14,3 @@ dependencies:
 - pip:
   - matplotlib-label-lines
   - jupyter-book
-  - pytest
