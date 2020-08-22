@@ -1,9 +1,6 @@
 import collections
 
-import numpy as np
 import pandas as pd
-
-import microdf as mdf
 
 
 def ordinal_label(n):

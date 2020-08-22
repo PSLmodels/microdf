@@ -1,8 +1,6 @@
-import zipfile
-
-from urllib.request import urlopen
-
 import io
+from urllib.request import urlopen
+import zipfile
 
 import pandas as pd
 

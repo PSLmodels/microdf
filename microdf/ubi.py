@@ -20,8 +20,8 @@ def ubi_or_bens(
         max_ubi: Column name of the maximum UBI, before accounting
             for benefits. Defaults to 'max_ubi'.
         ubi: Column name to add representing the UBI. Defaults to 'ubi'.
-        bens: Column name to add representing total benefits (after adjustment).
-            Defaults to 'bens'.
+        bens: Column name to add representing total benefits (after
+            adjustment). Defaults to 'bens'.
         update_income_measures: List of income measures to update.
             Defaults to ['expanded_income', 'aftertax_income'].
 

@@ -5,6 +5,7 @@ Examples include value added tax, financial transaction tax, and carbon tax.
 
 import numpy as np
 import pandas as pd
+
 import microdf as mdf
 
 # Source:

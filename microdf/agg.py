@@ -1,4 +1,3 @@
-import pandas as pd
 import microdf as mdf
 
 

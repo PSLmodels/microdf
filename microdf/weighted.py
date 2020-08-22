@@ -129,7 +129,6 @@ def add_weighted_quantiles(df, col, w):
     col_pctile = col + "_percentile_exact"
     df[col_pctile] = 100 * df[w].cumsum() / df[w].sum()
     # "Null out" negatives using -1, since integer arrays can't be NaN.
-    # TODO: Should these be null floats?
     df[col_pctile] = np.where(df[col] >= 0, df[col_pctile], 0)
     # Reduce top record, otherwise it's incorrectly rounded up.
     df[col_pctile] = np.where(
