@@ -30,7 +30,8 @@ def set_plot_style(dpi=DPI):
         "figure.figsize": (6.4, 4.8),  # Default.
         "font.sans-serif": "Roboto",
         "font.family": "sans-serif",
-        # Set title text color to dark gray (https://material.io/color) not black.
+        # Set title text color to dark gray (https://material.io/color) not
+        # black.
         "text.color": TITLE_COLOR,
         # Axis titles and tick marks are medium gray.
         "axes.labelcolor": AXIS_COLOR,

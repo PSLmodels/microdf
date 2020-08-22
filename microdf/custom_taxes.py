@@ -8,6 +8,7 @@ import pandas as pd
 
 import microdf as mdf
 
+
 # Source:
 # https://www.taxpolicycenter.org/briefing-book/who-would-bear-burden-vat
 VAT_INCIDENCE = pd.Series(

@@ -22,7 +22,7 @@ ECI_REMOVE_COLS = [
     "mcaid_ben",
 ]
 
-# Benefits. TODO: Add UBI.
+# Benefits.
 BENS = [
     "housing_ben",
     "mcaid_ben",
@@ -34,7 +34,7 @@ BENS = [
     "tanf_ben",
     "wic_ben",
     "e02400",  # Social Security (OASDI).
-    "e02300",
-]  # Unemployment insurance.
+    "e02300",  # Unemployment insurance.
+]
 
 MED_BENS = ["mcaid_ben", "mcare_ben", "vet_ben"]

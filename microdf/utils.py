@@ -15,10 +15,8 @@ def ordinal_label(n):
         Ordinal label, e.g., 1st, 3rd, 24th, etc.
     """
     n = int(n)
-    return "%d%s" % (
-        n,
-        "tsnrhtdd"[(n / 10 % 10 != 1) * (n % 10 < 4) * n % 10 :: 4],
-    )
+    ix = (n / 10 % 10 != 1) * (n % 10 < 4) * n % 10
+    return "%d%s" % (n, "tsnrhtdd"[ix::4])
 
 
 def dedup_list(lst):
