@@ -1,5 +1,5 @@
 name: Test that Jupyter-Book builds
-on: [push, pull-request]
+on: [push, pull_request]
 jobs:
   build-and-deploy:
     if: github.repository == 'MaxGhenis/microdf'
