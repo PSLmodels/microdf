@@ -8,10 +8,10 @@ dependencies:
 - numpy
 - pandas
 - pip
-- pytest
 - seaborn
 - setuptools
 - taxcalc
 - pip:
   - matplotlib-label-lines
   - jupyter-book
+  - pytest
