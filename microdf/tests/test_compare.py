@@ -12,24 +12,24 @@ def differences(actual, expected, f_actual, f_expected):
         f_expected: Filename of the expected CSV.
     """
     if not actual.equals(expected):
-        msg = 'COMPARE RESULTS DIFFER\n'
-        msg += '-------------------------------------------------\n'
-        msg += '--- NEW RESULTS IN {} FILE ---\n'
-        msg += '--- if new OK, copy {} to  ---\n'
-        msg += '---                 {}     ---\n'
-        msg += '---            and rerun test.                ---\n'
-        msg += '-------------------------------------------------\n'
+        msg = "COMPARE RESULTS DIFFER\n"
+        msg += "-------------------------------------------------\n"
+        msg += "--- NEW RESULTS IN {} FILE ---\n"
+        msg += "--- if new OK, copy {} to  ---\n"
+        msg += "---                 {}     ---\n"
+        msg += "---            and rerun test.                ---\n"
+        msg += "-------------------------------------------------\n"
         raise ValueError(msg.format(f_actual, f_actual, f_expected))
 
 
 def test_scf_percentile_agg_compare(tests_path):
-    SCF2016 = 'https://www.federalreserve.gov/econres/files/scfp2016s.zip'
-    COLS = ['wgt', 'networth']
+    SCF2016 = "https://www.federalreserve.gov/econres/files/scfp2016s.zip"
+    COLS = ["wgt", "networth"]
     df = mdf.read_stata_zip(SCF2016, columns=COLS)
-    mdf.add_weighted_quantiles(df, 'networth', 'wgt')
-    percentile_sum = df.groupby('networth_percentile')[COLS].sum()
-    F_ACTUAL = 'scf_percentile_actual.csv'
-    F_EXPECTED = 'scf_percentile_expected.csv'
+    mdf.add_weighted_quantiles(df, "networth", "wgt")
+    percentile_sum = df.groupby("networth_percentile")[COLS].sum()
+    F_ACTUAL = "scf_percentile_actual.csv"
+    F_EXPECTED = "scf_percentile_expected.csv"
     percentile_sum.to_csv(os.path.join(tests_path, F_ACTUAL))
     # Re-read as CSV to remove index and ensure CSVs are equal.
     actual = pd.read_csv(os.path.join(tests_path, F_ACTUAL))

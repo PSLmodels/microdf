@@ -18,8 +18,10 @@ def ordinal_label(n):
         Ordinal label, e.g., 1st, 3rd, 24th, etc.
     """
     n = int(n)
-    return ("%d%s" % 
-            (n, "tsnrhtdd"[(n / 10 % 10 != 1) * (n % 10 < 4) * n % 10::4]))
+    return "%d%s" % (
+        n,
+        "tsnrhtdd"[(n / 10 % 10 != 1) * (n % 10 < 4) * n % 10 :: 4],
+    )
 
 
 def dedup_list(lst):
@@ -63,8 +65,9 @@ def flatten(lst):
         Flattened version.
     """
     for el in lst:
-        if isinstance(el, collections.abc.Iterable) \
-           and not isinstance(el, (str, bytes)):
+        if isinstance(el, collections.abc.Iterable) and not isinstance(
+            el, (str, bytes)
+        ):
             yield from flatten(el)
         else:
             yield el

@@ -5,6 +5,7 @@ import microdf as mdf
 """See https://docs.google.com/spreadsheets/d/1I-Qe8uD58bLnPkimc9eaPgs4AE7x5FZYmTZwVX_WyT8
    for a comparison of income measures used here."""
 
+
 def cash_income(df):
     """Calculates income after taxes and cash transfers.
 
@@ -19,16 +20,18 @@ def cash_income(df):
     Returns:
         A pandas Series with the cash income for each row in df.
     """
-    return (df.aftertax_income -
-            (1 - tc.HOUSING_CASH_SHARE) * df.housing_ben -
-            (1 - tc.MCAID_CASH_SHARE) * df.mcaid_ben -
-            (1 - tc.MCARE_CASH_SHARE) * df.mcare_ben -
-            (1 - tc.OTHER_CASH_SHARE) * df.other_ben -
-            (1 - tc.SNAP_CASH_SHARE) * df.snap_ben -
-            (1 - tc.SSI_CASH_SHARE) * df.ssi_ben -
-            (1 - tc.TANF_CASH_SHARE) * df.tanf_ben -
-            (1 - tc.VET_CASH_SHARE) * df.vet_ben -
-            (1 - tc.WIC_CASH_SHARE) * df.wic_ben)
+    return (
+        df.aftertax_income
+        - (1 - tc.HOUSING_CASH_SHARE) * df.housing_ben
+        - (1 - tc.MCAID_CASH_SHARE) * df.mcaid_ben
+        - (1 - tc.MCARE_CASH_SHARE) * df.mcare_ben
+        - (1 - tc.OTHER_CASH_SHARE) * df.other_ben
+        - (1 - tc.SNAP_CASH_SHARE) * df.snap_ben
+        - (1 - tc.SSI_CASH_SHARE) * df.ssi_ben
+        - (1 - tc.TANF_CASH_SHARE) * df.tanf_ben
+        - (1 - tc.VET_CASH_SHARE) * df.vet_ben
+        - (1 - tc.WIC_CASH_SHARE) * df.wic_ben
+    )
 
 
 def tpc_eci(df):

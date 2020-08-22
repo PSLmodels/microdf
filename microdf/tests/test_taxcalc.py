@@ -3,6 +3,7 @@ import pytest
 
 try:
     import taxcalc as tc
+
     _HAVE_TAXCALC = True
 except ImportError:
     _HAVE_TAXCALC = False

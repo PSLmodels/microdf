@@ -45,8 +45,9 @@ def weighted_mean(df, col, w):
     return weighted_sum(df, col, w) / df[w].sum()
 
 
-def weighted_quantile(values, quantiles, sample_weight=None,
-                      values_sorted=False, old_style=False):
+def weighted_quantile(
+    values, quantiles, sample_weight=None, values_sorted=False, old_style=False
+):
     """Calculates weighted quantiles of a set of values.
 
     From https://stackoverflow.com/a/29677616/1840471.
@@ -71,8 +72,9 @@ def weighted_quantile(values, quantiles, sample_weight=None,
     if sample_weight is None:
         sample_weight = np.ones(len(values))
     sample_weight = np.array(sample_weight)
-    assert np.all(quantiles >= 0) and np.all(quantiles <= 1), \
-        'quantiles should be in [0, 1]'
+    assert np.all(quantiles >= 0) and np.all(
+        quantiles <= 1
+    ), "quantiles should be in [0, 1]"
     if not values_sorted:
         sorter = np.argsort(values)
         values = values[sorter]
@@ -124,20 +126,21 @@ def add_weighted_quantiles(df, col, w):
         Nothing. Columns are added in place.
     """
     df.sort_values(by=col, inplace=True)
-    col_pctile = col + '_percentile_exact'
+    col_pctile = col + "_percentile_exact"
     df[col_pctile] = 100 * df[w].cumsum() / df[w].sum()
     # "Null out" negatives using -1, since integer arrays can't be NaN.
     # TODO: Should these be null floats?
     df[col_pctile] = np.where(df[col] >= 0, df[col_pctile], 0)
     # Reduce top record, otherwise it's incorrectly rounded up.
-    df[col_pctile] = np.where(df[col_pctile] >= 99.99999, 99.99999,
-                              df[col_pctile])
-    df[col + '_percentile'] = np.ceil(df[col_pctile]).astype(int)
-    df[col + '_2percentile'] = 2 * np.ceil(df[col_pctile] / 2).astype(int)
-    df[col + '_ventile'] = 5 * np.ceil(df[col_pctile] / 5).astype(int)
-    df[col + '_decile'] = np.ceil(df[col_pctile] / 10).astype(int)
-    df[col + '_quintile'] = np.ceil(df[col_pctile] / 20).astype(int)
-    df[col + '_quartile'] = np.ceil(df[col_pctile] / 25).astype(int)
+    df[col_pctile] = np.where(
+        df[col_pctile] >= 99.99999, 99.99999, df[col_pctile]
+    )
+    df[col + "_percentile"] = np.ceil(df[col_pctile]).astype(int)
+    df[col + "_2percentile"] = 2 * np.ceil(df[col_pctile] / 2).astype(int)
+    df[col + "_ventile"] = 5 * np.ceil(df[col_pctile] / 5).astype(int)
+    df[col + "_decile"] = np.ceil(df[col_pctile] / 10).astype(int)
+    df[col + "_quintile"] = np.ceil(df[col_pctile] / 20).astype(int)
+    df[col + "_quartile"] = np.ceil(df[col_pctile] / 25).astype(int)
 
 
 def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
@@ -162,7 +165,7 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     q_print = [mdf.ordinal_label((i * 100)) for i in q]
     try:  # List index throws an error if the value is not found.
         median_index = q.tolist().index(0.5)
-        q_print[median_index] += ' (median)'
+        q_print[median_index] += " (median)"
     except ValueError:
         pass  # Don't assign median to any label.
     df.columns = q_print

@@ -1,26 +1,28 @@
 import pandas as pd
 import microdf as mdf
 
-def combine_base_reform(base, reform, base_cols=None,
-                        cols=None, reform_cols=None):
+
+def combine_base_reform(
+    base, reform, base_cols=None, cols=None, reform_cols=None
+):
     """ Combine base and reform with certain columns.
-    
+
     Args:
         base: Base DataFrame. Index must match reform.
         reform: Reform DataFrame. Index must match base.
         base_cols: Columns in base to keep.
         cols: Columns to keep from both base and reform.
         reform_cols: Columns in reform to keep.
-    
+
     Returns:
-        DataFrame with columns for base ("_base") and 
+        DataFrame with columns for base ("_base") and
             reform ("_reform").
     """
     all_base_cols = mdf.listify([base_cols] + [cols])
     all_reform_cols = mdf.listify([reform_cols] + [cols])
-    return base[all_base_cols].join(reform[all_reform_cols],
-                                    lsuffix='_base',
-                                    rsuffix='_reform')
+    return base[all_base_cols].join(
+        reform[all_reform_cols], lsuffix="_base", rsuffix="_reform"
+    )
 
 
 def pctchg_base_reform(combined, metric):
@@ -35,10 +37,12 @@ def pctchg_base_reform(combined, metric):
     Returns:
         Series with percentage change.
     """
-    return combined[metric + '_m_reform'] / combined[metric + '_m_base'] - 1
+    return combined[metric + "_m_reform"] / combined[metric + "_m_base"] - 1
 
 
-def agg(base, reform, groupby, metrics, base_metrics=None, reform_metrics=None):
+def agg(
+    base, reform, groupby, metrics, base_metrics=None, reform_metrics=None
+):
     """ Aggregates differences between base and reform.
 
     Args:
@@ -55,12 +59,15 @@ def agg(base, reform, groupby, metrics, base_metrics=None, reform_metrics=None):
         DataFrame with groupby and metrics, and _pctchg metrics.
     """
     metrics = mdf.listify(metrics)
-    metrics_m = [i + '_m' for i in metrics]
-    combined = combine_base_reform(base, reform,
-                                   base_cols=mdf.listify([groupby, base_metrics]),
-                                   cols=mdf.listify(metrics_m),
-                                   reform_cols=mdf.listify(reform_metrics))
+    metrics_m = [i + "_m" for i in metrics]
+    combined = combine_base_reform(
+        base,
+        reform,
+        base_cols=mdf.listify([groupby, base_metrics]),
+        cols=mdf.listify(metrics_m),
+        reform_cols=mdf.listify(reform_metrics),
+    )
     grouped = combined.groupby(groupby).sum()
     for metric in metrics:
-         grouped[metric + '_pctchg'] = pctchg_base_reform(grouped, metric)
+        grouped[metric + "_pctchg"] = pctchg_base_reform(grouped, metric)
     return grouped

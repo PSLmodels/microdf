@@ -1,7 +1,7 @@
 import matplotlib as mpl
 
 
-def dollar_format(suffix=''):
+def dollar_format(suffix=""):
     """ Dollar formatter for matplotlib.
 
     Args:
@@ -11,4 +11,5 @@ def dollar_format(suffix=''):
         FuncFormatter.
     """
     return mpl.ticker.FuncFormatter(
-        lambda x, _: '$' + format(int(x), ',') + suffix)
+        lambda x, _: "$" + format(int(x), ",") + suffix
+    )

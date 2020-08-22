@@ -24,8 +24,10 @@ def _get_version(module: types.ModuleType) -> str:
 
 
 def import_optional_dependency(
-    name: str, extra: str = "", raise_on_missing: bool = True,
-        on_version: str = "raise"
+    name: str,
+    extra: str = "",
+    raise_on_missing: bool = True,
+    on_version: str = "raise",
 ):
     """
     Import an optional dependency.

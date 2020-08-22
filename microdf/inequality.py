@@ -22,20 +22,21 @@ def gini(x, w=None, negatives=None):
         A float, the Gini index.
     """
     # Requires float numpy arrays (not pandas Series or lists) to work.
-    x = np.array(x).astype('float')
-    if negatives == 'zero':
+    x = np.array(x).astype("float")
+    if negatives == "zero":
         x[x < 0] = 0
-    if negatives == 'shift' and np.amin(x) < 0:
+    if negatives == "shift" and np.amin(x) < 0:
         x -= np.amin(x)
     if w is not None:
-        w = np.array(w).astype('float')
+        w = np.array(w).astype("float")
         sorted_indices = np.argsort(x)
         sorted_x = x[sorted_indices]
         sorted_w = w[sorted_indices]
         cumw = np.cumsum(sorted_w)
         cumxw = np.cumsum(sorted_x * sorted_w)
-        return (np.sum(cumxw[1:] * cumw[:-1] - cumxw[:-1] * cumw[1:]) /
-                (cumxw[-1] * cumw[-1]))
+        return np.sum(cumxw[1:] * cumw[:-1] - cumxw[:-1] * cumw[1:]) / (
+            cumxw[-1] * cumw[-1]
+        )
     else:
         sorted_x = np.sort(x)
         n = len(x)

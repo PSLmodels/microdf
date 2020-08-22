@@ -2,8 +2,15 @@ import numpy as np
 import pandas as pd
 import microdf as mdf
 
-def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens',
-                update_income_measures=['expanded_income', 'aftertax_income']):
+
+def ubi_or_bens(
+    df,
+    ben_cols,
+    max_ubi="max_ubi",
+    ubi="ubi",
+    bens="bens",
+    update_income_measures=["expanded_income", "aftertax_income"],
+):
     """Calculates whether a tax unit will take UBI or benefits,
        and adjusts values accordingly.
 
