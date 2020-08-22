@@ -1,23 +1,28 @@
-"""Fucntions and data for estimating taxes outside the income tax system.
-   Examples include value added tax, financial transaction tax, and carbon tax."""
+"""
+Functions and data for estimating taxes outside the income tax system.
+Examples include value added tax, financial transaction tax, and carbon tax.
+"""
 
 import numpy as np
 import pandas as pd
 import microdf as mdf
 
-# Source: https://www.taxpolicycenter.org/briefing-book/who-would-bear-burden-vat
+# Source:
+# https://www.taxpolicycenter.org/briefing-book/who-would-bear-burden-vat
 VAT_INCIDENCE = pd.Series(
         index=[-1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 99.9],
         data=[3.9, 3.9, 3.6, 3.6, 3.6, 3.6, 3.6, 3.4, 3.4, 3.2, 2.8, 2.5, 2.5])
 VAT_INCIDENCE /= 100
 
-# Source: Table 5 in https://www.treasury.gov/resource-center/tax-policy/tax-analysis/Documents/WP-115.pdf
+# Source: Table 5 in 
+# https://www.treasury.gov/resource-center/tax-policy/tax-analysis/Documents/WP-115.pdf
 CARBON_TAX_INCIDENCE = pd.Series(
         index=[-1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 99.9],
         data=[0.8, 1.2, 1.4, 1.5, 1.6, 1.7, 1.8, 1.8, 1.8, 1.8, 1.6, 1.4, 0.7])
 CARBON_TAX_INCIDENCE /= 100
 
-# Source: Figure 1 in https://www.taxpolicycenter.org/sites/default/files/alfresco/publication-pdfs/2000587-financial-transaction-taxes.pdf
+# Source: Figure 1 in
+# https://www.taxpolicycenter.org/sites/default/files/alfresco/publication-pdfs/2000587-financial-transaction-taxes.pdf
 FTT_INCIDENCE = pd.Series(
         index=[-1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 99.9],
         data=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.3, 0.4, 0.8, 1.0])
@@ -30,15 +35,16 @@ def add_custom_tax(df, segment_income, w, base_income, incidence,
 
     Args:
         df: DataFrame.
-        segment_income: Income measure used to segment tax units into quantiles.
+        segment_income: Income measure used to segment tax units into
+            quantiles.
         w: Weight used to segment into quantiles (either s006 or XTOT_m).
-        base_income: Income measure by which incidence is multiplied to estimate
-            liability.
+        base_income: Income measure by which incidence is multiplied to
+            estimate liability.
         incidence: pandas Series indexed on the floor of an income percentile,
             with values for the tax rate.
         name: Name of the column to add.
-        total: Total amount the tax should generate. If not provided, liabilities
-            are calculated only based on the incidence schedule.
+        total: Total amount the tax should generate. If not provided,
+            liabilities are calculated only based on the incidence schedule.
         ratio: Ratio to adjust the tax by, compared to the original tax.
             This acts as a multiplier for the incidence argument.
         verbose: Whether to print the tax adjustment factor if needed.
@@ -66,7 +72,7 @@ def add_custom_tax(df, segment_income, w, base_income, incidence,
             print("Multiplying tax by " +
                   str(round(total / initial_total, 2)) + ".")
         df[name] *= total / initial_total
-    
+
 
 def add_vat(df,
             segment_income='tpc_eci',
@@ -76,7 +82,7 @@ def add_vat(df,
             name='vat',
             **kwargs):
     """Add value added tax based on incidence estimate from Tax Policy Center.
-    
+
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
         Other arguments: Args to add_custom_tax with VAT defaults.
@@ -85,7 +91,8 @@ def add_vat(df,
         Nothing. Adds vat to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
+    add_custom_tax(df, segment_income, w, base_income, incidence, name,
+                   **kwargs)
 
 
 def add_carbon_tax(df,
@@ -96,7 +103,7 @@ def add_carbon_tax(df,
                    name='carbon_tax',
                    **kwargs):
     """Add carbon tax based on incidence estimate from the US Treasury Department.
-    
+
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
         Other arguments: Args to add_custom_tax with carbon tax defaults.
@@ -105,9 +112,10 @@ def add_carbon_tax(df,
         Nothing. Adds carbon_tax to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
+    add_custom_tax(df, segment_income, w, base_income, incidence, name,
+                   **kwargs)
 
-    
+
 def add_ftt(df,
             segment_income='tpc_eci',
             w='XTOT_m',
@@ -115,8 +123,10 @@ def add_ftt(df,
             incidence=FTT_INCIDENCE,
             name='ftt',
             **kwargs):
-    """Add financial transaction tax based on incidence estimate from Tax Policy Center.
-    
+    """
+    Add financial transaction tax based on incidence estimate from Tax Policy
+    Center.
+
     Args:
         df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
         Other arguments: Args to add_custom_tax with FTT defaults.
@@ -125,4 +135,5 @@ def add_ftt(df,
         Nothing. Adds ftt to df.
         df is also sorted by tpc_eci.
     """
-    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
+    add_custom_tax(df, segment_income, w, base_income, incidence, name,
+                   **kwargs)

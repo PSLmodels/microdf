@@ -1,7 +1,10 @@
-import io
-import pandas as pd
-from urllib.request import urlopen
 import zipfile
+
+from urllib.request import urlopen
+
+import io
+
+import pandas as pd
 
 
 def read_stata_zip(url, **kwargs):
@@ -9,8 +12,9 @@ def read_stata_zip(url, **kwargs):
 
        From https://stackoverflow.com/a/59122689/1840471
 
-       Pending native support in https://github.com/pandas-dev/pandas/issues/26599. 
-    
+       Pending native support in
+       https://github.com/pandas-dev/pandas/issues/26599.
+
     Args:
         url: URL string of .zip file containing a single
             .dta file.
