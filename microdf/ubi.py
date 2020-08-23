@@ -1,5 +1,5 @@
 import numpy as np
-import pandas as pd
+
 import microdf as mdf
 
 
@@ -9,7 +9,7 @@ def ubi_or_bens(
     max_ubi="max_ubi",
     ubi="ubi",
     bens="bens",
-    update_income_measures=["expanded_income", "aftertax_income"],
+    update_income_measures=None,
 ):
     """Calculates whether a tax unit will take UBI or benefits,
        and adjusts values accordingly.
@@ -30,6 +30,8 @@ def ubi_or_bens(
         are added, and expanded_income and aftertax_income are updated
         according to the net difference.
     """
+    if update_income_measures is None:
+        update_income_measures = ["expanded_income", "aftertax_income"]
     # Prep list args.
     update_income_measures = mdf.listify(update_income_measures)
     total_bens = df[ben_cols].sum(axis=1)
