@@ -3,10 +3,10 @@ Functions and data for estimating taxes outside the income tax system.
 Examples include value added tax, financial transaction tax, and carbon tax.
 """
 
+import microdf as mdf
+
 import numpy as np
 import pandas as pd
-
-import microdf as mdf
 
 
 # Source:

@@ -1,7 +1,6 @@
-import numpy as np
 import pandas as pd
+
 import microdf as mdf
-import pytest
 
 
 X = [1, 5, 2]

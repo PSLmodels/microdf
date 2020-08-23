@@ -1,6 +1,7 @@
-import pytest
 import numpy as np
 import pandas as pd
+import pytest
+
 import microdf as mdf
 
 
@@ -48,5 +49,5 @@ def test_tax():
         res_e2_avoidance_flat, pd.Series(EXPECTED_E2_AVOIDANCE_FLAT)
     )
     # Ensure error when passing both rate and elasticity.
-    with pytest.raises(Exception) as e_info:
+    with pytest.raises(Exception):
         mdf.tax_from_mtrs(INCOME, BRACKETS, RATES, 0.1, 2)

@@ -47,7 +47,7 @@ def tpc_eci(df):
     Medicaid from expanded_income. ECI adds income measures not modeled in
     Tax-Calculator, so these are ignored and will create a discrepancy
     compared to TPC's ECI.
-   
+
     Args:
         df: DataFrame with columns from Tax-Calculator.
 

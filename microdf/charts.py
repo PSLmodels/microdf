@@ -1,9 +1,10 @@
-import microdf as mdf
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import labellines as ll
+
+import microdf as mdf
 
 
 def quantile_chg_plot(
@@ -11,7 +12,7 @@ def quantile_chg_plot(
     v2,
     w1=None,
     w2=None,
-    q=np.arange(0.1, 1, 0.1),
+    q=None,
     label1="Base",
     label2="Reform",
 ):
@@ -30,6 +31,8 @@ def quantile_chg_plot(
     Returns:
         Axis.
     """
+    if q is None:
+        q = np.arange(0.1, 1, 0.1)
     # Calculate weighted quantiles.
     df = mdf.quantile_chg(v1, v2, w1, w2, q)
     # Make shades of green, removing the lightest 10 shades.
@@ -54,7 +57,7 @@ def quantile_chg_plot(
     return ax
 
 
-def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
+def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=None):
     """ Create stem plot with percent change in decile boundaries.
 
     Args:
@@ -67,6 +70,8 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
     Returns:
         Axis.
     """
+    if q is None:
+        q = np.arange(0.1, 1, 0.1)
     # Calculate weighted quantiles.
     df = mdf.quantile_chg(v1, v2, w1, w2, q).transpose()
     # Prepare dataset for plotting.

@@ -1,6 +1,8 @@
-import pandas as pd
-import microdf as mdf
 import os
+
+import pandas as pd
+
+import microdf as mdf
 
 
 def differences(actual, expected, f_actual, f_expected):

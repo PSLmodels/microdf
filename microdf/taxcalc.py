@@ -148,12 +148,10 @@ def recalculate(df):
     Returns:
         Nothing. Updates the DataFrame in place.
     """
-    # Recalculate aggregate income measures.
-    AGG_INCOME_MEASURES = ["expanded_income", "aftertax_income", "tpc_eci"]
+    # Recalculate TPC's Expanded Cash Income measure.
     cols = df.columns
     if "tpc_eci" in cols:
         df.tpc_eci = mdf.tpc_eci(df)
     # Recalculate weighted metrics (anything ending in _m).
     mcols = cols[cols.str.endswith("_m")]
     mdf.add_weighted_metrics(df, mcols)
-    # Might need to edit calc_df to add market_income and/or UBI.

@@ -1,5 +1,7 @@
-import microdf as mdf
 import pytest
+
+import microdf as mdf
+
 
 try:
     import taxcalc as tc
@@ -12,11 +14,11 @@ except ImportError:
 def test_calc_df():
     if not _HAVE_TAXCALC:
         pytest.skip("taxcalc is not installed")
-    df = mdf.calc_df()
+    mdf.calc_df()
 
 
 def test_static_baseline_calc():
     if not _HAVE_TAXCALC:
         pytest.skip("taxcalc is not installed")
     recs = tc.Records.cps_constructor()
-    calc = mdf.static_baseline_calc(recs, 2020)
+    mdf.static_baseline_calc(recs, 2020)

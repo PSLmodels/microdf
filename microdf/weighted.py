@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+
 import microdf as mdf
 
 
@@ -123,7 +124,7 @@ def add_weighted_quantiles(df, col, w):
         w: Weight column.
 
     Returns:
-        Nothing. Columns are added in place.
+        Nothing. Columns are added in place. Also sorts df by col.
     """
     df.sort_values(by=col, inplace=True)
     col_pctile = col + "_percentile_exact"
@@ -142,7 +143,7 @@ def add_weighted_quantiles(df, col, w):
     df[col + "_quartile"] = np.ceil(df[col_pctile] / 25).astype(int)
 
 
-def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
+def quantile_chg(v1, v2, w1=None, w2=None, q=None):
     """ Create table with two sets of quantiles.
 
     Args:
@@ -157,6 +158,8 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=np.arange(0.1, 1, 0.1)):
         Column labels are "xth percentile" and a label is added
         to the median.
     """
+    if q is None:
+        q = np.arange(0.1, 1, 0.1)
     q1 = weighted_quantile(v1, q, w1)
     q2 = weighted_quantile(v2, q, w2)
     df = pd.DataFrame([q1, q2])

@@ -3,16 +3,18 @@ import pandas as pd
 
 
 def mtr(val, brackets, rates):
-    # Calculates the marginal tax rate applied to a value depending on a
-    # tax schedule.
-    #
-    # Args:
-    #     val: Value to assess tax on, e.g. wealth or income (list or Series).
-    #     brackets: Left side of each bracket (list or Series).
-    #     rates: Rate corresponding to each bracket.
-    #
-    # Returns:
-    #     Series of the size of val representing the marginal tax rate.
+    """
+    Calculates the marginal tax rate applied to a value depending on a
+    tax schedule.
+
+    Args:
+        val: Value to assess tax on, e.g. wealth or income (list or Series).
+        brackets: Left side of each bracket (list or Series).
+        rates: Rate corresponding to each bracket.
+
+    Returns:
+         Series of the size of val representing the marginal tax rate.
+    """
     df_tax = pd.DataFrame({"brackets": brackets, "rates": rates})
     df_tax["base_tax"] = (
         df_tax.brackets.sub(df_tax.brackets.shift(fill_value=0))
@@ -32,25 +34,27 @@ def tax_from_mtrs(
     avoidance_elasticity=0,
     avoidance_elasticity_flat=0,
 ):
-    # Calculates tax liability based on a marginal tax rate schedule.
-    #
-    # Args:
-    #     val: Value to assess tax on, e.g. wealth or income (list or Series).
-    #     brackets: Left side of each bracket (list or Series).
-    #     rates: Rate corresponding to each bracket.
-    #     avoidance_rate: Constant avoidance/evasion rate in percentage terms.
-    #                     Defaults to zero.
-    #     avoidance_elasticity: Avoidance/evasion elasticity.
-    #                           Response of log taxable value with respect
-    #                           to tax rate.
-    #                           Defaults to zero. Should be positive.
-    #     avoidance_elasticity_flat: Response of taxable value with respect
-    #                                to tax rate.
-    #                                Use avoidance_elasticity in most cases.
-    #                                Defaults to zero. Should be positive.
-    #
-    # Returns:
-    #     Series of tax liabilities with the same size as val.
+    """
+    Calculates tax liability based on a marginal tax rate schedule.
+
+    Args:
+        val: Value to assess tax on, e.g. wealth or income (list or Series).
+        brackets: Left side of each bracket (list or Series).
+        rates: Rate corresponding to each bracket.
+        avoidance_rate: Constant avoidance/evasion rate in percentage terms.
+                        Defaults to zero.
+        avoidance_elasticity: Avoidance/evasion elasticity.
+                              Response of log taxable value with respect
+                              to tax rate.
+                              Defaults to zero. Should be positive.
+        avoidance_elasticity_flat: Response of taxable value with respect
+                                   to tax rate.
+                                   Use avoidance_elasticity in most cases.
+                                   Defaults to zero. Should be positive.
+
+    Returns:
+        Series of tax liabilities with the same size as val.
+    """
     assert (
         avoidance_rate == 0
         or avoidance_elasticity == 0

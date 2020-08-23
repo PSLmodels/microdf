@@ -1,6 +1,6 @@
-import pytest
-import microdf as mdf
 import pandas as pd
+
+import microdf as mdf
 
 
 def test_cartesian_product():
