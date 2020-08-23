@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 setup(name='microdf',
       version='0.1',
@@ -18,4 +18,5 @@ setup(name='microdf',
       extras_require={
           'taxcalc':  ['taxcalc'],
       },
+#      packages=find_namespace_packages(include=['*']),
       zip_safe=False)
