@@ -5,7 +5,7 @@ import pytest
 
 from microdf._optional import VERSIONS, import_optional_dependency
 
-import pandas.util.testing as tm
+import pandas.testing as tm
 
 
 def test_import_optional():
@@ -33,7 +33,7 @@ def test_bad_version():
     with pytest.raises(ImportError, match=match):
         import_optional_dependency("fakemodule")
 
-    with tm.assert_produces_warning(UserWarning):
+    with pytest.warns(UserWarning):
         result = import_optional_dependency("fakemodule", on_version="warn")
     assert result is None
 
