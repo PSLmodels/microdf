@@ -15,6 +15,7 @@ from .utils import *
 from .weighted import *
 
 name = "microdf"
+__version__ = "0.1.0"
 
 __all__ = [
     # agg.py
