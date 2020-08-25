@@ -25,8 +25,8 @@ from .inequality import (
     gini,
     t10_b50,
     top_0_1_pct_share,
-    top_1_pct_share,
     top_10_pct_share,
+    top_1_pct_share,
     top_x_pct_share
 )
 from .io import read_stata_zip

@@ -1,8 +1,8 @@
+import labellines as ll
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import labellines as ll
 
 import microdf as mdf
 
