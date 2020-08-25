@@ -7,7 +7,7 @@ from .chart_utils import dollar_format
 from .charts import (
     quantile_chg_plot,
     quantile_pct_chg_plot
-_
+)
 from .custom_taxes import (
     add_custom_tax,
     add_vat,
