@@ -1,8 +1,29 @@
 from .agg import agg, combine_base_reform, pctchg_base_reform
 from .chart_utils import dollar_format
 from .charts import quantile_chg_plot, quantile_pct_chg_plot
-from .constants import BENS
-from .custom_taxes import add_carbon_tax, add_custom_tax, add_ftt, add_vat
+from .constants import (
+    BENS,
+    ECI_REMOVE_COLS,
+    HOUSING_CASH_SHARE,
+    MCAID_CASH_SHARE,
+    MCARE_CASH_SHARE,
+    MED_BENS,
+    OTHER_CASH_SHARE,
+    SNAP_CASH_SHARE,
+    SSI_CASH_SHARE,
+    TANF_CASH_SHARE,
+    VET_CASH_SHARE,
+    WIC_CASH_SHARE,
+)
+from .custom_taxes import (
+    CARBON_TAX_INCIDENCE,
+    FTT_INCIDENCE,
+    VAT_INCIDENCE,
+    add_carbon_tax,
+    add_custom_tax,
+    add_ftt,
+    add_vat,
+)
 from .income_measures import cash_income, market_income, tpc_eci
 from .inequality import (
     bottom_50_pct_share,
@@ -17,7 +38,7 @@ from .inequality import (
 )
 from .io import read_stata_zip
 from .poverty import fpl
-from .style import GRID_COLOR, set_plot_style
+from .style import AXIS_COLOR, DPI, GRID_COLOR, TITLE_COLOR, set_plot_style
 from .tax import mtr, tax_from_mtrs
 from .taxcalc import (
     add_weighted_metrics,
@@ -59,7 +80,21 @@ __all__ = [
     "quantile_pct_chg_plot",
     # constants.py
     "BENS",
+    "ECI_REMOVE_COLS",
+    "HOUSING_CASH_SHARE",
+    "MCAID_CASH_SHARE",
+    "MCARE_CASH_SHARE",
+    "MED_BENS",
+    "OTHER_CASH_SHARE",
+    "SNAP_CASH_SHARE",
+    "SSI_CASH_SHARE",
+    "TANF_CASH_SHARE",
+    "VET_CASH_SHARE",
+    "WIC_CASH_SHARE",
     # custom_taxes.py
+    "CARBON_TAX_INCIDENCE",
+    "FTT_INCIDENCE",
+    "VAT_INCIDENCE",
     "add_custom_tax",
     "add_vat",
     "add_carbon_tax",
@@ -83,6 +118,10 @@ __all__ = [
     # poverty.py
     "fpl",
     # style.py
+    "AXIS_COLOR",
+    "DPI",
+    "GRID_COLOR",
+    "TITLE_COLOR",
     "set_plot_style",
     # tax.py
     "mtr",
