@@ -8,6 +8,7 @@ dependencies:
 - numpy
 - pandas
 - pip
+- pytest
 - seaborn
 - setuptools
 - taxcalc
