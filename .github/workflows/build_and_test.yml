@@ -25,6 +25,8 @@ jobs:
 
       - name: Build
         shell: bash -l {0}
-        run: |
-          pip install -e .
-          pytest
+        run: pip install -e .
+
+      - name: Test
+        shell: bash -l {0}
+        run: pytest
