@@ -1,27 +1,9 @@
-from .agg import (
-    agg,
-    combine_base_reform,
-    pctchg_base_reform
-)
+from .agg import agg, combine_base_reform, pctchg_base_reform
 from .chart_utils import dollar_format
-from .charts import (
-    quantile_chg_plot,
-    quantile_pct_chg_plot
-)
-from .constants import (
-    BENS
-)
-from .custom_taxes import (
-    add_carbon_tax,
-    add_custom_tax,
-    add_ftt,
-    add_vat
-)
-from .income_measures import (
-    cash_income,
-    market_income,
-    tpc_eci
-)
+from .charts import quantile_chg_plot, quantile_pct_chg_plot
+from .constants import BENS
+from .custom_taxes import add_carbon_tax, add_custom_tax, add_ftt, add_vat
+from .income_measures import cash_income, market_income, tpc_eci
 from .inequality import (
     bottom_50_pct_share,
     bottom_x_pct_share,
@@ -30,21 +12,19 @@ from .inequality import (
     top_0_1_pct_share,
     top_10_pct_share,
     top_1_pct_share,
-    top_x_pct_share
+    top_50_pct_share,
+    top_x_pct_share,
 )
 from .io import read_stata_zip
 from .poverty import fpl
-from .style import set_plot_style
-from .tax import (
-    mtr,
-    tax_from_mtrs
-)
+from .style import GRID_COLOR, set_plot_style
+from .tax import mtr, tax_from_mtrs
 from .taxcalc import (
     add_weighted_metrics,
     calc_df,
     n65,
     recalculate,
-    static_baseline_calc
+    static_baseline_calc,
 )
 from .ubi import ubi_or_bens
 from .utils import (
@@ -52,7 +32,7 @@ from .utils import (
     dedup_list,
     flatten,
     listify,
-    ordinal_label
+    ordinal_label,
 )
 from .weighted import (
     add_weighted_quantiles,
@@ -61,7 +41,7 @@ from .weighted import (
     weighted_mean,
     weighted_median,
     weighted_quantile,
-    weighted_sum
+    weighted_sum,
 )
 
 name = "microdf"
@@ -96,6 +76,7 @@ __all__ = [
     "top_10_pct_share",
     "top_1_pct_share",
     "top_0_1_pct_share",
+    "top_50_pct_share",
     "t10_b50",
     # io.py
     "read_stata_zip",
