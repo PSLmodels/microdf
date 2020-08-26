@@ -8,6 +8,9 @@ from .charts import (
     quantile_chg_plot,
     quantile_pct_chg_plot
 )
+from .constants import (
+    BENS
+)
 from .custom_taxes import (
     add_carbon_tax,
     add_custom_tax,
@@ -74,6 +77,8 @@ __all__ = [
     # charts.py
     "quantile_chg_plot",
     "quantile_pct_chg_plot",
+    # constants.py
+    "BENS",
     # custom_taxes.py
     "add_custom_tax",
     "add_vat",
