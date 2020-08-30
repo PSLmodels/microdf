@@ -46,8 +46,13 @@ def pctchg_base_reform(combined: pd.DataFrame, metric: str) -> pd.Series:
 
 
 def agg(
-    base, reform, groupby, metrics, base_metrics=None, reform_metrics=None
-):
+    base: pd.DataFrame,
+    reform: pd.DataFrame,
+    groupby: str,
+    metrics: list,
+    base_metrics=None,
+    reform_metrics=None,
+) -> pd.DataFrame:
     """ Aggregates differences between base and reform.
 
     Args:
