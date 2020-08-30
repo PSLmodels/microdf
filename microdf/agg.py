@@ -30,7 +30,7 @@ def combine_base_reform(
     )
 
 
-def pctchg_base_reform(combined, metric):
+def pctchg_base_reform(combined: pd.DataFrame, metric: str) -> pd.Series:
     """ Calculates the percentage change in a metric for a combined
         dataset.
 
