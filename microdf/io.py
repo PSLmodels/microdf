@@ -22,7 +22,7 @@ def read_stata_zip(url: str, **kwargs) -> pd.DataFrame:
         DataFrame.
     """
     with urlopen(url) as request:
-        data = io.BytesIO( request.read())
+        data = io.BytesIO(request.read())
     with zipfile.ZipFile(data) as archive:
         with archive.open(archive.namelist()[0]) as stata:
             return pd.read_stata(stata, **kwargs)
