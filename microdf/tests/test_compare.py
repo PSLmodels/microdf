@@ -6,12 +6,13 @@ import microdf as mdf
 
 
 def differences(actual, expected, f_actual, f_expected):
-    """
-    Check for differences between results in afilename and efilename files.
+    """Check for differences between results in afilename and efilename files.
 
-    Args:
-        f_actual: Filename of the actual CSV.
-        f_expected: Filename of the expected CSV.
+    :param f_actual: Filename of the actual CSV.
+    :param f_expected: Filename of the expected CSV.
+    :param actual: param expected:
+    :param expected: 
+
     """
     if not actual.equals(expected):
         msg = "COMPARE RESULTS DIFFER\n"
@@ -25,6 +26,11 @@ def differences(actual, expected, f_actual, f_expected):
 
 
 def test_scf_percentile_agg_compare(tests_path):
+    """
+
+    :param tests_path: 
+
+    """
     SCF2016 = "https://www.federalreserve.gov/econres/files/scfp2016s.zip"
     COLS = ["wgt", "networth"]
     df = mdf.read_stata_zip(SCF2016, columns=COLS)

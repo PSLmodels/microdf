@@ -5,12 +5,10 @@ from microdf._optional import import_optional_dependency
 def static_baseline_calc(recs, year):
     """Creates a static Calculator object.
 
-    Args:
-        recs: Records object.
-        year: Year to advance to.
+    :param recs: Records object.
+    :param year: Year to advance to.
+    :returns: Calculator object.
 
-    Returns:
-        Calculator object.
     """
     tc = import_optional_dependency("taxcalc")
     calc = tc.Calculator(records=recs, policy=tc.Policy())
@@ -21,19 +19,17 @@ def static_baseline_calc(recs, year):
 
 def add_weighted_metrics(df, metric_vars, w="s006", divisor=1e6, suffix="_m"):
     """Adds weighted metrics in millions to a Tax-Calculator pandas DataFrame.
-
+    
     Columns are renamed to *_m.
 
-    Args:
-        df: A pandas DataFrame containing Tax-Calculator data.
-        metric_vars: A list of column names to weight, or a single column name.
-        w: Weight column. Defaults to s006.
-        divisor: Number by which the product is divided. Defaults to 1e6.
-        suffix: Suffix to add to each weighted total. Defaults to '_m'
+    :param df: A pandas DataFrame containing Tax-Calculator data.
+    :param metric_vars: A list of column names to weight, or a single column name.
+    :param w: Weight column. Defaults to s006.
+    :param divisor: Number by which the product is divided. Defaults to 1e6.
+    :param suffix: Suffix to add to each weighted total. Defaults to '_m'
             to match divisor default of 1e6.
+    :returns: Nothing. Weighted columns are added in place.
 
-    Returns:
-        Nothing. Weighted columns are added in place.
     """
     df[w + suffix] = df[w] / divisor
     metric_vars = mdf.listify(metric_vars)
@@ -44,14 +40,12 @@ def add_weighted_metrics(df, metric_vars, w="s006", divisor=1e6, suffix="_m"):
 def n65(age_head, age_spouse, elderly_dependents):
     """Calculates number of people in the tax unit age 65 or older.
 
-    Args:
-        age_head: Series representing age_head from taxcalc data.
-        age_spouse: Series representing age_spouse from taxcalc data.
-        elderly_dependents: Series representing elderly_dependents from
+    :param age_head: Series representing age_head from taxcalc data.
+    :param age_spouse: Series representing age_spouse from taxcalc data.
+    :param elderly_dependents: Series representing elderly_dependents from
             taxcalc data.
+    :returns: Series representing the number of people age 65 or older.
 
-    Returns:
-        Series representing the number of people age 65 or older.
     """
     return (
         (age_head >= 65).astype(int)
@@ -70,24 +64,22 @@ def calc_df(
     group_n65=False,
 ):
     """Creates a pandas DataFrame for given Tax-Calculator data.
-
+    
     s006 is always included, and RECID is used as an index.
 
-    Args:
-        records: An optional Records object. If not provided, uses CPS records.
-        policy: An optional Policy object. If not provided, uses default
+    :param records: An optional Records object. If not provided, uses CPS records. (Default value = None)
+    :param policy: An optional Policy object. If not provided, uses default
             Policy.
-        year: An optional year to advance to. If not provided, defaults to
+    :param year: An optional year to advance to. If not provided, defaults to
             2020.
-        reform: An optional reform to implement for the Policy object.
-        group_vars: An optional list of column names to include in the
-            DataFrame.
-        metric_vars: An optional list of column names to include and calculate
-             weighted sums of (in millions named as *_m) in the DataFrame.
-        group_n65: Whether to calculate and group by n65. Defaults to False.
+    :param reform: An optional reform to implement for the Policy object. (Default value = None)
+    :param group_vars: An optional list of column names to include in the
+            DataFrame. (Default value = None)
+    :param metric_vars: An optional list of column names to include and calculate
+             weighted sums of (in millions named as *_m) in the DataFrame. (Default value = None)
+    :param group_n65: Whether to calculate and group by n65. Defaults to False.
+    :returns: A pandas DataFrame. market_income is also always calculated.
 
-    Returns:
-        A pandas DataFrame. market_income is also always calculated.
     """
     tc = import_optional_dependency("taxcalc")
     # Assign defaults.
@@ -140,13 +132,11 @@ def calc_df(
 
 
 def recalculate(df):
-    """ Recalculates fields in the DataFrame for after components have changed.
+    """Recalculates fields in the DataFrame for after components have changed.
 
-    Args:
-        df: DataFrame for use in microdf.
+    :param df: DataFrame for use in microdf.
+    :returns: Nothing. Updates the DataFrame in place.
 
-    Returns:
-        Nothing. Updates the DataFrame in place.
     """
     # Recalculate TPC's Expanded Cash Income measure.
     cols = df.columns

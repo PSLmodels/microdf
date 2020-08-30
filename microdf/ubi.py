@@ -14,21 +14,19 @@ def ubi_or_bens(
     """Calculates whether a tax unit will take UBI or benefits,
        and adjusts values accordingly.
 
-    Args:
-        df: DataFrame.
-        ben_cols: List of columns for benefits.
-        max_ubi: Column name of the maximum UBI, before accounting
+    :param df: DataFrame.
+    :param ben_cols: List of columns for benefits.
+    :param max_ubi: Column name of the maximum UBI, before accounting
             for benefits. Defaults to 'max_ubi'.
-        ubi: Column name to add representing the UBI. Defaults to 'ubi'.
-        bens: Column name to add representing total benefits (after
+    :param ubi: Column name to add representing the UBI. Defaults to 'ubi'.
+    :param bens: Column name to add representing total benefits (after
             adjustment). Defaults to 'bens'.
-        update_income_measures: List of income measures to update.
+    :param update_income_measures: List of income measures to update.
             Defaults to ['expanded_income', 'aftertax_income'].
-
-    Returns:
-        Nothing. Benefits in ben_cols are adjusted, ubi and bens columns
+    :returns: Nothing. Benefits in ben_cols are adjusted, ubi and bens columns
         are added, and expanded_income and aftertax_income are updated
         according to the net difference.
+
     """
     if update_income_measures is None:
         update_income_measures = ["expanded_income", "aftertax_income"]

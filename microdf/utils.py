@@ -4,15 +4,13 @@ import pandas as pd
 
 
 def ordinal_label(n):
-    """ Creates ordinal label from number.
-
+    """Creates ordinal label from number.
+    
     Adapted from https://stackoverflow.com/a/20007730/1840471.
 
-    Args:
-        n: Number.
+    :param n: Number.
+    :returns: Ordinal label, e.g., 1st, 3rd, 24th, etc.
 
-    Returns:
-        Ordinal label, e.g., 1st, 3rd, 24th, etc.
     """
     n = int(n)
     ix = (n / 10 % 10 != 1) * (n % 10 < 4) * n % 10
@@ -20,26 +18,23 @@ def ordinal_label(n):
 
 
 def dedup_list(lst):
-    """ Remove duplicate items from a list.
+    """Remove duplicate items from a list.
 
-    Args:
-        lst: List.
+    :param lst: List.
+    :returns: List with duplicate items removed from lst.
 
-    Returns:
-        List with duplicate items removed from lst.
     """
     return list(set(lst))
 
 
 def listify(x, dedup=True):
-    """ Return x as a list, if it isn't one already.
+    """Return x as a list, if it isn't one already.
 
-    Args:
-        x: A single item or a list.
-
-    Returns:
-        x if x is a list, otherwise [x]. Also flattens the list
+    :param x: A single item or a list
+    :param dedup: Default value = True)
+    :returns: x if x is a list, otherwise [x]. Also flattens the list
             and removes Nones.
+
     """
     if not isinstance(x, list):
         x = [x]
@@ -51,13 +46,11 @@ def listify(x, dedup=True):
 
 
 def flatten(lst):
-    """ Flatten list. From https://stackoverflow.com/a/2158532/1840471.
+    """Flatten list. From https://stackoverflow.com/a/2158532/1840471.
 
-    Args:
-        lst: List.
+    :param lst: List.
+    :returns: Flattened version.
 
-    Returns:
-        Flattened version.
     """
     for el in lst:
         if isinstance(el, collections.abc.Iterable) and not isinstance(
@@ -69,15 +62,13 @@ def flatten(lst):
 
 
 def cartesian_product(d):
-    """ Produces a DataFrame as a Cartesian product of dictionary
+    """Produces a DataFrame as a Cartesian product of dictionary
         keys and values.
 
-    Args:
-        d: Dictionary where each item's key corresponds to a column
+    :param d: Dictionary where each item's key corresponds to a column
            name, and each value is a list of values.
+    :returns: DataFrame with a Cartesian product of each dictionary item.
 
-    Returns:
-        DataFrame with a Cartesian product of each dictionary item.
     """
     index = pd.MultiIndex.from_product(d.values(), names=d.keys())
     return pd.DataFrame(index=index).reset_index()

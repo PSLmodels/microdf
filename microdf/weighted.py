@@ -7,13 +7,11 @@ import microdf as mdf
 def weight(df, col, w):
     """Calculates the weighted value of a column in a DataFrame.
 
-    Args:
-        df: A pandas DataFrame.
-        col: A string indicating the column in the DataFrame to weight.
-        w: Weight column.
+    :param df: A pandas DataFrame.
+    :param col: A string indicating the column in the DataFrame to weight.
+    :param w: Weight column.
+    :returns: A pandas Series multiplying the column by its weight.
 
-    Returns:
-        A pandas Series multiplying the column by its weight.
     """
     return df[col] * df[w]
 
@@ -21,13 +19,11 @@ def weight(df, col, w):
 def weighted_sum(df, col, w):
     """Calculates the weighted sum of a column in a DataFrame.
 
-    Args:
-        df: A pandas DataFrame.
-        col: A string indicating the column in the DataFrame.
-        w: Weight column.
+    :param df: A pandas DataFrame.
+    :param col: A string indicating the column in the DataFrame.
+    :param w: Weight column.
+    :returns: The weighted sum of a DataFrame's column.
 
-    Returns:
-        The weighted sum of a DataFrame's column.
     """
     return (df[col] * df[w]).sum()
 
@@ -35,13 +31,11 @@ def weighted_sum(df, col, w):
 def weighted_mean(df, col, w):
     """Calculates the weighted mean of a column in a DataFrame.
 
-    Args:
-        df: A pandas DataFrame.
-        col: A string indicating the column in the DataFrame.
-        w: Weight column.
+    :param df: A pandas DataFrame.
+    :param col: A string indicating the column in the DataFrame.
+    :param w: Weight column.
+    :returns: The weighted mean of a DataFrame's column.
 
-    Returns:
-        The weighted mean of a DataFrame's column.
     """
     return weighted_sum(df, col, w) / df[w].sum()
 
@@ -50,23 +44,21 @@ def weighted_quantile(
     values, quantiles, sample_weight=None, values_sorted=False, old_style=False
 ):
     """Calculates weighted quantiles of a set of values.
-
+    
     From https://stackoverflow.com/a/29677616/1840471.
-
+    
     Doesn't exactly match unweighted quantiles of stacked values.
     See stackoverflow.com/q/21844024#comment102342137_29677616.
 
-    Args:
-        values: numpy array with data.
-        quantiles: array-like with many quantiles needed ([0, 1]).
-        sample_weight: array-like of the same length as `array`.
-        values_sorted: bool, if True, then will avoid sorting of
-            initial array
-        old_style: if True, will correct output to be consistent
-            with numpy.percentile.
+    :param values: numpy array with data.
+    :param quantiles: array-like with many quantiles needed ([0, 1]).
+    :param sample_weight: array-like of the same length as `array`. (Default value = None)
+    :param values_sorted: bool, if True, then will avoid sorting of
+            initial array (Default value = False)
+    :param old_style: if True, will correct output to be consistent
+            with numpy.percentile. (Default value = False)
+    :returns: numpy.array with computed quantiles.
 
-    Returns:
-        numpy.array with computed quantiles.
     """
     values = np.array(values)
     quantiles = np.array(quantiles)
@@ -93,20 +85,18 @@ def weighted_quantile(
 def weighted_median(df, col, w):
     """Calculates the weighted median of a column in a DataFrame.
 
-    Args:
-        df: A pandas DataFrame containing Tax-Calculator data.
-        col: A string indicating the column in the DataFrame.
-        w: Weight column.
+    :param df: A pandas DataFrame containing Tax-Calculator data.
+    :param col: A string indicating the column in the DataFrame.
+    :param w: Weight column.
+    :returns: The weighted median of a DataFrame's column.
 
-    Returns:
-        The weighted median of a DataFrame's column.
     """
     return weighted_quantile(df[col], 0.5, df[w])
 
 
 def add_weighted_quantiles(df, col, w):
     """Adds weighted quantiles of a column to a DataFrame.
-
+    
     Adds columns for each of these types of quantiles to a DataFrame:
     * *_percentile_exact: Exact percentile.
     * *_percentile: Integer percentile (ceiling).
@@ -115,16 +105,14 @@ def add_weighted_quantiles(df, col, w):
     * *_decile: Integer decile.
     * *_quintile: Integer quintile.
     * *_quartile: Integer quartile.
-
+    
     Negative values are assigned -1.
 
-    Args:
-        df: A pandas DataFrame.
-        col: A string indicating the column in the DataFrame to calculate.
-        w: Weight column.
+    :param df: A pandas DataFrame.
+    :param col: A string indicating the column in the DataFrame to calculate.
+    :param w: Weight column.
+    :returns: Nothing. Columns are added in place. Also sorts df by col.
 
-    Returns:
-        Nothing. Columns are added in place. Also sorts df by col.
     """
     df.sort_values(by=col, inplace=True)
     col_pctile = col + "_percentile_exact"
@@ -144,19 +132,17 @@ def add_weighted_quantiles(df, col, w):
 
 
 def quantile_chg(v1, v2, w1=None, w2=None, q=None):
-    """ Create table with two sets of quantiles.
+    """Create table with two sets of quantiles.
 
-    Args:
-        v1: First set of values.
-        v2: Second set of values.
-        w1: First set of weights. Defaults to equal weight.
-        w2: Second set of weights. Defaults to equal weight.
-        q: Quantiles. Defaults to decile boundaries.
-
-    Returns:
-        DataFrame with two rows and a column for each quantile.
+    :param v1: First set of values.
+    :param v2: Second set of values.
+    :param w1: First set of weights. Defaults to equal weight.
+    :param w2: Second set of weights. Defaults to equal weight.
+    :param q: Quantiles. Defaults to decile boundaries.
+    :returns: DataFrame with two rows and a column for each quantile.
         Column labels are "xth percentile" and a label is added
         to the median.
+
     """
     if q is None:
         q = np.arange(0.1, 1, 0.1)

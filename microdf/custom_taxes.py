@@ -47,26 +47,24 @@ def add_custom_tax(
 ):
     """Add a custom tax based on incidence analysis driven by percentiles.
 
-    Args:
-        df: DataFrame.
-        segment_income: Income measure used to segment tax units into
+    :param df: DataFrame.
+    :param segment_income: Income measure used to segment tax units into
             quantiles.
-        w: Weight used to segment into quantiles (either s006 or XTOT_m).
-        base_income: Income measure by which incidence is multiplied to
+    :param w: Weight used to segment into quantiles (either s006 or XTOT_m).
+    :param base_income: Income measure by which incidence is multiplied to
             estimate liability.
-        incidence: pandas Series indexed on the floor of an income percentile,
+    :param incidence: pandas Series indexed on the floor of an income percentile,
             with values for the tax rate.
-        name: Name of the column to add.
-        total: Total amount the tax should generate. If not provided,
-            liabilities are calculated only based on the incidence schedule.
-        ratio: Ratio to adjust the tax by, compared to the original tax.
-            This acts as a multiplier for the incidence argument.
-        verbose: Whether to print the tax adjustment factor if needed.
+    :param name: Name of the column to add.
+    :param total: Total amount the tax should generate. If not provided,
+            liabilities are calculated only based on the incidence schedule. (Default value = None)
+    :param ratio: Ratio to adjust the tax by, compared to the original tax.
+            This acts as a multiplier for the incidence argument. (Default value = None)
+    :param verbose: Whether to print the tax adjustment factor if needed.
             Defaults to True.
-
-    Returns:
-        Nothing. Adds the column name to df representing the tax liability.
+    :returns: Nothing. Adds the column name to df representing the tax liability.
         df is also sorted by segment_income.
+
     """
     if ratio is not None:
         incidence = incidence * ratio
@@ -105,13 +103,17 @@ def add_vat(
 ):
     """Add value added tax based on incidence estimate from Tax Policy Center.
 
-    Args:
-        df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
-        Other arguments: Args to add_custom_tax with VAT defaults.
-
-    Returns:
-        Nothing. Adds vat to df.
+    :param df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
+    :param Other: arguments: Args to add_custom_tax with VAT defaults.
+    :param segment_income: Default value = "tpc_eci")
+    :param w: Default value = "XTOT_m")
+    :param base_income: Default value = "aftertax_income")
+    :param incidence: Default value = VAT_INCIDENCE)
+    :param name: Default value = "vat")
+    :param **kwargs: 
+    :returns: Nothing. Adds vat to df.
         df is also sorted by tpc_eci.
+
     """
     add_custom_tax(
         df, segment_income, w, base_income, incidence, name, **kwargs
@@ -127,16 +129,19 @@ def add_carbon_tax(
     name="carbon_tax",
     **kwargs
 ):
-    """
-    Add carbon tax based on incidence estimate from the US Treasury Department.
+    """Add carbon tax based on incidence estimate from the US Treasury Department.
 
-    Args:
-        df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
-        Other arguments: Args to add_custom_tax with carbon tax defaults.
-
-    Returns:
-        Nothing. Adds carbon_tax to df.
+    :param df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
+    :param Other: arguments: Args to add_custom_tax with carbon tax defaults.
+    :param segment_income: Default value = "tpc_eci")
+    :param w: Default value = "XTOT_m")
+    :param base_income: Default value = "aftertax_income")
+    :param incidence: Default value = CARBON_TAX_INCIDENCE)
+    :param name: Default value = "carbon_tax")
+    :param **kwargs: 
+    :returns: Nothing. Adds carbon_tax to df.
         df is also sorted by tpc_eci.
+
     """
     add_custom_tax(
         df, segment_income, w, base_income, incidence, name, **kwargs
@@ -152,17 +157,20 @@ def add_ftt(
     name="ftt",
     **kwargs
 ):
-    """
-    Add financial transaction tax based on incidence estimate from Tax Policy
+    """Add financial transaction tax based on incidence estimate from Tax Policy
     Center.
 
-    Args:
-        df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
-        Other arguments: Args to add_custom_tax with FTT defaults.
-
-    Returns:
-        Nothing. Adds ftt to df.
+    :param df: DataFrame with columns for tpc_eci, XTOT_m, and aftertax_income.
+    :param Other: arguments: Args to add_custom_tax with FTT defaults.
+    :param segment_income: Default value = "tpc_eci")
+    :param w: Default value = "XTOT_m")
+    :param base_income: Default value = "aftertax_income")
+    :param incidence: Default value = FTT_INCIDENCE)
+    :param name: Default value = "ftt")
+    :param **kwargs: 
+    :returns: Nothing. Adds ftt to df.
         df is also sorted by tpc_eci.
+
     """
     add_custom_tax(
         df, segment_income, w, base_income, incidence, name, **kwargs
