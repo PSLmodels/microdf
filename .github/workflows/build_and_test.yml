@@ -23,6 +23,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
           auto-activate-base: false
 
+      - name: Lint
+        shell: bash -l {0}
+        run: flake8
+
       - name: Build
         shell: bash -l {0}
         run: pip install -e .

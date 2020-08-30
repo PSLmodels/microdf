@@ -4,6 +4,7 @@ channels:
 - PSLmodels
 dependencies:
 - codecov
+- flake8
 - matplotlib
 - numpy
 - pandas
