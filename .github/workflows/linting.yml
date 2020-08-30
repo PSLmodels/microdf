@@ -18,8 +18,14 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Setup Miniconda using Python ${{ matrix.python-version }}
+        uses: goanpeca/setup-miniconda@v1
+        with:
+          activate-environment: microdf
+          environment-file: environment.yml
+          python-version: ${{ matrix.python-version }}
+          auto-activate-base: false
+
       - name: Lint
         shell: bash -l {0}
-        run: |
-          pip install flake8
-          flake8
+        run: flake8
