@@ -9,11 +9,6 @@ jobs:
   flake8_py3:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.7.4
-          architecture: x64
       - name: Checkout
         uses: actions/checkout@master
       - name: Install flake8
