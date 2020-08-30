@@ -1,9 +1,11 @@
+import pandas as pd
+
 import microdf as mdf
 
 
 def combine_base_reform(
-    base, reform, base_cols=None, cols=None, reform_cols=None
-):
+    base: pd.DataFrame, reform: pd.DataFrame, base_cols=None, cols=None, reform_cols=None
+) -> pd.DataFrame:
     """ Combine base and reform with certain columns.
 
     Args:
