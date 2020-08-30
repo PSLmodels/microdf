@@ -19,7 +19,7 @@ def static_baseline_calc(recs, year):
     return calc
 
 
-def add_weighted_metrics(df, metric_vars, w='s006', divisor=1e6, suffix='_m'):
+def add_weighted_metrics(df, metric_vars, w="s006", divisor=1e6, suffix="_m"):
     """Adds weighted metrics in millions to a Tax-Calculator pandas DataFrame.
 
     Columns are renamed to *_m.
@@ -53,18 +53,22 @@ def n65(age_head, age_spouse, elderly_dependents):
     Returns:
         Series representing the number of people age 65 or older.
     """
-    return ((age_head >= 65).astype(int) +
-            (age_spouse >= 65).astype(int) +
-            elderly_dependents)
+    return (
+        (age_head >= 65).astype(int)
+        + (age_spouse >= 65).astype(int)
+        + elderly_dependents
+    )
 
 
-def calc_df(records=None,
-            policy=None,
-            year=2020,
-            reform=None,
-            group_vars=None,
-            metric_vars=None,
-            group_n65=False):
+def calc_df(
+    records=None,
+    policy=None,
+    year=2020,
+    reform=None,
+    group_vars=None,
+    metric_vars=None,
+    group_n65=False,
+):
     """Creates a pandas DataFrame for given Tax-Calculator data.
 
     s006 is always included, and RECID is used as an index.
@@ -97,29 +101,42 @@ def calc_df(records=None,
     calc = tc.Calculator(records=records, policy=policy, verbose=False)
     calc.advance_to_year(year)
     calc.calc_all()
-    # TODO: Make n65, ECI, etc. part of the list of columns you can request.
     # Get a deduplicated list of all columns.
     if group_n65:
-        group_vars = group_vars + ['age_head', 'age_spouse',
-                                   'elderly_dependents']
+        group_vars = group_vars + [
+            "age_head",
+            "age_spouse",
+            "elderly_dependents",
+        ]
     # Include expanded_income and benefits to produce market_income.
     all_cols = mdf.listify(
-        ['RECID', 's006', 'expanded_income', 'aftertax_income',
-         mdf.BENS, group_vars, metric_vars])
+        [
+            "RECID",
+            "s006",
+            "expanded_income",
+            "aftertax_income",
+            mdf.BENS,
+            group_vars,
+            metric_vars,
+        ]
+    )
     df = calc.dataframe(all_cols)
     # Create core elements.
-    df['market_income'] = mdf.market_income(df)
-    df['bens'] = df[mdf.BENS].sum(axis=1)
-    df['tax'] = df.expanded_income - df.aftertax_income
+    df["market_income"] = mdf.market_income(df)
+    df["bens"] = df[mdf.BENS].sum(axis=1)
+    df["tax"] = df.expanded_income - df.aftertax_income
     if group_n65:
-        df['n65'] = n65(df.age_head, df.age_spouse, df.elderly_dependents)
-        df.drop(['age_head', 'age_spouse', 'elderly_dependents'], axis=1,
-                inplace=True)
+        df["n65"] = n65(df.age_head, df.age_spouse, df.elderly_dependents)
+        df.drop(
+            ["age_head", "age_spouse", "elderly_dependents"],
+            axis=1,
+            inplace=True,
+        )
     # Add calculated columns for metrics.
     mdf.add_weighted_metrics(df, metric_vars)
     # Set RECID to int and set it as index before returning.
-    df['RECID'] = df.RECID.map(int)
-    return df.set_index('RECID')
+    df["RECID"] = df.RECID.map(int)
+    return df.set_index("RECID")
 
 
 def recalculate(df):
@@ -131,12 +148,10 @@ def recalculate(df):
     Returns:
         Nothing. Updates the DataFrame in place.
     """
-    # Recalculate aggregate income measures.
-    AGG_INCOME_MEASURES = ['expanded_income', 'aftertax_income', 'tpc_eci']
+    # Recalculate TPC's Expanded Cash Income measure.
     cols = df.columns
-    if 'tpc_eci' in cols:
+    if "tpc_eci" in cols:
         df.tpc_eci = mdf.tpc_eci(df)
     # Recalculate weighted metrics (anything ending in _m).
-    mcols = cols[cols.str.endswith('_m')]
+    mcols = cols[cols.str.endswith("_m")]
     mdf.add_weighted_metrics(df, mcols)
-    # Might need to edit calc_df to add market_income and/or UBI.

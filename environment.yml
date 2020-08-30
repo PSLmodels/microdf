@@ -1,9 +1,10 @@
-name: microdf-env
+name: microdf
 channels:
 - conda-forge
 - PSLmodels
 dependencies:
 - codecov
+- flake8
 - matplotlib
 - numpy
 - pandas
@@ -14,3 +15,4 @@ dependencies:
 - taxcalc
 - pip:
   - matplotlib-label-lines
+  - jupyter-book

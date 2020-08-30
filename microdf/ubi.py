@@ -1,9 +1,16 @@
 import numpy as np
-import pandas as pd
+
 import microdf as mdf
 
-def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens',
-                update_income_measures=['expanded_income', 'aftertax_income']):
+
+def ubi_or_bens(
+    df,
+    ben_cols,
+    max_ubi="max_ubi",
+    ubi="ubi",
+    bens="bens",
+    update_income_measures=None,
+):
     """Calculates whether a tax unit will take UBI or benefits,
        and adjusts values accordingly.
 
@@ -13,8 +20,8 @@ def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens',
         max_ubi: Column name of the maximum UBI, before accounting
             for benefits. Defaults to 'max_ubi'.
         ubi: Column name to add representing the UBI. Defaults to 'ubi'.
-        bens: Column name to add representing total benefits (after adjustment).
-            Defaults to 'bens'.
+        bens: Column name to add representing total benefits (after
+            adjustment). Defaults to 'bens'.
         update_income_measures: List of income measures to update.
             Defaults to ['expanded_income', 'aftertax_income'].
 
@@ -23,6 +30,8 @@ def ubi_or_bens(df, ben_cols, max_ubi='max_ubi', ubi='ubi', bens='bens',
         are added, and expanded_income and aftertax_income are updated
         according to the net difference.
     """
+    if update_income_measures is None:
+        update_income_measures = ["expanded_income", "aftertax_income"]
     # Prep list args.
     update_income_measures = mdf.listify(update_income_measures)
     total_bens = df[ben_cols].sum(axis=1)

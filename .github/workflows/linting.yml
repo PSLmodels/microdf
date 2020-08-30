@@ -1,0 +1,31 @@
+name: Lint
+
+on:
+  push:
+    paths:
+      - '**.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup Miniconda using Python ${{ matrix.python-version }}
+        uses: goanpeca/setup-miniconda@v1
+        with:
+          activate-environment: microdf
+          environment-file: environment.yml
+          python-version: ${{ matrix.python-version }}
+          auto-activate-base: false
+
+      - name: Lint
+        shell: bash -l {0}
+        run: flake8

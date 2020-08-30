@@ -1,12 +1,11 @@
-import numpy as np
 import pandas as pd
+
 import microdf as mdf
-import pytest
 
 
 X = [1, 5, 2]
 W = [4, 1, 1]
-df = pd.DataFrame({'x': X, 'w': W})
+df = pd.DataFrame({"x": X, "w": W})
 
 
 def test_weighted_quantile():
@@ -26,10 +25,10 @@ def test_weighted_quantile():
 def test_weighted_mean():
     # TODO: Add None default to w.
     # assert mdf.weighted_mean(df, 'x') == 8 / 3
-    assert mdf.weighted_mean(df, 'x', 'w') == 11 / 6
+    assert mdf.weighted_mean(df, "x", "w") == 11 / 6
 
 
 def test_weighted_sum():
     # TODO: Add None default to w.
     # assert mdf.weighted_sum(df, 'x') == 8
-    assert mdf.weighted_sum(df, 'x', 'w') == 11
+    assert mdf.weighted_sum(df, "x", "w") == 11
