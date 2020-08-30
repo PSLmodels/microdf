@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
@@ -28,6 +29,13 @@
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="gini example" href="gini.html" />
@@ -49,6 +57,8 @@
         <div class="navbar-brand-box">
 <a class="navbar-brand text-wrap" href="index.html">
   
+  <img src="_static/microdf_logo.png" class="logo" alt="logo">
+  
   
   <h1 class="site-logo" id="site-title">microdf documentation</h1>
   
@@ -61,24 +71,62 @@
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  
-  <ul class="nav sidenav_l1">
-  <li class="">
-    <a href="agg.html">The agg function</a>
-  </li>
-  <li class="">
-    <a href="charts.html">microdf charts</a>
-  </li>
-  <li class="">
-    <a href="demo.html">microdf demo</a>
-  </li>
-  <li class="">
-    <a href="gini.html">gini example</a>
-  </li>
-  <li class="active">
-    <a href="">Income measures</a>
-  </li>
+  <ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="examples.html">
+   Examples
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="agg.html">
+     The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       agg
+      </span>
+     </code>
+     function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="charts.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       microdf
+      </span>
+     </code>
+     charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="demo.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       microdf
+      </span>
+     </code>
+     demo
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gini.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       gini
+      </span>
+     </code>
+     example
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Income measures
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
+
 </nav>
 
  <!-- To handle the deprecated key -->
@@ -107,44 +155,43 @@
         </button>
         
         <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-                    class="fas fa-download"></i></button>
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
 
-            
-            <div class="dropdown-buttons">
-                <!-- ipynb file if we had a myst markdown file -->
-                
-                <!-- Download raw file -->
-                <a class="dropdown-buttons" href="_sources/income_measures.ipynb"><button type="button"
-                        class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                        data-placement="left">.ipynb</button></a>
-                <!-- Download PDF via print -->
-                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                    onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-            </div>
-            
-        </div>
-
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/income_measures.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
         <!-- Source interaction buttons -->
-        
-        <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-                aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-            <div class="dropdown-buttons sourcebuttons">
-                <a class="repository-button"
-                    href="https://github.com/MaxGhenis/microdf"><button type="button" class="btn btn-secondary topbarbtn"
-                        data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                            class="fab fa-github"></i>repository</button></a>
-                <a class="issues-button"
-                    href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fincome_measures.html&body=Your%20issue%20content%20here."><button
-                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                        title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-                <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/income_measures.ipynb"><button
-                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                        title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-            </div>
-        </div>
-        
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/MaxGhenis/microdf"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fincome_measures.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/income_measures.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -152,51 +199,45 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
         
-        <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-                aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-            <div class="dropdown-buttons">
-                
-                
-                
-                <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/income_measures.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                        title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                            src="_static/images/logo_colab.png"
-                            alt="Interact on Colab">Colab</button></a>
-                
-                
-            </div>
-        </div>
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/income_measures.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
         
     </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-data">
+   Load data
+  </a>
+ </li>
+</ul>
 
-<nav id="bd-toc-nav">
-    <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#setup" class="nav-link">Setup</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#load-data" class="nav-link">Load data</a>
-        </li>
-    
-    </ul>
-</nav>
-
-
-
-<div class="tocsection editthispage">
-    <a href="https://github.com/MaxGhenis/microdf/edit/master/docs/income_measures.ipynb">
-        <i class="fas fa-pencil-alt"></i> Edit this page
-    </a>
-</div>
-
+        </nav>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -226,7 +267,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;2.9.0&#39;
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;3.0.0&#39;
 </pre></div>
 </div>
 </div>
@@ -277,21 +318,21 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>mcare_ben</th>
-      <th>tanf_ben</th>
-      <th>snap_ben</th>
-      <th>ssi_ben</th>
-      <th>mcaid_ben</th>
-      <th>wic_ben</th>
-      <th>s006</th>
-      <th>e02300</th>
-      <th>expanded_income</th>
-      <th>XTOT</th>
-      <th>...</th>
-      <th>housing_ben</th>
-      <th>e02400</th>
       <th>aftertax_income</th>
       <th>other_ben</th>
+      <th>snap_ben</th>
+      <th>ssi_ben</th>
+      <th>e02300</th>
+      <th>wic_ben</th>
+      <th>XTOT</th>
+      <th>housing_ben</th>
+      <th>mcare_ben</th>
+      <th>s006</th>
+      <th>...</th>
+      <th>expanded_income</th>
+      <th>mcaid_ben</th>
+      <th>vet_ben</th>
+      <th>tanf_ben</th>
       <th>market_income</th>
       <th>bens</th>
       <th>tax</th>
@@ -327,123 +368,123 @@
   <tbody>
     <tr>
       <th>1</th>
-      <td>0.000000</td>
+      <td>56671.604435</td>
+      <td>6161.950619</td>
+      <td>2670.493781</td>
       <td>0.0</td>
       <td>0.00000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
       <td>0.0</td>
-      <td>250.14</td>
+      <td>1.0</td>
       <td>0.0</td>
-      <td>54039.301075</td>
-      <td>2.0</td>
+      <td>14469.708379</td>
+      <td>280.60</td>
       <td>...</td>
-      <td>0.00000</td>
+      <td>56671.604435</td>
+      <td>8801.561911</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-7.275958e-12</td>
+      <td>56671.604435</td>
       <td>0.000000</td>
-      <td>43653.332955</td>
-      <td>0.000000</td>
-      <td>54039.301075</td>
-      <td>0.000000</td>
-      <td>10385.968120</td>
-      <td>0.000250</td>
-      <td>0.000500</td>
-      <td>54039.301075</td>
+      <td>0.000281</td>
+      <td>0.000281</td>
+      <td>33400.334145</td>
     </tr>
     <tr>
       <th>2</th>
+      <td>44924.168333</td>
+      <td>0.000000</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>0.00000</td>
-      <td>0.00000</td>
+      <td>1250.18631</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
       <td>0.000000</td>
-      <td>0.0</td>
-      <td>211.63</td>
-      <td>0.0</td>
-      <td>18789.917880</td>
-      <td>3.0</td>
+      <td>216.81</td>
       <td>...</td>
-      <td>0.00000</td>
+      <td>55452.916535</td>
       <td>0.000000</td>
-      <td>21045.358255</td>
-      <td>0.000000</td>
-      <td>18789.917880</td>
-      <td>0.000000</td>
-      <td>-2255.440376</td>
-      <td>0.000212</td>
-      <td>0.000635</td>
-      <td>18789.917880</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.420273e+04</td>
+      <td>1250.186310</td>
+      <td>10528.748202</td>
+      <td>0.000217</td>
+      <td>0.000434</td>
+      <td>55452.916535</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>13640.390612</td>
+      <td>43927.829137</td>
+      <td>4598.753905</td>
+      <td>0.000000</td>
       <td>0.0</td>
-      <td>1734.12939</td>
-      <td>3374.52239</td>
-      <td>8211.593627</td>
+      <td>0.00000</td>
       <td>0.0</td>
-      <td>323.50</td>
+      <td>2.0</td>
       <td>0.0</td>
-      <td>52529.495570</td>
-      <td>1.0</td>
+      <td>14469.708379</td>
+      <td>268.85</td>
       <td>...</td>
-      <td>5664.74794</td>
-      <td>13240.409989</td>
-      <td>52529.495570</td>
-      <td>6663.701623</td>
+      <td>43927.829137</td>
+      <td>8801.561911</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000e+00</td>
+      <td>43927.829137</td>
       <td>0.000000</td>
-      <td>52529.495570</td>
-      <td>0.000000</td>
-      <td>0.000324</td>
-      <td>0.000324</td>
-      <td>25012.763391</td>
+      <td>0.000269</td>
+      <td>0.000538</td>
+      <td>20656.558846</td>
     </tr>
     <tr>
       <th>4</th>
+      <td>29936.234000</td>
+      <td>0.000000</td>
       <td>0.000000</td>
       <td>0.0</td>
       <td>0.00000</td>
-      <td>0.00000</td>
-      <td>8211.593627</td>
       <td>0.0</td>
-      <td>186.32</td>
-      <td>0.0</td>
-      <td>37956.655257</td>
       <td>2.0</td>
-      <td>...</td>
-      <td>0.00000</td>
+      <td>0.0</td>
       <td>0.000000</td>
-      <td>36950.797734</td>
-      <td>3906.542368</td>
-      <td>25838.519262</td>
-      <td>12118.135995</td>
-      <td>1005.857523</td>
-      <td>0.000186</td>
-      <td>0.000373</td>
-      <td>29745.061630</td>
+      <td>224.88</td>
+      <td>...</td>
+      <td>35639.635313</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.563964e+04</td>
+      <td>0.000000</td>
+      <td>5703.401313</td>
+      <td>0.000225</td>
+      <td>0.000450</td>
+      <td>35639.635313</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>27280.781223</td>
-      <td>0.0</td>
-      <td>0.00000</td>
-      <td>0.00000</td>
+      <td>72320.705333</td>
+      <td>0.000000</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>343.08</td>
+      <td>0.00000</td>
       <td>0.0</td>
-      <td>63986.590233</td>
       <td>2.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>240.80</td>
       <td>...</td>
-      <td>0.00000</td>
-      <td>35596.390999</td>
-      <td>63986.590233</td>
+      <td>85247.723237</td>
       <td>0.000000</td>
-      <td>1109.418010</td>
-      <td>62877.172223</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>8.524772e+04</td>
       <td>0.000000</td>
-      <td>0.000343</td>
-      <td>0.000686</td>
-      <td>36705.809010</td>
+      <td>12927.017904</td>
+      <td>0.000241</td>
+      <td>0.000482</td>
+      <td>85247.723237</td>
     </tr>
   </tbody>
 </table>
@@ -453,6 +494,25 @@
 </div>
 </div>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               

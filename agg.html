@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
@@ -28,10 +29,17 @@
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="microdf charts" href="charts.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="examples.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -50,6 +58,8 @@
         <div class="navbar-brand-box">
 <a class="navbar-brand text-wrap" href="index.html">
   
+  <img src="_static/microdf_logo.png" class="logo" alt="logo">
+  
   
   <h1 class="site-logo" id="site-title">microdf documentation</h1>
   
@@ -62,24 +72,62 @@
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  
-  <ul class="nav sidenav_l1">
-  <li class="active">
-    <a href="">The agg function</a>
-  </li>
-  <li class="">
-    <a href="charts.html">microdf charts</a>
-  </li>
-  <li class="">
-    <a href="demo.html">microdf demo</a>
-  </li>
-  <li class="">
-    <a href="gini.html">gini example</a>
-  </li>
-  <li class="">
-    <a href="income_measures.html">Income measures</a>
-  </li>
+  <ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="examples.html">
+   Examples
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       agg
+      </span>
+     </code>
+     function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="charts.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       microdf
+      </span>
+     </code>
+     charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="demo.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       microdf
+      </span>
+     </code>
+     demo
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gini.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       gini
+      </span>
+     </code>
+     example
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="income_measures.html">
+     Income measures
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
+
 </nav>
 
  <!-- To handle the deprecated key -->
@@ -108,44 +156,43 @@
         </button>
         
         <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-                    class="fas fa-download"></i></button>
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
 
-            
-            <div class="dropdown-buttons">
-                <!-- ipynb file if we had a myst markdown file -->
-                
-                <!-- Download raw file -->
-                <a class="dropdown-buttons" href="_sources/agg.ipynb"><button type="button"
-                        class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                        data-placement="left">.ipynb</button></a>
-                <!-- Download PDF via print -->
-                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                    onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-            </div>
-            
-        </div>
-
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/agg.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
         <!-- Source interaction buttons -->
-        
-        <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-                aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-            <div class="dropdown-buttons sourcebuttons">
-                <a class="repository-button"
-                    href="https://github.com/MaxGhenis/microdf"><button type="button" class="btn btn-secondary topbarbtn"
-                        data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                            class="fab fa-github"></i>repository</button></a>
-                <a class="issues-button"
-                    href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fagg.html&body=Your%20issue%20content%20here."><button
-                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                        title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-                <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/agg.ipynb"><button
-                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                        title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-            </div>
-        </div>
-        
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/MaxGhenis/microdf"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fagg.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/agg.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -153,69 +200,76 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
         
-        <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-                aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-            <div class="dropdown-buttons">
-                
-                
-                
-                <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/agg.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                        title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                            src="_static/images/logo_colab.png"
-                            alt="Interact on Colab">Colab</button></a>
-                
-                
-            </div>
-        </div>
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/agg.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
         
     </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
-
-<nav id="bd-toc-nav">
-    <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#setup" class="nav-link">Setup</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#load-data" class="nav-link">Load data</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#agg" class="nav-link">agg</a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#change-in-aftertax-income-by-marital-status" class="nav-link">Change in aftertax income by marital status.</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#also-sum-baseline-expanded-income" class="nav-link">Also sum baseline expanded_income</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#also-sum-ubi-amount" class="nav-link">Also sum UBI amount</a>
-        </li>
-    
-            </ul>
-        </li>
-    
-    </ul>
-</nav>
-
-
-
-<div class="tocsection editthispage">
-    <a href="https://github.com/MaxGhenis/microdf/edit/master/docs/agg.ipynb">
-        <i class="fas fa-pencil-alt"></i> Edit this page
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-data">
+   Load data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#agg">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     agg
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#change-in-aftertax-income-by-marital-status">
+     Change in aftertax income by marital status.
     </a>
-</div>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#also-sum-baseline-expanded-income">
+     Also sum baseline
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       expanded_income
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#also-sum-ubi-amount">
+     Also sum UBI amount
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
 
+        </nav>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -246,7 +300,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;2.9.0&#39;
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;3.0.0&#39;
 </pre></div>
 </div>
 </div>
@@ -318,21 +372,21 @@
   <tbody>
     <tr>
       <th>1.0</th>
-      <td>3.932706e+06</td>
-      <td>4.955448e+06</td>
-      <td>0.260061</td>
+      <td>3.915077e+06</td>
+      <td>5.077975e+06</td>
+      <td>0.297031</td>
     </tr>
     <tr>
       <th>2.0</th>
-      <td>7.720992e+06</td>
-      <td>9.606785e+06</td>
-      <td>0.244242</td>
+      <td>8.120848e+06</td>
+      <td>1.029521e+07</td>
+      <td>0.267751</td>
     </tr>
     <tr>
       <th>4.0</th>
-      <td>8.561148e+05</td>
-      <td>1.278792e+06</td>
-      <td>0.493716</td>
+      <td>1.116905e+06</td>
+      <td>1.670861e+06</td>
+      <td>0.495974</td>
     </tr>
   </tbody>
 </table>
@@ -382,24 +436,24 @@
   <tbody>
     <tr>
       <th>1.0</th>
-      <td>1.584097e+10</td>
-      <td>3.932706e+06</td>
-      <td>4.955448e+06</td>
-      <td>0.260061</td>
+      <td>5.129297e+09</td>
+      <td>3.915077e+06</td>
+      <td>5.077975e+06</td>
+      <td>0.297031</td>
     </tr>
     <tr>
       <th>2.0</th>
-      <td>6.191435e+10</td>
-      <td>7.720992e+06</td>
-      <td>9.606785e+06</td>
-      <td>0.244242</td>
+      <td>1.536365e+10</td>
+      <td>8.120848e+06</td>
+      <td>1.029521e+07</td>
+      <td>0.267751</td>
     </tr>
     <tr>
       <th>4.0</th>
-      <td>2.203621e+09</td>
-      <td>8.561148e+05</td>
-      <td>1.278792e+06</td>
-      <td>0.493716</td>
+      <td>1.346883e+09</td>
+      <td>1.116905e+06</td>
+      <td>1.670861e+06</td>
+      <td>0.495974</td>
     </tr>
   </tbody>
 </table>
@@ -436,8 +490,8 @@
     <tr style="text-align: right;">
       <th></th>
       <th>aftertax_income_m_base</th>
-      <th>ubi_m</th>
       <th>aftertax_income_m_reform</th>
+      <th>ubi_m</th>
       <th>aftertax_income_pctchg</th>
     </tr>
     <tr>
@@ -451,24 +505,24 @@
   <tbody>
     <tr>
       <th>1.0</th>
-      <td>3.932706e+06</td>
-      <td>1.022742e+06</td>
-      <td>4.955448e+06</td>
-      <td>0.260061</td>
+      <td>3.915077e+06</td>
+      <td>5.077975e+06</td>
+      <td>1.162898e+06</td>
+      <td>0.297031</td>
     </tr>
     <tr>
       <th>2.0</th>
-      <td>7.720992e+06</td>
-      <td>1.885793e+06</td>
-      <td>9.606785e+06</td>
-      <td>0.244242</td>
+      <td>8.120848e+06</td>
+      <td>1.029521e+07</td>
+      <td>2.174362e+06</td>
+      <td>0.267751</td>
     </tr>
     <tr>
       <th>4.0</th>
-      <td>8.561148e+05</td>
-      <td>4.226775e+05</td>
-      <td>1.278792e+06</td>
-      <td>0.493716</td>
+      <td>1.116905e+06</td>
+      <td>1.670861e+06</td>
+      <td>5.539557e+05</td>
+      <td>0.495974</td>
     </tr>
   </tbody>
 </table>
@@ -478,6 +532,25 @@
 </div>
 </div>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
@@ -487,7 +560,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="examples.html" title="previous page">&lt;no title&gt;</a>
+    <a class='left-prev' id="prev-link" href="examples.html" title="previous page">Examples</a>
     <a class='right-next' id="next-link" href="charts.html" title="next page"><code class="docutils literal notranslate"><span class="pre">microdf</span></code> charts</a>
 
     </div>

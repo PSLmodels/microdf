@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
@@ -28,6 +29,13 @@
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="gini example" href="gini.html" />
@@ -50,6 +58,8 @@
         <div class="navbar-brand-box">
 <a class="navbar-brand text-wrap" href="index.html">
   
+  <img src="_static/microdf_logo.png" class="logo" alt="logo">
+  
   
   <h1 class="site-logo" id="site-title">microdf documentation</h1>
   
@@ -62,29 +72,62 @@
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  
-  <ul class="nav sidenav_l1">
-  <li class="active">
-    <a href="examples.html">Examples</a>
-  <ul class="nav sidenav_l2">
-    <li class="">
-      <a href="agg.html">The agg function</a>
-    </li>
-    <li class="">
-      <a href="charts.html">microdf charts</a>
-    </li>
-    <li class="active">
-      <a href="">microdf demo</a>
-    </li>
-    <li class="">
-      <a href="gini.html">gini example</a>
-    </li>
-    <li class="">
-      <a href="income_measures.html">Income measures</a>
-    </li>
+  <ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="examples.html">
+   Examples
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="agg.html">
+     The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       agg
+      </span>
+     </code>
+     function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="charts.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       microdf
+      </span>
+     </code>
+     charts
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       microdf
+      </span>
+     </code>
+     demo
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gini.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       gini
+      </span>
+     </code>
+     example
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="income_measures.html">
+     Income measures
+    </a>
+   </li>
   </ul>
-  </li>
+ </li>
 </ul>
+
 </nav>
 
  <!-- To handle the deprecated key -->
@@ -113,44 +156,43 @@
         </button>
         
         <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-                    class="fas fa-download"></i></button>
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
 
-            
-            <div class="dropdown-buttons">
-                <!-- ipynb file if we had a myst markdown file -->
-                
-                <!-- Download raw file -->
-                <a class="dropdown-buttons" href="_sources/demo.ipynb"><button type="button"
-                        class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                        data-placement="left">.ipynb</button></a>
-                <!-- Download PDF via print -->
-                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                    onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-            </div>
-            
-        </div>
-
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/demo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
         <!-- Source interaction buttons -->
-        
-        <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-                aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-            <div class="dropdown-buttons sourcebuttons">
-                <a class="repository-button"
-                    href="https://github.com/MaxGhenis/microdf"><button type="button" class="btn btn-secondary topbarbtn"
-                        data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                            class="fab fa-github"></i>repository</button></a>
-                <a class="issues-button"
-                    href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fdemo.html&body=Your%20issue%20content%20here."><button
-                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                        title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-                <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/demo.ipynb"><button
-                        type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                        title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-            </div>
-        </div>
-        
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/MaxGhenis/microdf"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fdemo.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/demo.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -158,75 +200,80 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
         
-        <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-                aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-            <div class="dropdown-buttons">
-                
-                
-                
-                <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/demo.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                        title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                            src="_static/images/logo_colab.png"
-                            alt="Interact on Colab">Colab</button></a>
-                
-                
-            </div>
-        </div>
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/demo.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
         
     </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
-
-<nav id="bd-toc-nav">
-    <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#setup" class="nav-link">Setup</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#generate-data" class="nav-link">Generate data</a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#calculate-senior-ubi" class="nav-link">Calculate senior UBI.</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#add-senior-ubi-to-aftertax-income-and-recalculate" class="nav-link">Add senior UBI to aftertax_income and recalculate</a>
-        </li>
-    
-            </ul>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#analyze" class="nav-link">Analyze</a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#change-to-gini-index" class="nav-link">Change to Gini index</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#change-to-poverty-rate" class="nav-link">Change to poverty rate</a>
-        </li>
-    
-            </ul>
-        </li>
-    
-    </ul>
-</nav>
-
-
-
-<div class="tocsection editthispage">
-    <a href="https://github.com/MaxGhenis/microdf/edit/master/docs/demo.ipynb">
-        <i class="fas fa-pencil-alt"></i> Edit this page
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-data">
+   Generate data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculate-senior-ubi">
+     Calculate senior UBI.
     </a>
-</div>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#add-senior-ubi-to-aftertax-income-and-recalculate">
+     Add senior UBI to
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       aftertax_income
+      </span>
+     </code>
+     and recalculate
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analyze">
+   Analyze
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#change-to-gini-index">
+     Change to Gini index
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#change-to-poverty-rate">
+     Change to poverty rate
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
 
+        </nav>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -260,6 +307,14 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="stderr docutils container">
+<pre class="stderr literal-block">/home/runner/work/microdf/microdf/microdf/style.py:25: MatplotlibDeprecationWarning: 
+The createFontList function was deprecated in Matplotlib 3.2 and will be removed two minor releases later. Use FontManager.addfont instead.
+  fm.fontManager.ttflist += fm.createFontList([&quot;Roboto-Regular.ttf&quot;])
+</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="generate-data">
@@ -279,10 +334,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;wic_ben&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;XTOT&#39;, &#39;e02300&#39;, &#39;tanf_ben&#39;,
-       &#39;e02400&#39;, &#39;s006&#39;, &#39;expanded_income&#39;, &#39;mcare_ben&#39;, &#39;snap_ben&#39;, &#39;ssi_ben&#39;,
-       &#39;mcaid_ben&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;other_ben&#39;, &#39;market_income&#39;,
-       &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;, &#39;XTOT_m&#39;],
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;other_ben&#39;, &#39;housing_ben&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;snap_ben&#39;, &#39;ssi_ben&#39;,
+       &#39;MARS&#39;, &#39;mcaid_ben&#39;, &#39;XTOT&#39;, &#39;expanded_income&#39;, &#39;wic_ben&#39;,
+       &#39;aftertax_income&#39;, &#39;mcare_ben&#39;, &#39;e02300&#39;, &#39;tanf_ben&#39;, &#39;s006&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
+       &#39;aftertax_income_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -314,11 +370,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;wic_ben&#39;, &#39;ssi_ben&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;other_ben&#39;,
-       &#39;snap_ben&#39;, &#39;housing_ben&#39;, &#39;XTOT&#39;, &#39;tanf_ben&#39;, &#39;mcare_ben&#39;, &#39;vet_ben&#39;,
-       &#39;e02300&#39;, &#39;e02400&#39;, &#39;s006&#39;, &#39;expanded_income&#39;, &#39;mcaid_ben&#39;,
-       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
-       &#39;XTOT_m&#39;],
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;snap_ben&#39;, &#39;mcaid_ben&#39;, &#39;XTOT&#39;, &#39;expanded_income&#39;, &#39;wic_ben&#39;,
+       &#39;mcare_ben&#39;, &#39;ssi_ben&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;e02300&#39;, &#39;e02400&#39;,
+       &#39;other_ben&#39;, &#39;s006&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;tanf_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
+       &#39;aftertax_income_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -335,7 +391,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>285.3912110110819
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>326.110945495585
 </pre></div>
 </div>
 </div>
@@ -351,7 +407,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>49.42475806000002
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>59.21619976999999
 </pre></div>
 </div>
 </div>
@@ -365,7 +421,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>5774.256105910047
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>5507.123840473106
 </pre></div>
 </div>
 </div>
@@ -408,7 +464,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.45337829830561854
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.5032911973267852
 </pre></div>
 </div>
 </div>
@@ -420,7 +476,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.43932368472754535
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.48752755152259336
 </pre></div>
 </div>
 </div>
@@ -449,7 +505,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>-0.006896976279523792
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>-0.022307196800575246
 </pre></div>
 </div>
 </div>
@@ -463,13 +519,40 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/demo_28_0.png" src="_images/demo_28_0.png" />
+<div class="stderr docutils container">
+<pre class="stderr literal-block">findfont: Font family ['sans-serif'] not found. Falling back to DejaVu Sans.
+</pre>
+</div>
+<div class="stderr docutils container">
+<pre class="stderr literal-block">findfont: Font family ['sans-serif'] not found. Falling back to DejaVu Sans.
+</pre>
+</div>
+<img alt="_images/demo_28_2.png" src="_images/demo_28_2.png" />
 </div>
 </div>
 </div>
 </div>
 </div>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
