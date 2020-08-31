@@ -84,11 +84,7 @@ def add_custom_tax(
     if total is not None:
         initial_total = mdf.weighted_sum(df, name)
         if verbose:
-            print(
-                "Multiplying tax by "
-                + str(round(total / initial_total, 2))
-                + "."
-            )
+            print("Multiplying tax by " + str(round(total / initial_total, 2)) + ".")
         df[name] *= total / initial_total
 
 
@@ -115,9 +111,7 @@ def add_vat(
         df is also sorted by tpc_eci.
 
     """
-    add_custom_tax(
-        df, segment_income, w, base_income, incidence, name, **kwargs
-    )
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
 
 
 def add_carbon_tax(
@@ -143,9 +137,7 @@ def add_carbon_tax(
         df is also sorted by tpc_eci.
 
     """
-    add_custom_tax(
-        df, segment_income, w, base_income, incidence, name, **kwargs
-    )
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)
 
 
 def add_ftt(
@@ -172,6 +164,4 @@ def add_ftt(
         df is also sorted by tpc_eci.
 
     """
-    add_custom_tax(
-        df, segment_income, w, base_income, incidence, name, **kwargs
-    )
+    add_custom_tax(df, segment_income, w, base_income, incidence, name, **kwargs)

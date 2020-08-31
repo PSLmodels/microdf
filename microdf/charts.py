@@ -8,13 +8,7 @@ import microdf as mdf
 
 
 def quantile_chg_plot(
-    v1,
-    v2,
-    w1=None,
-    w2=None,
-    q=None,
-    label1="Base",
-    label2="Reform",
+    v1, v2, w1=None, w2=None, q=None, label1="Base", label2="Reform",
 ):
     """Create plot with one line per quantile boundary between base and
         reform.
