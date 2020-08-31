@@ -8,4 +8,6 @@ def dollar_format(suffix=""):
     :returns: FuncFormatter.
 
     """
-    return mpl.ticker.FuncFormatter(lambda x, _: "$" + format(int(x), ",") + suffix)
+    return mpl.ticker.FuncFormatter(
+        lambda x, _: "$" + format(int(x), ",") + suffix
+    )

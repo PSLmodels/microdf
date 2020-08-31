@@ -120,7 +120,9 @@ def calc_df(
     if group_n65:
         df["n65"] = n65(df.age_head, df.age_spouse, df.elderly_dependents)
         df.drop(
-            ["age_head", "age_spouse", "elderly_dependents"], axis=1, inplace=True,
+            ["age_head", "age_spouse", "elderly_dependents"],
+            axis=1,
+            inplace=True,
         )
     # Add calculated columns for metrics.
     mdf.add_weighted_metrics(df, metric_vars)
