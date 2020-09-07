@@ -1,4 +1,5 @@
 import pandas as pd
+from typing import Optional
 
 import microdf as mdf
 
@@ -6,22 +7,25 @@ import microdf as mdf
 def combine_base_reform(
     base: pd.DataFrame,
     reform: pd.DataFrame,
-    base_cols=None,
-    cols=None,
-    reform_cols=None,
+    base_cols: Optional[list],
+    cols: Optional[list],
+    reform_cols: Optional[list],
 ) -> pd.DataFrame:
-    """ Combine base and reform with certain columns.
+    """Combine base and reform with certain columns.
 
-    Args:
-        base: Base DataFrame. Index must match reform.
-        reform: Reform DataFrame. Index must match base.
-        base_cols: Columns in base to keep.
-        cols: Columns to keep from both base and reform.
-        reform_cols: Columns in reform to keep.
+    :param base: Base DataFrame. Index must match reform.
+    :type base: pd.DataFrame
+    :param reform: Reform DataFrame. Index must match base.
+    :type reform: pd.DataFrame
+    :param base_cols: Columns in base to keep.
+    :type base_cols: list, optional
+    :param cols: Columns to keep from both base and reform.
+    :type cols: list, optional
+    :param reform_cols: Columns in reform to keep.
+    :type reform_cols: list, optional
+    :returns: DataFrame with columns for base ("_base") and reform ("_reform").
+    :rtype: pd.DataFrame
 
-    Returns:
-        DataFrame with columns for base ("_base") and
-            reform ("_reform").
     """
     all_base_cols = mdf.listify([base_cols] + [cols])
     all_reform_cols = mdf.listify([reform_cols] + [cols])
@@ -31,16 +35,17 @@ def combine_base_reform(
 
 
 def pctchg_base_reform(combined: pd.DataFrame, metric: str) -> pd.Series:
-    """ Calculates the percentage change in a metric for a combined
+    """Calculates the percentage change in a metric for a combined
         dataset.
 
-    Args:
-        combined: Combined DataFrame with _base and _reform columns.
-        metric: String of the column to calculate the difference.
-                Must exist as metric_m_base and metric_m_reform in combined.
+    :param combined: Combined DataFrame with _base and _reform columns.
+    :type combined: pd.DataFrame
+    :param metric: String of the column to calculate the difference.
+        Must exist as metric_m_base and metric_m_reform in combined.
+    :type metric: str
+    :returns: Series with percentage change.
+    :rtype: pd.Series
 
-    Returns:
-        Series with percentage change.
     """
     return combined[metric + "_m_reform"] / combined[metric + "_m_base"] - 1
 
@@ -50,23 +55,28 @@ def agg(
     reform: pd.DataFrame,
     groupby: str,
     metrics: list,
-    base_metrics=None,
-    reform_metrics=None,
+    base_metrics: Optional[list],
+    reform_metrics: Optional[list],
 ) -> pd.DataFrame:
-    """ Aggregates differences between base and reform.
+    """Aggregates differences between base and reform.
 
-    Args:
-        base: Base DataFrame. Index must match reform.
-        reform: Reform DataFrame. Index must match base.
-        groupby: Variable in base to group on.
-        metrics: List of variables to agg and calculate the % change of.
-                 These should have associated weighted columns ending in _m
-                 in base and reform.
-        base_metrics: List of variables from base to sum. Defaults to None.
-        reform_metrics: List of variables from reform to sum. Defaults to None.
+    :param base: Base DataFrame. Index must match reform.
+    :type base: pd.DataFrame
+    :param reform: Reform DataFrame. Index must match base.
+    :type reform: pd.DataFrame
+    :param groupby: Variable in base to group on.
+    :type groupby: str
+    :param metrics: List of variables to agg and calculate the % change of.
+        These should have associated weighted columns ending in _m in base
+        and reform.
+    :type metrics: list
+    :param base_metrics: List of variables from base to sum.
+    :type base_metrics: Optional[list]
+    :param reform_metrics: List of variables from reform to sum.
+    :type reform_metrics: Optional[list]
+    :returns: DataFrame with groupby and metrics, and _pctchg metrics.
+    :rtype: pd.DataFrame
 
-    Returns:
-        DataFrame with groupby and metrics, and _pctchg metrics.
     """
     metrics = mdf.listify(metrics)
     metrics_m = [i + "_m" for i in metrics]

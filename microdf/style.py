@@ -9,15 +9,14 @@ GRID_COLOR = "#eeeeee"  # Previously lighter #f5f5f5.
 DPI = 200
 
 
-def set_plot_style(dpi=DPI):
+def set_plot_style(dpi: int = DPI):
     """ Set plot style.
 
-    Args:
-        None.
-
-    Returns:
-        Nothing. Sets style.
+    :param dpi: DPI for saving and displaying figures, defaults to microdf.DPI
+        (200).
+    :type dpi: int, optional
     """
+
     sns.set_style("white")
 
     # Set up Roboto. Must be downloaded in the current directory.

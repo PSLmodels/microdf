@@ -10,8 +10,7 @@ def cash_income(df):
 
     Defined as aftertax_income minus non-cash benefits.
 
-    Args:
-        df: A Tax-Calculator pandas DataFrame with columns for
+    :param df: A Tax-Calculator pandas DataFrame with columns for
             * aftertax_income
             * housing_ben
             * mcaid_ben
@@ -22,9 +21,8 @@ def cash_income(df):
             * tanf_ben
             * vet_ben
             * wic_ben
+    :returns: A pandas Series with the cash income for each row in df.
 
-    Returns:
-        A pandas Series with the cash income for each row in df.
     """
     return (
         df.aftertax_income
@@ -48,23 +46,19 @@ def tpc_eci(df):
     Tax-Calculator, so these are ignored and will create a discrepancy
     compared to TPC's ECI.
 
-    Args:
-        df: DataFrame with columns from Tax-Calculator.
+    :param df: DataFrame with columns from Tax-Calculator.
+    :returns: pandas Series with TPC's ECI.
 
-    Returns:
-        pandas Series with TPC's ECI.
     """
     return df.expanded_income - df[mdf.ECI_REMOVE_COLS].sum(axis=1)
 
 
 def market_income(df):
-    """ Approximates CBO's market income concept, which is income
+    """Approximates CBO's market income concept, which is income
         before social insurance, means-tested transfers, and taxes.
 
-    Args:
-        df: DataFrame with expanded_income and benefits.
+    :param df: DataFrame with expanded_income and benefits.
+    :returns: pandas Series of the same length as df.
 
-    Returns:
-        pandas Series of the same length as df.
     """
     return df.expanded_income - df[mdf.BENS].sum(axis=1)
