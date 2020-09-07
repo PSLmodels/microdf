@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The agg function &#8212; microdf documentation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
@@ -14,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
     <script src="_static/jquery.js"></script>
@@ -24,11 +25,8 @@
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/mystnb.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -72,7 +70,14 @@
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="current nav sidenav_l1">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="home.html">
+   microdf documentation
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active">
   <a class="reference internal" href="examples.html">
    Examples
@@ -131,6 +136,10 @@
 </nav>
 
  <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
 
 </div>
 
@@ -205,6 +214,12 @@
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/MaxGhenis/microdf/master?urlpath=tree/docs/agg.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
         
         
         
@@ -284,7 +299,7 @@
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
@@ -295,12 +310,12 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tc</span><span class="o">.</span><span class="n">__version__</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tc</span><span class="o">.</span><span class="n">__version__</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;3.0.0&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;3.0.0&#39;
 </pre></div>
 </div>
 </div>
@@ -311,7 +326,7 @@
 <p>Start with a standard <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, then add a UBI manually in a reform copy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;expanded_income&#39;</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">],</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;expanded_income&#39;</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">],</span>
                    <span class="n">metric_vars</span><span class="o">=</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -319,7 +334,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">UBI_PP</span> <span class="o">=</span> <span class="mi">10000</span>
 <span class="n">reform</span><span class="p">[</span><span class="s1">&#39;ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">XTOT</span> <span class="o">*</span> <span class="n">UBI_PP</span>
 <span class="n">reform</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span> <span class="o">+</span> <span class="n">reform</span><span class="o">.</span><span class="n">ubi</span>
@@ -335,69 +350,27 @@
 <h3>Change in aftertax income by marital status.<a class="headerlink" href="#change-in-aftertax-income-by-marital-status" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">5</span><span class="n">f25679b9c40</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>aftertax_income_m_base</th>
-      <th>aftertax_income_m_reform</th>
-      <th>aftertax_income_pctchg</th>
-    </tr>
-    <tr>
-      <th>MARS</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1.0</th>
-      <td>3.915077e+06</td>
-      <td>5.077975e+06</td>
-      <td>0.297031</td>
-    </tr>
-    <tr>
-      <th>2.0</th>
-      <td>8.120848e+06</td>
-      <td>1.029521e+07</td>
-      <td>0.267751</td>
-    </tr>
-    <tr>
-      <th>4.0</th>
-      <td>1.116905e+06</td>
-      <td>1.670861e+06</td>
-      <td>0.495974</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="ne">TypeError</span>: agg() missing 2 required positional arguments: &#39;base_metrics&#39; and &#39;reform_metrics&#39;
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="also-sum-baseline-expanded-income">
 <h3>Also sum baseline <code class="docutils literal notranslate"><span class="pre">expanded_income</span></code><a class="headerlink" href="#also-sum-baseline-expanded-income" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;expanded_income&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;expanded_income&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -420,8 +393,8 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>expanded_income</th>
       <th>aftertax_income_m_base</th>
+      <th>expanded_income</th>
       <th>aftertax_income_m_reform</th>
       <th>aftertax_income_pctchg</th>
     </tr>
@@ -436,24 +409,24 @@
   <tbody>
     <tr>
       <th>1.0</th>
-      <td>5.129297e+09</td>
-      <td>3.915077e+06</td>
-      <td>5.077975e+06</td>
-      <td>0.297031</td>
+      <td>3.916351e+06</td>
+      <td>1.593936e+10</td>
+      <td>4.939093e+06</td>
+      <td>0.261147</td>
     </tr>
     <tr>
       <th>2.0</th>
-      <td>1.536365e+10</td>
-      <td>8.120848e+06</td>
-      <td>1.029521e+07</td>
-      <td>0.267751</td>
+      <td>7.692072e+06</td>
+      <td>6.242669e+10</td>
+      <td>9.577865e+06</td>
+      <td>0.245161</td>
     </tr>
     <tr>
       <th>4.0</th>
-      <td>1.346883e+09</td>
-      <td>1.116905e+06</td>
-      <td>1.670861e+06</td>
-      <td>0.495974</td>
+      <td>8.531427e+05</td>
+      <td>2.210208e+09</td>
+      <td>1.275820e+06</td>
+      <td>0.495436</td>
     </tr>
   </tbody>
 </table>
@@ -464,7 +437,7 @@
 <h3>Also sum UBI amount<a class="headerlink" href="#also-sum-ubi-amount" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;ubi&#39;</span><span class="p">)</span>  <span class="c1"># Creates ubi_m = ubi * s006 / 1e6.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;ubi&#39;</span><span class="p">)</span>  <span class="c1"># Creates ubi_m = ubi * s006 / 1e6.</span>
 
 <span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="n">reform_metrics</span><span class="o">=</span><span class="s1">&#39;ubi_m&#39;</span><span class="p">)</span>
 </pre></div>
@@ -505,24 +478,24 @@
   <tbody>
     <tr>
       <th>1.0</th>
-      <td>3.915077e+06</td>
-      <td>5.077975e+06</td>
-      <td>1.162898e+06</td>
-      <td>0.297031</td>
+      <td>3.916351e+06</td>
+      <td>4.939093e+06</td>
+      <td>1.022742e+06</td>
+      <td>0.261147</td>
     </tr>
     <tr>
       <th>2.0</th>
-      <td>8.120848e+06</td>
-      <td>1.029521e+07</td>
-      <td>2.174362e+06</td>
-      <td>0.267751</td>
+      <td>7.692072e+06</td>
+      <td>9.577865e+06</td>
+      <td>1.885793e+06</td>
+      <td>0.245161</td>
     </tr>
     <tr>
       <th>4.0</th>
-      <td>1.116905e+06</td>
-      <td>1.670861e+06</td>
-      <td>5.539557e+05</td>
-      <td>0.495974</td>
+      <td>8.531427e+05</td>
+      <td>1.275820e+06</td>
+      <td>4.226775e+05</td>
+      <td>0.495436</td>
     </tr>
   </tbody>
 </table>

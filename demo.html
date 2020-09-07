@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>microdf demo &#8212; microdf documentation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
@@ -14,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
     <script src="_static/jquery.js"></script>
@@ -24,11 +25,8 @@
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/mystnb.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -72,7 +70,14 @@
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="current nav sidenav_l1">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="home.html">
+   microdf documentation
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active">
   <a class="reference internal" href="examples.html">
    Examples
@@ -131,6 +136,10 @@
 </nav>
 
  <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
 
 </div>
 
@@ -205,6 +214,12 @@
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/MaxGhenis/microdf/master?urlpath=tree/docs/demo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
         
         
         
@@ -287,7 +302,7 @@
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
@@ -303,16 +318,15 @@
 <p>Chart options.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">set_plot_style</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">set_plot_style</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/microdf/microdf/microdf/style.py:25: MatplotlibDeprecationWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/microdf/microdf/microdf/style.py:24: MatplotlibDeprecationWarning: 
 The createFontList function was deprecated in Matplotlib 3.2 and will be removed two minor releases later. Use FontManager.addfont instead.
   fm.fontManager.ttflist += fm.createFontList([&quot;Roboto-Regular.ttf&quot;])
-</pre>
+</pre></div>
 </div>
 </div>
 </div>
@@ -321,7 +335,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <h2>Generate data<a class="headerlink" href="#generate-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;expanded_income&#39;</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">],</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;expanded_income&#39;</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">],</span>
                    <span class="n">metric_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -329,16 +343,16 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;other_ben&#39;, &#39;housing_ben&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;snap_ben&#39;, &#39;ssi_ben&#39;,
-       &#39;MARS&#39;, &#39;mcaid_ben&#39;, &#39;XTOT&#39;, &#39;expanded_income&#39;, &#39;wic_ben&#39;,
-       &#39;aftertax_income&#39;, &#39;mcare_ben&#39;, &#39;e02300&#39;, &#39;tanf_ben&#39;, &#39;s006&#39;,
-       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
-       &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;other_ben&#39;, &#39;snap_ben&#39;, &#39;expanded_income&#39;, &#39;mcaid_ben&#39;, &#39;e02300&#39;,
+       &#39;wic_ben&#39;, &#39;housing_ben&#39;, &#39;ssi_ben&#39;, &#39;aftertax_income&#39;, &#39;mcare_ben&#39;,
+       &#39;MARS&#39;, &#39;tanf_ben&#39;, &#39;e02400&#39;, &#39;XTOT&#39;, &#39;vet_ben&#39;, &#39;s006&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
+       &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -347,7 +361,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <p>Define a reform that treats capital gains as ordinary income and sets the top marginal rate to 70%.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CG_REFORM</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CG_REFORM</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;CG_nodiff&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">2019</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="s1">&#39;II_rt7&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">2019</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}</span>
 <span class="p">}</span>
@@ -357,7 +371,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">reform</span><span class="o">=</span><span class="n">CG_REFORM</span><span class="p">,</span> <span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MARS&#39;</span><span class="p">],</span> <span class="n">group_n65</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">reform</span><span class="o">=</span><span class="n">CG_REFORM</span><span class="p">,</span> <span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MARS&#39;</span><span class="p">],</span> <span class="n">group_n65</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
                      <span class="n">metric_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -365,16 +379,16 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Index([&#39;snap_ben&#39;, &#39;mcaid_ben&#39;, &#39;XTOT&#39;, &#39;expanded_income&#39;, &#39;wic_ben&#39;,
-       &#39;mcare_ben&#39;, &#39;ssi_ben&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;e02300&#39;, &#39;e02400&#39;,
-       &#39;other_ben&#39;, &#39;s006&#39;, &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;tanf_ben&#39;,
-       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
-       &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;e02300&#39;, &#39;expanded_income&#39;, &#39;wic_ben&#39;, &#39;housing_ben&#39;, &#39;ssi_ben&#39;,
+       &#39;MARS&#39;, &#39;XTOT&#39;, &#39;aftertax_income&#39;, &#39;s006&#39;, &#39;other_ben&#39;, &#39;mcare_ben&#39;,
+       &#39;snap_ben&#39;, &#39;tanf_ben&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;mcaid_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
+       &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -385,13 +399,13 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <p>Start with total revenue ($ billions).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_rev_m</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_rev_m</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">new_rev_m</span> <span class="o">/</span> <span class="mf">1e3</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>326.110945495585
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>326.110945495585
 </pre></div>
 </div>
 </div>
@@ -399,7 +413,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <p>How many seniors are there?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;n65&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;n65&#39;</span><span class="p">)</span>
 
 <span class="n">n65_total_m</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n65_total_m</span>
@@ -407,7 +421,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>59.21619976999999
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>59.21619976999999
 </pre></div>
 </div>
 </div>
@@ -415,13 +429,13 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <p>Divide.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">senior_ubi</span> <span class="o">=</span> <span class="n">new_rev_m</span> <span class="o">/</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">senior_ubi</span> <span class="o">=</span> <span class="n">new_rev_m</span> <span class="o">/</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">senior_ubi</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>5507.123840473106
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5507.123840473106
 </pre></div>
 </div>
 </div>
@@ -431,7 +445,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <h3>Add senior UBI to <code class="docutils literal notranslate"><span class="pre">aftertax_income</span></code> and recalculate<a class="headerlink" href="#add-senior-ubi-to-aftertax-income-and-recalculate" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="p">[</span><span class="s1">&#39;ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">senior_ubi</span> <span class="o">*</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="p">[</span><span class="s1">&#39;ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">senior_ubi</span> <span class="o">*</span> <span class="n">reform</span><span class="o">.</span><span class="n">n65</span>
 <span class="n">reform</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span> <span class="o">+</span> <span class="n">reform</span><span class="o">.</span><span class="n">ubi</span>
 <span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
 </pre></div>
@@ -440,12 +454,12 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income_m</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>True
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
@@ -459,24 +473,24 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <h3>Change to Gini index<a class="headerlink" href="#change-to-gini-index" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">s006</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">s006</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.5032911973267852
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5032911973267852
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">s006</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">gini</span><span class="p">(</span><span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">s006</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.48752755152259336
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.48752755152259336
 </pre></div>
 </div>
 </div>
@@ -487,7 +501,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <p>Add federal poverty line with <code class="docutils literal notranslate"><span class="pre">mdf.fpl</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span><span class="p">[</span><span class="s1">&#39;fpl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">fpl</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">XTOT</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base</span><span class="p">[</span><span class="s1">&#39;fpl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">fpl</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">XTOT</span><span class="p">)</span>
 <span class="n">reform</span><span class="p">[</span><span class="s1">&#39;fpl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">fpl</span><span class="p">(</span><span class="n">reform</span><span class="o">.</span><span class="n">XTOT</span><span class="p">)</span>
 
 <span class="n">base</span><span class="p">[</span><span class="s1">&#39;fpl_XTOT_m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span> <span class="o">&lt;</span> <span class="n">base</span><span class="o">.</span><span class="n">fpl</span><span class="p">,</span>
@@ -500,12 +514,12 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="o">.</span><span class="n">fpl_XTOT_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">base</span><span class="o">.</span><span class="n">fpl_XTOT_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span><span class="o">.</span><span class="n">fpl_XTOT_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">base</span><span class="o">.</span><span class="n">fpl_XTOT_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>-0.022307196800575246
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.022307196800575246
 </pre></div>
 </div>
 </div>
@@ -513,19 +527,17 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <p>Add chart.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">quantile_chg_plot</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">quantile_chg_plot</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span><span class="p">,</span>
                            <span class="n">base</span><span class="o">.</span><span class="n">XTOT_m</span><span class="p">,</span> <span class="n">reform</span><span class="o">.</span><span class="n">XTOT_m</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">findfont: Font family ['sans-serif'] not found. Falling back to DejaVu Sans.
-</pre>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
+</pre></div>
 </div>
-<div class="stderr docutils container">
-<pre class="stderr literal-block">findfont: Font family ['sans-serif'] not found. Falling back to DejaVu Sans.
-</pre>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
+</pre></div>
 </div>
 <img alt="_images/demo_28_2.png" src="_images/demo_28_2.png" />
 </div>
