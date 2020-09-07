@@ -12,7 +12,8 @@ DPI = 200
 def set_plot_style(dpi: int = DPI):
     """ Set plot style.
 
-    :param dpi: DPI for saving and displaying figures, defaults to microdf.DPI (200).
+    :param dpi: DPI for saving and displaying figures, defaults to microdf.DPI
+        (200).
     :type dpi: int, optional
     """
 

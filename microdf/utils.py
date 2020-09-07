@@ -5,7 +5,7 @@ import pandas as pd
 
 def ordinal_label(n):
     """Creates ordinal label from number.
-    
+
     Adapted from https://stackoverflow.com/a/20007730/1840471.
 
     :param n: Number.

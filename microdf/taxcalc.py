@@ -19,11 +19,12 @@ def static_baseline_calc(recs, year):
 
 def add_weighted_metrics(df, metric_vars, w="s006", divisor=1e6, suffix="_m"):
     """Adds weighted metrics in millions to a Tax-Calculator pandas DataFrame.
-    
+
     Columns are renamed to *_m.
 
     :param df: A pandas DataFrame containing Tax-Calculator data.
-    :param metric_vars: A list of column names to weight, or a single column name.
+    :param metric_vars: A list of column names to weight, or a single column
+        name.
     :param w: Weight column. Defaults to s006.
     :param divisor: Number by which the product is divided. Defaults to 1e6.
     :param suffix: Suffix to add to each weighted total. Defaults to '_m'
@@ -64,19 +65,22 @@ def calc_df(
     group_n65=False,
 ):
     """Creates a pandas DataFrame for given Tax-Calculator data.
-    
+
     s006 is always included, and RECID is used as an index.
 
-    :param records: An optional Records object. If not provided, uses CPS records. (Default value = None)
+    :param records: An optional Records object. If not provided, uses CPS records.
+        (Default value = None)
     :param policy: An optional Policy object. If not provided, uses default
             Policy.
     :param year: An optional year to advance to. If not provided, defaults to
             2020.
-    :param reform: An optional reform to implement for the Policy object. (Default value = None)
+    :param reform: An optional reform to implement for the Policy object.
+        (Default value = None)
     :param group_vars: An optional list of column names to include in the
             DataFrame. (Default value = None)
-    :param metric_vars: An optional list of column names to include and calculate
-             weighted sums of (in millions named as *_m) in the DataFrame. (Default value = None)
+    :param metric_vars: An optional list of column names to include and
+        calculate weighted sums of (in millions named as *_m) in the DataFrame.
+        (Default value = None)
     :param group_n65: Whether to calculate and group by n65. Defaults to False.
     :returns: A pandas DataFrame. market_income is also always calculated.
 

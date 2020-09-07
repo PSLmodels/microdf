@@ -7,7 +7,7 @@ import microdf as mdf
 
 def cash_income(df):
     """Calculates income after taxes and cash transfers.
-    
+
     Defined as aftertax_income minus non-cash benefits.
 
     :param df: A Tax-Calculator pandas DataFrame with columns for
@@ -40,7 +40,7 @@ def cash_income(df):
 
 def tpc_eci(df):
     """Approximates Tax Policy Center's Expanded Cash Income measure.
-    
+
     Subtracts WIC, housing assistance, veteran's benefits, Medicare, and
     Medicaid from expanded_income. ECI adds income measures not modeled in
     Tax-Calculator, so these are ignored and will create a discrepancy

@@ -16,7 +16,7 @@ def _get_version(module: types.ModuleType) -> str:
     """
 
     :param module: types.ModuleType:
-    :param module: types.ModuleType: 
+    :param module: types.ModuleType:
 
     """
     version = getattr(module, "__version__", None)
@@ -45,8 +45,8 @@ def import_optional_dependency(
     :type name: str
     :param extra: Additional text to include in the ImportError message.
     :type extra: str
-    :param raise_on_missing: Whether to raise if the optional dependency is not found.
-        When False and the module is not present, None is returned.
+    :param raise_on_missing: Whether to raise if the optional dependency is
+        not found. When False and the module is not present, None is returned.
     :type raise_on_missing: bool, default True
     :param on_version: What to do when a dependency's version is too old.
         * raise : Raise an ImportError
@@ -54,15 +54,6 @@ def import_optional_dependency(
         * ignore: Return the module, even if the version is too old.
           It's expected that users validate the version locally when
     :type on_version: str {'raise', 'warn'}
-    :param name: str:
-    :param extra: str:  (Default value = "")
-    :param raise_on_missing: bool:  (Default value = True)
-    :param on_version: str:  (Default value = "raise")
-    :param name: str: 
-    :param extra: str:  (Default value = "")
-    :param raise_on_missing: bool:  (Default value = True)
-    :param on_version: str:  (Default value = "raise")
-
     """
     msg = (
         f"Missing optional dependency '{name}'. {extra} "

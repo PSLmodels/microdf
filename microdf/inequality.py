@@ -8,15 +8,15 @@ def gini(x, w=None, negatives=None):
     """Calculates Gini index.
 
     :param x: A float numpy array of data to calculate Gini index on.
-    :param w: An optional float numpy array of weights. Should be the same length
-           as x. (Default value = None)
-    :param negatives: An optional string indicating how to treat negative values
-                   of x:
-                   'zero' replaces negative values with zeroes.
-                   'shift' subtracts the minimum value from all values of x,
-                   when this minimum is negative. That is, it adds the absolute
-                   minimum value.
-                   Defaults to None, which leaves negative values as they are.
+    :param w: An optional float numpy array of weights. Should be the same
+        length as x. (Default value = None)
+    :param negatives: An optional string indicating how to treat negative
+        values of x:
+        'zero' replaces negative values with zeroes.
+        'shift' subtracts the minimum value from all values of x,
+        when this minimum is negative. That is, it adds the absolute
+        minimum value.
+        Defaults to None, which leaves negative values as they are.
     :returns: A float, the Gini index.
 
     """
@@ -68,7 +68,8 @@ def bottom_x_pct_share(val, bottom_x_pct, w=None):
     """Calculates bottom x% share.
 
     :param val: Value (list-like).
-    :param bottom_x_pct: Decimal between 0 and 1 of the bottom %, e.g. 0.1, 0.001.
+    :param bottom_x_pct: Decimal between 0 and 1 of the bottom %, e.g. 0.1,
+        0.001.
     :param w: Weight (list-like, same length as val). (Default value = None)
     :returns: The share of w-weighted val held by the bottom x%.
 

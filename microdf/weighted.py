@@ -44,19 +44,20 @@ def weighted_quantile(
     values, quantiles, sample_weight=None, values_sorted=False, old_style=False
 ):
     """Calculates weighted quantiles of a set of values.
-    
+
     From https://stackoverflow.com/a/29677616/1840471.
-    
+
     Doesn't exactly match unweighted quantiles of stacked values.
     See stackoverflow.com/q/21844024#comment102342137_29677616.
 
     :param values: numpy array with data.
     :param quantiles: array-like with many quantiles needed ([0, 1]).
-    :param sample_weight: array-like of the same length as `array`. (Default value = None)
+    :param sample_weight: array-like of the same length as `array`.
+        (Default value = None)
     :param values_sorted: bool, if True, then will avoid sorting of
-            initial array (Default value = False)
+        initial array (Default value = False)
     :param old_style: if True, will correct output to be consistent
-            with numpy.percentile. (Default value = False)
+        with numpy.percentile. (Default value = False)
     :returns: numpy.array with computed quantiles.
 
     """
@@ -96,7 +97,7 @@ def weighted_median(df, col, w):
 
 def add_weighted_quantiles(df, col, w):
     """Adds weighted quantiles of a column to a DataFrame.
-    
+
     Adds columns for each of these types of quantiles to a DataFrame:
     * *_percentile_exact: Exact percentile.
     * *_percentile: Integer percentile (ceiling).
@@ -105,7 +106,7 @@ def add_weighted_quantiles(df, col, w):
     * *_decile: Integer decile.
     * *_quintile: Integer quintile.
     * *_quartile: Integer quartile.
-    
+
     Negative values are assigned -1.
 
     :param df: A pandas DataFrame.
