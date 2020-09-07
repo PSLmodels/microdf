@@ -68,8 +68,8 @@ def calc_df(
 
     s006 is always included, and RECID is used as an index.
 
-    :param records: An optional Records object. If not provided, uses CPS records.
-        (Default value = None)
+    :param records: An optional Records object. If not provided, uses CPS
+        records. (Default value = None)
     :param policy: An optional Policy object. If not provided, uses default
             Policy.
     :param year: An optional year to advance to. If not provided, defaults to

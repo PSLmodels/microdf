@@ -3,7 +3,8 @@ def fpl(people):
        size.
 
     :param XTOT: The number of people in the household.
-    :param people: returns: The federal poverty guideline for the contiguous 48 states.
+    :param people: returns: The federal poverty guideline for the contiguous
+      48 states.
     :returns: The federal poverty guideline for the contiguous 48 states.
 
     """

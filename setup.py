@@ -16,6 +16,6 @@ setup(
         "pandas",
         "seaborn",
     ],
-    extras_require={"taxcalc": ["taxcalc"],},
+    extras_require={"taxcalc": ["taxcalc"]},
     zip_safe=False,
 )
