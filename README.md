@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/MaxGhenis/microdf.svg?branch=master)](https://travis-ci.com/MaxGhenis/microdf)
+![example workflow file path](https://github.com/PSLmodels/microdf/workflows/Build%20and%20test%20[Python%203.6,%203.7,%203.8]/badge.svg)
 [![Codecov](https://codecov.io/gh/MaxGhenis/microdf/branch/master/graph/badge.svg)](https://codecov.io/gh/MaxGhenis/microdf)
 
 # microdf
