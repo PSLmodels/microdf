@@ -40,46 +40,37 @@ def weighted_mean(df, col, w):
     return weighted_sum(df, col, w) / df[w].sum()
 
 
-def weighted_quantile(
-    values, quantiles, sample_weight=None, values_sorted=False, old_style=False
-):
+def weighted_quantile(df: pd.DataFrame, col: str, w: str, quantiles: np.array):
     """Calculates weighted quantiles of a set of values.
-
-    From https://stackoverflow.com/a/29677616/1840471.
 
     Doesn't exactly match unweighted quantiles of stacked values.
     See stackoverflow.com/q/21844024#comment102342137_29677616.
 
-    :param values: numpy array with data.
-    :param quantiles: array-like with many quantiles needed ([0, 1]).
-    :param sample_weight: array-like of the same length as `array`.
-        (Default value = None)
-    :param values_sorted: bool, if True, then will avoid sorting of
-        initial array (Default value = False)
-    :param old_style: if True, will correct output to be consistent
-        with numpy.percentile. (Default value = False)
-    :returns: numpy.array with computed quantiles.
-
+    :param df: DataFrame to calculate weighted quantiles from.
+    :type df: pd.DataFrame
+    :param col: Name of numeric column in df to calculate weighted quantiles from.
+    :type col: str
+    :param w: Name of weight column in df.
+    :type w: str
+    :param quantiles: Array of quantiles to calculate.
+    :type quantiles: np.array
+    :return: Array of weighted quantiles.
+    :rtype: np.array
     """
-    values = np.array(values)
+    values = np.array(df[col])
     quantiles = np.array(quantiles)
-    if sample_weight is None:
+    if w is None:
         sample_weight = np.ones(len(values))
-    sample_weight = np.array(sample_weight)
+    else:
+        sample_weight = np.array(df[w])
     assert np.all(quantiles >= 0) and np.all(
         quantiles <= 1
     ), "quantiles should be in [0, 1]"
-    if not values_sorted:
-        sorter = np.argsort(values)
-        values = values[sorter]
-        sample_weight = sample_weight[sorter]
+    sorter = np.argsort(values)
+    values = values[sorter]
+    sample_weight = sample_weight[sorter]
     weighted_quantiles = np.cumsum(sample_weight) - 0.5 * sample_weight
-    if old_style:
-        # To be convenient with numpy.percentile
-        weighted_quantiles -= weighted_quantiles[0]
-        weighted_quantiles /= weighted_quantiles[-1]
-    else:
-        weighted_quantiles /= np.sum(sample_weight)
+    weighted_quantiles /= np.sum(sample_weight)
     return np.interp(quantiles, weighted_quantiles, values)
 
 
