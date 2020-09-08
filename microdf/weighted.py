@@ -4,7 +4,7 @@ import pandas as pd
 import microdf as mdf
 
 
-def weight(df, col, w):
+def weight(df, col, w=None):
     """Calculates the weighted value of a column in a DataFrame.
 
     :param df: A pandas DataFrame.
@@ -13,10 +13,12 @@ def weight(df, col, w):
     :returns: A pandas Series multiplying the column by its weight.
 
     """
+    if w is None:
+        return df[col]
     return df[col] * df[w]
 
 
-def weighted_sum(df, col, w):
+def weighted_sum(df, col, w=None):
     """Calculates the weighted sum of a column in a DataFrame.
 
     :param df: A pandas DataFrame.
@@ -25,10 +27,12 @@ def weighted_sum(df, col, w):
     :returns: The weighted sum of a DataFrame's column.
 
     """
+    if w is None:
+        return df[col].sum()
     return (df[col] * df[w]).sum()
 
 
-def weighted_mean(df, col, w):
+def weighted_mean(df, col, w=None):
     """Calculates the weighted mean of a column in a DataFrame.
 
     :param df: A pandas DataFrame.
@@ -37,6 +41,8 @@ def weighted_mean(df, col, w):
     :returns: The weighted mean of a DataFrame's column.
 
     """
+    if w is None:
+        return df[col].mean()
     return weighted_sum(df, col, w) / df[w].sum()
 
 
@@ -75,7 +81,7 @@ def weighted_quantile(df: pd.DataFrame, col: str, w: str, quantiles: np.array):
     return np.interp(quantiles, weighted_quantiles, values)
 
 
-def weighted_median(df, col, w):
+def weighted_median(df, col, w=None):
     """Calculates the weighted median of a column in a DataFrame.
 
     :param df: A pandas DataFrame containing Tax-Calculator data.
@@ -84,6 +90,8 @@ def weighted_median(df, col, w):
     :returns: The weighted median of a DataFrame's column.
 
     """
+    if w is None:
+        return df[col].median()
     return weighted_quantile(df, col, w, 0.5)
 
 
