@@ -83,7 +83,7 @@ def weighted_median(df, col, w):
     :returns: The weighted median of a DataFrame's column.
 
     """
-    return weighted_quantile(df[col], 0.5, df[w])
+    return weighted_quantile(df, col, w, 0.5)
 
 
 def add_weighted_quantiles(df, col, w):
