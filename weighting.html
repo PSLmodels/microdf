@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The agg function &#8212; microdf documentation</title>
+    <title>Weighting in taxcalc_helpers &#8212; microdf documentation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
@@ -36,8 +36,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="microdf charts" href="charts.html" />
-    <link rel="prev" title="Examples" href="examples.html" />
+    <link rel="prev" title="Income measures" href="income_measures.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -83,8 +82,8 @@
    Examples
   </a>
   <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="agg.html">
      The
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -134,8 +133,8 @@
      Income measures
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="weighting.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Weighting in taxcalc_helpers
     </a>
    </li>
@@ -183,7 +182,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/agg.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/weighting.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -203,10 +202,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fagg.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/MaxGhenis/microdf/issues/new?title=Issue%20on%20page%20%2Fweighting.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/agg.ipynb"><button
+        <a class="edit-button" href="https://github.com/MaxGhenis/microdf/edit/master/docs/weighting.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -225,7 +224,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/MaxGhenis/microdf/master?urlpath=tree/docs/agg.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/MaxGhenis/microdf/master?urlpath=tree/docs/weighting.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -233,7 +232,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/agg.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/MaxGhenis/microdf/blob/master/docs/weighting.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -261,37 +260,6 @@
    Load data
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#agg">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     agg
-    </span>
-   </code>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#change-in-aftertax-income-by-marital-status">
-     Change in aftertax income by marital status.
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#also-sum-baseline-expanded-income">
-     Also sum baseline
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       expanded_income
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#also-sum-ubi-amount">
-     Also sum UBI amount
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 
         </nav>
@@ -302,9 +270,8 @@
         
               <div>
                 
-  <div class="section" id="the-agg-function">
-<h1>The <code class="docutils literal notranslate"><span class="pre">agg</span></code> function<a class="headerlink" href="#the-agg-function" title="Permalink to this headline">¶</a></h1>
-<p>Use <code class="docutils literal notranslate"><span class="pre">agg</span></code> to see the effect of a $10,000 UBI by marital status.</p>
+  <div class="section" id="weighting-in-taxcalc-helpers">
+<h1>Weighting in taxcalc_helpers<a class="headerlink" href="#weighting-in-taxcalc-helpers" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -333,54 +300,28 @@
 </div>
 <div class="section" id="load-data">
 <h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h2>
-<p>Start with a standard <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, then add a UBI manually in a reform copy.</p>
+<p>Start with a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with <code class="docutils literal notranslate"><span class="pre">nu18</span></code> and <code class="docutils literal notranslate"><span class="pre">XTOT</span></code>, and also calculate <code class="docutils literal notranslate"><span class="pre">XTOT_m</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;expanded_income&#39;</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">],</span>
-                   <span class="n">metric_vars</span><span class="o">=</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reform</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">UBI_PP</span> <span class="o">=</span> <span class="mi">10000</span>
-<span class="n">reform</span><span class="p">[</span><span class="s1">&#39;ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">XTOT</span> <span class="o">*</span> <span class="n">UBI_PP</span>
-<span class="n">reform</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reform</span><span class="o">.</span><span class="n">aftertax_income</span> <span class="o">+</span> <span class="n">reform</span><span class="o">.</span><span class="n">ubi</span>
-<span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="agg">
-<h2><code class="docutils literal notranslate"><span class="pre">agg</span></code><a class="headerlink" href="#agg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="change-in-aftertax-income-by-marital-status">
-<h3>Change in aftertax income by marital status.<a class="headerlink" href="#change-in-aftertax-income-by-marital-status" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;nu18&#39;</span><span class="p">],</span> <span class="n">metric_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;XTOT&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">5</span><span class="n">f25679b9c40</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
-
-<span class="ne">TypeError</span>: agg() missing 2 required positional arguments: &#39;base_metrics&#39; and &#39;reform_metrics&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;nu18&#39;, &#39;XTOT&#39;, &#39;ssi_ben&#39;, &#39;mcare_ben&#39;, &#39;tanf_ben&#39;, &#39;aftertax_income&#39;,
+       &#39;vet_ben&#39;, &#39;expanded_income&#39;, &#39;snap_ben&#39;, &#39;mcaid_ben&#39;, &#39;s006&#39;,
+       &#39;other_ben&#39;, &#39;e02400&#39;, &#39;housing_ben&#39;, &#39;e02300&#39;, &#39;wic_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;],
+      dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="also-sum-baseline-expanded-income">
-<h3>Also sum baseline <code class="docutils literal notranslate"><span class="pre">expanded_income</span></code><a class="headerlink" href="#also-sum-baseline-expanded-income" title="Permalink to this headline">¶</a></h3>
+<p>From this we can calculate the number of people and tax units by the tax unit’s number of children.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;expanded_income&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;nu18&#39;</span><span class="p">)[[</span><span class="s1">&#39;s006_m&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT_m&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -403,53 +344,93 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>aftertax_income_m_base</th>
-      <th>expanded_income</th>
-      <th>aftertax_income_m_reform</th>
-      <th>aftertax_income_pctchg</th>
+      <th>s006_m</th>
+      <th>XTOT_m</th>
     </tr>
     <tr>
-      <th>MARS</th>
-      <th></th>
-      <th></th>
+      <th>nu18</th>
       <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>0.0</th>
+      <td>152.988772</td>
+      <td>209.816367</td>
+    </tr>
+    <tr>
       <th>1.0</th>
-      <td>3.916351e+06</td>
-      <td>1.593936e+10</td>
-      <td>4.939093e+06</td>
-      <td>0.261147</td>
+      <td>22.688253</td>
+      <td>54.115850</td>
     </tr>
     <tr>
       <th>2.0</th>
-      <td>7.692072e+06</td>
-      <td>6.242669e+10</td>
-      <td>9.577865e+06</td>
-      <td>0.245161</td>
+      <td>18.859945</td>
+      <td>68.880292</td>
+    </tr>
+    <tr>
+      <th>3.0</th>
+      <td>7.438481</td>
+      <td>34.795527</td>
     </tr>
     <tr>
       <th>4.0</th>
-      <td>8.531427e+05</td>
-      <td>2.210208e+09</td>
-      <td>1.275820e+06</td>
-      <td>0.495436</td>
+      <td>2.371111</td>
+      <td>13.539261</td>
+    </tr>
+    <tr>
+      <th>5.0</th>
+      <td>0.744276</td>
+      <td>5.015182</td>
+    </tr>
+    <tr>
+      <th>6.0</th>
+      <td>0.216158</td>
+      <td>1.688063</td>
+    </tr>
+    <tr>
+      <th>7.0</th>
+      <td>0.090332</td>
+      <td>0.790239</td>
+    </tr>
+    <tr>
+      <th>8.0</th>
+      <td>0.026501</td>
+      <td>0.258552</td>
+    </tr>
+    <tr>
+      <th>9.0</th>
+      <td>0.012238</td>
+      <td>0.134320</td>
+    </tr>
+    <tr>
+      <th>10.0</th>
+      <td>0.007196</td>
+      <td>0.084201</td>
+    </tr>
+    <tr>
+      <th>12.0</th>
+      <td>0.000265</td>
+      <td>0.003715</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="also-sum-ubi-amount">
-<h3>Also sum UBI amount<a class="headerlink" href="#also-sum-ubi-amount" title="Permalink to this headline">¶</a></h3>
+<p>What if we also want to calculate the total number of <em>children</em> by the tax unit’s number of children?</p>
+<p>For this we can use <code class="docutils literal notranslate"><span class="pre">add_weighted_metrics</span></code>, the function called within <code class="docutils literal notranslate"><span class="pre">calc_df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;ubi&#39;</span><span class="p">)</span>  <span class="c1"># Creates ubi_m = ubi * s006 / 1e6.</span>
-
-<span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="n">reform_metrics</span><span class="o">=</span><span class="s1">&#39;ubi_m&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">add_weighted_metrics</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;nu18&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can do the same thing as before, with the new <code class="docutils literal notranslate"><span class="pre">nu18_m</span></code> column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;nu18&#39;</span><span class="p">)[[</span><span class="s1">&#39;nu18_m&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -472,45 +453,186 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>aftertax_income_m_base</th>
-      <th>aftertax_income_m_reform</th>
-      <th>ubi_m</th>
-      <th>aftertax_income_pctchg</th>
+      <th>nu18_m</th>
     </tr>
     <tr>
-      <th>MARS</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>nu18</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>0.0</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
       <th>1.0</th>
-      <td>3.916351e+06</td>
-      <td>4.939093e+06</td>
-      <td>1.022742e+06</td>
-      <td>0.261147</td>
+      <td>22.688253</td>
     </tr>
     <tr>
       <th>2.0</th>
-      <td>7.692072e+06</td>
-      <td>9.577865e+06</td>
-      <td>1.885793e+06</td>
-      <td>0.245161</td>
+      <td>37.719889</td>
+    </tr>
+    <tr>
+      <th>3.0</th>
+      <td>22.315444</td>
     </tr>
     <tr>
       <th>4.0</th>
-      <td>8.531427e+05</td>
-      <td>1.275820e+06</td>
-      <td>4.226775e+05</td>
-      <td>0.495436</td>
+      <td>9.484444</td>
+    </tr>
+    <tr>
+      <th>5.0</th>
+      <td>3.721381</td>
+    </tr>
+    <tr>
+      <th>6.0</th>
+      <td>1.296949</td>
+    </tr>
+    <tr>
+      <th>7.0</th>
+      <td>0.632325</td>
+    </tr>
+    <tr>
+      <th>8.0</th>
+      <td>0.212008</td>
+    </tr>
+    <tr>
+      <th>9.0</th>
+      <td>0.110139</td>
+    </tr>
+    <tr>
+      <th>10.0</th>
+      <td>0.071958</td>
+    </tr>
+    <tr>
+      <th>12.0</th>
+      <td>0.003184</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+<p>We can also calculate weighted sums without adding the weighted metric.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_children</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">weighted_sum</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;nu18&#39;</span><span class="p">,</span> <span class="s1">&#39;s006&#39;</span><span class="p">)</span>
+<span class="c1"># Fix this decimal.</span>
+<span class="s1">&#39;Total children: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">total_children</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;M.&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Total children: 98M.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also calculate the weighted mean and median.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">weighted_mean</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;nu18&#39;</span><span class="p">,</span> <span class="s1">&#39;s006&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4782626894263673
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdf</span><span class="o">.</span><span class="n">weighted_median</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;nu18&#39;</span><span class="p">,</span> <span class="s1">&#39;s006&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also look at more quantiles.</p>
+<p><em>Note that weighted quantiles have a different interface.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decile_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">deciles</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">weighted_quantile</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">nu18</span><span class="p">,</span> <span class="n">decile_bounds</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">s006</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">deciles</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">decile_bounds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.1</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.2</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.3</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.4</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.5</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.6</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.7</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.8</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>0.9</th>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>12.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 </div>
@@ -543,8 +665,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="examples.html" title="previous page">Examples</a>
-    <a class='right-next' id="next-link" href="charts.html" title="next page"><code class="docutils literal notranslate"><span class="pre">microdf</span></code> charts</a>
+    <a class='left-prev' id="prev-link" href="income_measures.html" title="previous page">Income measures</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
