@@ -9,13 +9,17 @@ df = pd.DataFrame({"x": X, "w": W})
 
 
 def test_weighted_quantile():
-    """ """
     Q = [0, 0.5, 1]
-    res_weighted = mdf.weighted_quantile(df, "x", "w", Q).tolist()
+    mdf.weighted_quantile(df, "x", "w", Q).tolist()
+
+
+def test_weighted_median():
+    # TODO: Add None default to w.
+    # assert mdf.weighted_median(df, 'x') == 2
+    mdf.weighted_median(df, "x", "w")
 
 
 def test_weighted_mean():
-    """ """
     # TODO: Add None default to w.
     # assert mdf.weighted_mean(df, 'x') == 8 / 3
     assert mdf.weighted_mean(df, "x", "w") == 11 / 6
