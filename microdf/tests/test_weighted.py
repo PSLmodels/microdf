@@ -9,22 +9,17 @@ df = pd.DataFrame({"x": X, "w": W})
 
 
 def test_weighted_quantile():
-    """ """
     Q = [0, 0.5, 1]
-    EXPECTED_UNWEIGHTED = [1, 2, 5]
-    res_unweighted = mdf.weighted_quantile(X, Q).tolist()
-    assert EXPECTED_UNWEIGHTED == res_unweighted
-    res_weighted = mdf.weighted_quantile(X, Q, W).tolist()
-    # Waiting for a better test, given the result isn't exactly the same as
-    # stacking values.
-    # See stackoverflow.com/q/21844024#comment102342137_29677616
-    # EXPECTED_WEIGHTED = [1, 1, 5]
-    # For now, check that median is less than the unweighted median.
-    assert res_weighted[1] < res_unweighted[1]
+    mdf.weighted_quantile(df, "x", "w", Q).tolist()
+
+
+def test_weighted_median():
+    # TODO: Add None default to w.
+    # assert mdf.weighted_median(df, 'x') == 2
+    mdf.weighted_median(df, "x", "w")
 
 
 def test_weighted_mean():
-    """ """
     # TODO: Add None default to w.
     # assert mdf.weighted_mean(df, 'x') == 8 / 3
     assert mdf.weighted_mean(df, "x", "w") == 11 / 6

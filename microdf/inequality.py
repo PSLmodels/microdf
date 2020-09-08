@@ -1,15 +1,14 @@
 import numpy as np
-import pandas as pd
 
 import microdf as mdf
 
 
-def gini(x, w=None, negatives=None):
+def gini(df, col, w=None, negatives=None):
     """Calculates Gini index.
 
-    :param x: A float numpy array of data to calculate Gini index on.
-    :param w: An optional float numpy array of weights. Should be the same
-        length as x. (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param w: Column representing weight in df.
     :param negatives: An optional string indicating how to treat negative
         values of x:
         'zero' replaces negative values with zeroes.
@@ -21,13 +20,13 @@ def gini(x, w=None, negatives=None):
 
     """
     # Requires float numpy arrays (not pandas Series or lists) to work.
-    x = np.array(x).astype("float")
+    x = np.array(df[col]).astype("float")
     if negatives == "zero":
         x[x < 0] = 0
     if negatives == "shift" and np.amin(x) < 0:
         x -= np.amin(x)
     if w is not None:
-        w = np.array(w).astype("float")
+        w = np.array(df[w]).astype("float")
         sorted_indices = np.argsort(x)
         sorted_x = x[sorted_indices]
         sorted_w = w[sorted_indices]
@@ -44,101 +43,103 @@ def gini(x, w=None, negatives=None):
         return (n + 1 - 2 * np.sum(cumxw) / cumxw[-1]) / n
 
 
-def top_x_pct_share(val, top_x_pct, w=None):
+def top_x_pct_share(df, col, top_x_pct, w=None):
     """Calculates top x% share.
 
-    :param val: Value (list-like).
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
     :param top_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1, 0.001.
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the top x%.
 
     """
-    val = pd.Series(val)
-    if w is None:
-        w = np.ones(val.size)
-    w = pd.Series(w)
-    threshold = mdf.weighted_quantile(val, 1 - top_x_pct, w)
-    filt = val >= threshold
-    top_x_pct_sum = (val[filt] * w[filt]).sum()
-    total_sum = (val * w).sum()
+    threshold = mdf.weighted_quantile(df, col, w, 1 - top_x_pct)
+    top_x_pct_sum = mdf.weighted_sum(df[df[col] >= threshold], col, w)
+    total_sum = mdf.weighted_sum(df, col, w)
     return top_x_pct_sum / total_sum
 
 
-def bottom_x_pct_share(val, bottom_x_pct, w=None):
+def bottom_x_pct_share(df, col, bottom_x_pct, w=None):
     """Calculates bottom x% share.
 
-    :param val: Value (list-like).
-    :param bottom_x_pct: Decimal between 0 and 1 of the bottom %, e.g. 0.1,
-        0.001.
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param bottom_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1, 0.001.
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the bottom x%.
 
     """
-    return 1 - top_x_pct_share(val, 1 - bottom_x_pct, w, top=False)
+    return 1 - top_x_pct_share(df, col, 1 - bottom_x_pct, w, top=False)
 
 
-def bottom_50_pct_share(val, w=None):
+def bottom_50_pct_share(df, col, w=None):
     """Calculates bottom 50% share.
 
-    :param val: Value (list-like).
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the bottom 50%.
 
     """
-    return bottom_x_pct_share(val, 0.5, w)
+    return bottom_x_pct_share(df, col, 0.5, w)
 
 
-def top_50_pct_share(val, w=None):
+def top_50_pct_share(df, col, w=None):
     """Calculates top 50% share.
 
-    :param val: Value (list-like).
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the top 50%.
 
     """
-    return top_x_pct_share(val, 0.5, w)
+    return top_x_pct_share(df, col, 0.5, w)
 
 
-def top_10_pct_share(val, w=None):
+def top_10_pct_share(df, col, w=None):
     """Calculates top 10% share.
 
-    :param val: Value (list-like).
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the top 10%.
 
     """
-    return top_x_pct_share(val, 0.1, w)
+    return top_x_pct_share(df, col, 0.1, w)
 
 
-def top_1_pct_share(val, w=None):
+def top_1_pct_share(df, col, w=None):
     """Calculates top 1% share.
 
-    :param val: Value (list-like).
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the top 1%.
 
     """
-    return top_x_pct_share(val, 0.01, w)
+    return top_x_pct_share(df, col, 0.01, w)
 
 
-def top_0_1_pct_share(val, w=None):
+def top_0_1_pct_share(df, col, w=None):
     """Calculates top 0.1% share.
 
-    :param val: Value (list-like).
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the top 0.1%.
 
     """
-    return top_x_pct_share(val, 0.001, w)
+    return top_x_pct_share(df, col, 0.001, w)
 
 
-def t10_b50(val, w=None):
+def t10_b50(df, col, w=None):
     """Calculates ratio between the top 10% and bottom 50% shares.
 
-    :param val: Value (list-like).
-    :param w: Weight (list-like, same length as val). (Default value = None)
+    :param df: DataFrame.
+    :param col: Name of column in df representing value.
+    :param w: Column representing weight in df.
     :returns: The share of w-weighted val held by the top 10% divided by
         the share of w-weighted val held by the bottom 50%.
 
     """
-    return top_10_pct_share(val, w) / bottom_50_pct_share(val, w)
+    return top_10_pct_share(df, col, w) / bottom_50_pct_share(df, col, w)
