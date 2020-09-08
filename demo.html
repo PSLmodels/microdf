@@ -358,10 +358,11 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;vet_ben&#39;, &#39;wic_ben&#39;, &#39;other_ben&#39;, &#39;snap_ben&#39;, &#39;ssi_ben&#39;, &#39;e02300&#39;,
-       &#39;tanf_ben&#39;, &#39;XTOT&#39;, &#39;expanded_income&#39;, &#39;s006&#39;, &#39;mcaid_ben&#39;, &#39;e02400&#39;,
-       &#39;MARS&#39;, &#39;aftertax_income&#39;, &#39;mcare_ben&#39;, &#39;housing_ben&#39;, &#39;market_income&#39;,
-       &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;, &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;snap_ben&#39;, &#39;aftertax_income&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;s006&#39;,
+       &#39;expanded_income&#39;, &#39;mcare_ben&#39;, &#39;mcaid_ben&#39;, &#39;e02300&#39;, &#39;ssi_ben&#39;,
+       &#39;housing_ben&#39;, &#39;wic_ben&#39;, &#39;other_ben&#39;, &#39;MARS&#39;, &#39;XTOT&#39;, &#39;tanf_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
+       &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -393,10 +394,11 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;ssi_ben&#39;, &#39;mcaid_ben&#39;, &#39;MARS&#39;, &#39;wic_ben&#39;, &#39;e02300&#39;, &#39;expanded_income&#39;,
-       &#39;aftertax_income&#39;, &#39;mcare_ben&#39;, &#39;housing_ben&#39;, &#39;other_ben&#39;, &#39;e02400&#39;,
-       &#39;vet_ben&#39;, &#39;snap_ben&#39;, &#39;tanf_ben&#39;, &#39;XTOT&#39;, &#39;s006&#39;, &#39;market_income&#39;,
-       &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;, &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;snap_ben&#39;, &#39;vet_ben&#39;, &#39;mcare_ben&#39;, &#39;expanded_income&#39;, &#39;XTOT&#39;, &#39;s006&#39;,
+       &#39;ssi_ben&#39;, &#39;housing_ben&#39;, &#39;MARS&#39;, &#39;other_ben&#39;, &#39;tanf_ben&#39;,
+       &#39;aftertax_income&#39;, &#39;e02400&#39;, &#39;mcaid_ben&#39;, &#39;e02300&#39;, &#39;wic_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
+       &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -498,54 +500,54 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 <span class="g g-Whitespace">     </span><span class="mi">24</span><span class="s2">     if negatives == &quot;zero&quot;:</span>
 <span class="g g-Whitespace">     </span><span class="mi">25</span><span class="s2">         x[x &lt; 0] = 0</span>
 
-<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.7/site-packages/pandas/core/series.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.8/site-packages/pandas/core/series.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">906</span><span class="s2">             return self._get_values(key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">907</span><span class="s2"> </span>
 <span class="ne">--&gt; </span><span class="mi">908</span><span class="s2">         return self._get_with(key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">909</span><span class="s2"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">910</span><span class="s2">     def _get_with(self, key):</span>
 
-<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.7/site-packages/pandas/core/series.py</span> in <span class="ni">_get_with</span><span class="nt">(self, key)</span>
+<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.8/site-packages/pandas/core/series.py</span> in <span class="ni">_get_with</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">946</span><span class="s2"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">947</span><span class="s2">         # handle the dup indexing case GH#4246</span>
 <span class="ne">--&gt; </span><span class="mi">948</span><span class="s2">         return self.loc[key]</span>
 <span class="g g-Whitespace">    </span><span class="mi">949</span><span class="s2"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">950</span><span class="s2">     def _get_values_tuple(self, key):</span>
 
-<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.7/site-packages/pandas/core/indexing.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.8/site-packages/pandas/core/indexing.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">877</span><span class="s2"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">878</span><span class="s2">             maybe_callable = com.apply_if_callable(key, self.obj)</span>
 <span class="ne">--&gt; </span><span class="mi">879</span><span class="s2">             return self._getitem_axis(maybe_callable, axis=axis)</span>
 <span class="g g-Whitespace">    </span><span class="mi">880</span><span class="s2"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">881</span><span class="s2">     def _is_scalar_access(self, key: Tuple):</span>
 
-<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.7/site-packages/pandas/core/indexing.py</span> in <span class="ni">_getitem_axis</span><span class="nt">(self, key, axis)</span>
+<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.8/site-packages/pandas/core/indexing.py</span> in <span class="ni">_getitem_axis</span><span class="nt">(self, key, axis)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1097</span><span class="s2">                     raise ValueError(&quot;Cannot index with multidimensional key&quot;)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1098</span><span class="s2"> </span>
 <span class="ne">-&gt; </span><span class="mi">1099</span><span class="s2">                 return self._getitem_iterable(key, axis=axis)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1100</span><span class="s2"> </span>
 <span class="g g-Whitespace">   </span><span class="mi">1101</span><span class="s2">             # nested tuple slicing</span>
 
-<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.7/site-packages/pandas/core/indexing.py</span> in <span class="ni">_getitem_iterable</span><span class="nt">(self, key, axis)</span>
+<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.8/site-packages/pandas/core/indexing.py</span> in <span class="ni">_getitem_iterable</span><span class="nt">(self, key, axis)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1035</span><span class="s2"> </span>
 <span class="g g-Whitespace">   </span><span class="mi">1036</span><span class="s2">         # A collection of keys</span>
 <span class="ne">-&gt; </span><span class="mi">1037</span><span class="s2">         keyarr, indexer = self._get_listlike_indexer(key, axis, raise_missing=False)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1038</span><span class="s2">         return self.obj._reindex_with_indexers(</span>
 <span class="g g-Whitespace">   </span><span class="mi">1039</span><span class="s2">             {axis: [keyarr, indexer]}, copy=True, allow_dups=True</span>
 
-<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.7/site-packages/pandas/core/indexing.py</span> in <span class="ni">_get_listlike_indexer</span><span class="nt">(self, key, axis, raise_missing)</span>
+<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.8/site-packages/pandas/core/indexing.py</span> in <span class="ni">_get_listlike_indexer</span><span class="nt">(self, key, axis, raise_missing)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1252</span><span class="s2">             keyarr, indexer, new_indexer = ax._reindex_non_unique(keyarr)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1253</span><span class="s2"> </span>
 <span class="ne">-&gt; </span><span class="mi">1254</span><span class="s2">         self._validate_read_indexer(keyarr, indexer, axis, raise_missing=raise_missing)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1255</span><span class="s2">         return keyarr, indexer</span>
 <span class="g g-Whitespace">   </span><span class="mi">1256</span><span class="s2"> </span>
 
-<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.7/site-packages/pandas/core/indexing.py</span> in <span class="ni">_validate_read_indexer</span><span class="nt">(self, key, indexer, axis, raise_missing)</span>
+<span class="nn">/usr/share/miniconda/envs/microdf/lib/python3.8/site-packages/pandas/core/indexing.py</span> in <span class="ni">_validate_read_indexer</span><span class="nt">(self, key, indexer, axis, raise_missing)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1313</span><span class="s2"> </span>
 <span class="g g-Whitespace">   </span><span class="mi">1314</span><span class="s2">                 with option_context(&quot;display.max_seq_items&quot;, 10, &quot;display.width&quot;, 80):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1315</span><span class="s2">                     raise KeyError(</span>
-<span class="ne">-&gt; </span><span class="mi">1316</span><span class="s2">                         &quot;Passing list-likes to .loc or [] with any missing labels &quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1315</span><span class="s2">                     raise KeyError(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1316</span><span class="s2">                         &quot;Passing list-likes to .loc or [] with any missing labels &quot;</span>
 <span class="g g-Whitespace">   </span><span class="mi">1317</span><span class="s2">                         &quot;is no longer supported. &quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1318</span><span class="s2">                         f&quot;The following labels were missing: </span><span class="si">{not_found}</span><span class="s2">. &quot;</span>
 
 <span class="ne">KeyError</span>: &quot;Passing list-likes to .loc or [] with any missing labels is no longer supported. The following labels were missing: Float64Index([ 280.6, 216.81, 268.85, 224.88,  240.8,\n              ...\n              268.69, 127.27, 119.75, 104.67, 104.67],\n             dtype=&#39;float64&#39;, name=&#39;RECID&#39;, length=277209). See https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#deprecate-loc-reindex-listlike&quot;
 </pre></div>
