@@ -9,7 +9,7 @@ Includes functions for working with [Tax-Calculator](https://github.com/PSLmodel
 ## Installation
 Install with:
 
-    pip install git+git://github.com/maxghenis/microdf.git
+    pip install git+git://github.com/PSLmodels/microdf.git
 
 ## Questions
 Contact the maintainer, Max Ghenis (mghenis@gmail.com).
