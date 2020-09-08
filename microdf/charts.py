@@ -8,25 +8,37 @@ import microdf as mdf
 
 
 def quantile_chg_plot(
-    v1, v2, w1=None, w2=None, q=None, label1="Base", label2="Reform",
+    df1,
+    df2,
+    col1,
+    col2,
+    w1=None,
+    w2=None,
+    q=None,
+    label1="Base",
+    label2="Reform",
 ):
     """Create plot with one line per quantile boundary between base and
         reform.
 
-    :param v1: First set of values.
-    :param v2: Second set of values.
-    :param w1: First set of weights. Defaults to equal weight.
-    :param w2: Second set of weights. Defaults to equal weight.
+    :param df1: DataFrame with first set of values.
+    :param df2: DataFrame with second set of values.
+    :param col1: Name of columns with values in df1.
+    :param col2: Name of columns with values in df2.
+    :param w1: Name of weight column in df1.
+    :param w2: Name of weight column in df2.
     :param q: Quantiles. Defaults to decile boundaries.
     :param label1: Label for left side of x-axis. Defaults to 'Base'.
     :param label2: Label for right side of x-axis. Defaults to 'Reform'.
     :returns: Axis.
 
     """
+    # Calculate the q default because it's later used for defining a color
+    # palette.
     if q is None:
         q = np.arange(0.1, 1, 0.1)
     # Calculate weighted quantiles.
-    df = mdf.quantile_chg(v1, v2, w1, w2, q)
+    df = mdf.quantile_chg(df1, df2, col1, col2, w1, w2, q)
     # Make shades of green, removing the lightest 10 shades.
     with sns.color_palette(sns.color_palette("Greens", q.size + 11)[11:]):
         ax = df.plot()
@@ -49,13 +61,15 @@ def quantile_chg_plot(
     return ax
 
 
-def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=None):
+def quantile_pct_chg_plot(df1, df2, col1, col2, w1=None, w2=None, q=None):
     """Create stem plot with percent change in decile boundaries.
 
-    :param v1: First set of values.
-    :param v2: Second set of values.
-    :param w1: First set of weights. Defaults to equal weight.
-    :param w2: Second set of weights. Defaults to equal weight.
+    :param df1: DataFrame with first set of values.
+    :param df2: DataFrame with second set of values.
+    :param col1: Name of columns with values in df1.
+    :param col2: Name of columns with values in df2.
+    :param w1: Name of weight column in df1.
+    :param w2: Name of weight column in df2.
     :param q: Quantiles. Defaults to decile boundaries.
     :returns: Axis.
 
@@ -63,7 +77,7 @@ def quantile_pct_chg_plot(v1, v2, w1=None, w2=None, q=None):
     if q is None:
         q = np.arange(0.1, 1, 0.1)
     # Calculate weighted quantiles.
-    df = mdf.quantile_chg(v1, v2, w1, w2, q).transpose()
+    df = mdf.quantile_chg(df1, df2, col1, col2, w1, w2, q).transpose()
     # Prepare dataset for plotting.
     df.columns = ["base", "reform"]
     df["pct_chg"] = df.reform / df.base - 1
