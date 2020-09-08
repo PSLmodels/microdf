@@ -123,13 +123,15 @@ def add_weighted_quantiles(df, col, w):
     df[col + "_quartile"] = np.ceil(df[col_pctile] / 25).astype(int)
 
 
-def quantile_chg(v1, v2, w1=None, w2=None, q=None):
+def quantile_chg(df1, df2, col1, col2, w1=None, w2=None, q=None):
     """Create table with two sets of quantiles.
 
-    :param v1: First set of values.
-    :param v2: Second set of values.
-    :param w1: First set of weights. Defaults to equal weight.
-    :param w2: Second set of weights. Defaults to equal weight.
+    :param df1: DataFrame with first set of values.
+    :param df2: DataFrame with second set of values.
+    :param col1: Name of columns with values in df1.
+    :param col2: Name of columns with values in df2.
+    :param w1: Name of weight column in df1.
+    :param w2: Name of weight column in df2.
     :param q: Quantiles. Defaults to decile boundaries.
     :returns: DataFrame with two rows and a column for each quantile.
         Column labels are "xth percentile" and a label is added
@@ -138,9 +140,9 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=None):
     """
     if q is None:
         q = np.arange(0.1, 1, 0.1)
-    q1 = weighted_quantile(v1, q, w1)
-    q2 = weighted_quantile(v2, q, w2)
-    df = pd.DataFrame([q1, q2])
+    q1 = weighted_quantile(df1, col1, w1, q)
+    q2 = weighted_quantile(df2, col2, w2, q)
+    qdf = pd.DataFrame([q1, q2])
     # Set decile labels.
     q_print = [mdf.ordinal_label((i * 100)) for i in q]
     try:  # List index throws an error if the value is not found.
@@ -148,5 +150,5 @@ def quantile_chg(v1, v2, w1=None, w2=None, q=None):
         q_print[median_index] += " (median)"
     except ValueError:
         pass  # Don't assign median to any label.
-    df.columns = q_print
-    return df
+    qdf.columns = q_print
+    return qdf
