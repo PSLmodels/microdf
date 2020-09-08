@@ -48,7 +48,8 @@ def weighted_quantile(df: pd.DataFrame, col: str, w: str, quantiles: np.array):
 
     :param df: DataFrame to calculate weighted quantiles from.
     :type df: pd.DataFrame
-    :param col: Name of numeric column in df to calculate weighted quantiles from.
+    :param col: Name of numeric column in df to calculate weighted quantiles
+        from.
     :type col: str
     :param w: Name of weight column in df.
     :type w: str
