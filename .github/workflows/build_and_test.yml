@@ -18,7 +18,7 @@ jobs:
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: goanpeca/setup-miniconda@v1
         with:
-	  auto-update-conda: true
+          auto-update-conda: true
           activate-environment: microdf
           environment-file: environment.yml
           python-version: ${{ matrix.python-version }}

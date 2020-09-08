@@ -16,7 +16,7 @@ jobs:
       - name: Setup Miniconda
         uses: goanpeca/setup-miniconda@v1
         with:
-	  auto-update-conda: true
+          auto-update-conda: true
           activate-environment: microdf
           environment-file: environment.yml
           python-version: 3.7
