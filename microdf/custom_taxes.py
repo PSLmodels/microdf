@@ -84,7 +84,7 @@ def add_custom_tax(
     ].values
     df[name] = np.maximum(0, tu_incidence * df[base_income])
     if total is not None:
-        initial_total = mdf.weighted_sum(df, name)
+        initial_total = mdf.weighted_sum(df, name, "s006")
         if verbose:
             print(
                 "Multiplying tax by "
