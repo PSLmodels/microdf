@@ -7,9 +7,9 @@ import microdf as mdf
 def combine_base_reform(
     base: pd.DataFrame,
     reform: pd.DataFrame,
-    base_cols: Optional[list],
-    cols: Optional[list],
-    reform_cols: Optional[list],
+    base_cols: Optional[list] = None,
+    cols: Optional[list] = None,
+    reform_cols: Optional[list] = None,
 ) -> pd.DataFrame:
     """Combine base and reform with certain columns.
 
@@ -55,8 +55,8 @@ def agg(
     reform: pd.DataFrame,
     groupby: str,
     metrics: list,
-    base_metrics: Optional[list],
-    reform_metrics: Optional[list],
+    base_metrics: Optional[list] = None,
+    reform_metrics: Optional[list] = None,
 ) -> pd.DataFrame:
     """Aggregates differences between base and reform.
 
