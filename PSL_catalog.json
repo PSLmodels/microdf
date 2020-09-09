@@ -11,7 +11,7 @@
         "end_header": null,
         "source": null,
         "type": "html",
-        "data": '<a href="https://github.com/MaxGhenis/microdf">What is microdf?</a>',
+        "data": '<a href="https://github.com/PSLmodels/microdf">What is microdf?</a>',
     },
     "core_maintainers": {
         "start_header": null,
@@ -25,21 +25,21 @@
         "end_header": null,
         "source": null,
         "type": "html",
-        "data": '<a href="http://maxghenis.com/microdf/"></a>',
+        "data": '<a href="http://pslmodels.github.io/microdf/"></a>',
     },
     "contributor_overview": {
         "start_header": null,
         "end_header": null,
         "source": null,
         "type": "html",
-        "data": '<a href="http://github.com/MaxGhenis/microdf/"></a>',
+        "data": '<a href="http://github.com/PSLmodels/microdf/"></a>',
     },
     "user_changelog_recent": {
         "start_header": null,
         "end_header": null,
         "source": null,
         "type": "html",
-        "data": '<a href="https://github.com/MaxGhenis/microdf/releases"></a>',
+        "data": '<a href="https://github.com/PSLmodels/microdf/releases"></a>',
     },
     "link_to_webapp": {
         "start_header": null,
