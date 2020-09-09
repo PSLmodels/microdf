@@ -5,11 +5,11 @@ on:
       - master
 jobs:
   build-and-deploy:
-    if: github.repository == 'MaxGhenis/microdf'
+    if: github.repository == 'PSLmodels/microdf'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2  # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@v2
         with:
           persist-credentials: false
 
@@ -21,7 +21,7 @@ jobs:
           python-version: 3.8
           auto-activate-base: false
 
-      - name: Build  # Build Jupyter Book
+      - name: Build
         shell: bash -l {0}
         run: |
           pip install -e .
