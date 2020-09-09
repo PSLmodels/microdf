@@ -7,7 +7,7 @@ launch_buttons:
   colab_url: "https://colab.research.google.com"
 
 repository:
-  url: https://github.com/MaxGhenis/microdf
+  url: https://github.com/PSLmodels/microdf
   branch: master
   path_to_book: docs
 
