@@ -1,9 +1,9 @@
 .. _agg:
 
-`microdf` aggregation functions
+microdf aggregation functions
 =================================================
 
-**`microdf` aggregation functions**
+**microdf aggregation functions**
 
 microdf.agg
 ------------------------------------------
