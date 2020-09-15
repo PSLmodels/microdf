@@ -17,6 +17,8 @@ def quantile_chg_plot(
     q=None,
     label1="Base",
     label2="Reform",
+    title="",
+    currency="USD"
 ):
     """Create plot with one line per quantile boundary between base and
         reform.
@@ -49,11 +51,15 @@ def quantile_chg_plot(
     # Move line labels closer to the center.
     ll.labelLines(plt.gca().get_lines(), xvals=(0.1, 0.9))
     # Formatting.
-    plt.title("Change in disposable income percentiles")
+    plt.title(title)
     plt.ylim(0, None)
     ax.grid(color=mdf.GRID_COLOR, axis="y")
-    ax.yaxis.set_major_formatter(mdf.dollar_format())
-    ax.yaxis.set_minor_formatter(mdf.dollar_format())
+    formatter = {
+        "USD": mdf.dollar_format(),
+        "GBP": mdf.gbp_format()
+    }[currency]
+    ax.yaxis.set_major_formatter(formatter)
+    ax.yaxis.set_minor_formatter(formatter)
     sns.despine(left=True, bottom=True)
     ax.axhline(0, color="lightgray", zorder=-1)
     # Looks better narrower.

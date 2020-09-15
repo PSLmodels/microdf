@@ -11,3 +11,14 @@ def dollar_format(suffix=""):
     return mpl.ticker.FuncFormatter(
         lambda x, _: "$" + format(int(x), ",") + suffix
     )
+
+def gbp_format(suffix=""):
+    """GB Pound formatter for matplotlib/
+
+    :param suffix: Suffix to append, default is empty.
+    :returns: FuncFormatter.
+
+    """
+    return mpl.ticker.FuncFormatter(
+        lambda x, _: "£" + format(int(x), ",") + suffix
+    )
