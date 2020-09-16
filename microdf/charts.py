@@ -17,7 +17,7 @@ def quantile_chg_plot(
     q=None,
     label1="Base",
     label2="Reform",
-    title="",
+    title="Change in disposable income percentiles",
     currency="USD"
 ):
     """Create plot with one line per quantile boundary between base and
