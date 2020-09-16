@@ -28,4 +28,3 @@ def currency_format(currency="USD", suffix=""):
     return mpl.ticker.FuncFormatter(
         lambda x, _: prefix + format(int(x), ",") + suffix
     )
-# Adding...
