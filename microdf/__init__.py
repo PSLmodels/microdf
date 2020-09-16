@@ -1,5 +1,5 @@
 from .agg import agg, combine_base_reform, pctchg_base_reform
-from .chart_utils import currency_format
+from .chart_utils import dollar_format, currency_format
 from .charts import quantile_chg_plot, quantile_pct_chg_plot
 from .constants import (
     BENS,
