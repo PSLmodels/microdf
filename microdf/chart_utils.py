@@ -1,24 +1,20 @@
 import matplotlib as mpl
 
 
-def dollar_format(suffix=""):
+def currency_format(currency="USD", suffix=""):
     """Dollar formatter for matplotlib.
 
+    :param currency: Name of the currency, e.g. 'USD', 'GBP'.
     :param suffix: Suffix to append, e.g. 'B'. Defaults to ''.
     :returns: FuncFormatter.
 
     """
+    
+    prefix = {
+        "USD": "$",
+        "GBP": "£"
+    }[currency]
+
     return mpl.ticker.FuncFormatter(
-        lambda x, _: "$" + format(int(x), ",") + suffix
-    )
-
-def gbp_format(suffix=""):
-    """GB Pound formatter for matplotlib/
-
-    :param suffix: Suffix to append, default is empty.
-    :returns: FuncFormatter.
-
-    """
-    return mpl.ticker.FuncFormatter(
-        lambda x, _: "£" + format(int(x), ",") + suffix
+        lambda x, _: prefix + format(int(x), ",") + suffix
     )

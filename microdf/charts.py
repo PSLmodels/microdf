@@ -54,10 +54,7 @@ def quantile_chg_plot(
     plt.title(title)
     plt.ylim(0, None)
     ax.grid(color=mdf.GRID_COLOR, axis="y")
-    formatter = {
-        "USD": mdf.dollar_format(),
-        "GBP": mdf.gbp_format()
-    }[currency]
+    formatter = mdf.currency_format(currency)
     ax.yaxis.set_major_formatter(formatter)
     ax.yaxis.set_minor_formatter(formatter)
     sns.despine(left=True, bottom=True)

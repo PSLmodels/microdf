@@ -74,7 +74,7 @@ __all__ = [
     "pctchg_base_reform",
     "agg",
     # chart_utils.py
-    "dollar_format",
+    "currency_format",
     # charts.py
     "quantile_chg_plot",
     "quantile_pct_chg_plot",
