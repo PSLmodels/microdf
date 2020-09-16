@@ -17,7 +17,6 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/sphinx-book-theme.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -312,9 +311,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;s006&#39;, &#39;e02300&#39;, &#39;mcare_ben&#39;, &#39;mcaid_ben&#39;, &#39;snap_ben&#39;, &#39;tanf_ben&#39;,
-       &#39;wic_ben&#39;, &#39;e02400&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;ssi_ben&#39;, &#39;XTOT&#39;,
-       &#39;aftertax_income&#39;, &#39;other_ben&#39;, &#39;expanded_income&#39;, &#39;market_income&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;expanded_income&#39;, &#39;housing_ben&#39;, &#39;wic_ben&#39;, &#39;XTOT&#39;, &#39;aftertax_income&#39;,
+       &#39;snap_ben&#39;, &#39;ssi_ben&#39;, &#39;tanf_ben&#39;, &#39;mcare_ben&#39;, &#39;other_ben&#39;,
+       &#39;mcaid_ben&#39;, &#39;e02300&#39;, &#39;s006&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;market_income&#39;,
        &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
@@ -338,9 +337,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;s006&#39;, &#39;e02300&#39;, &#39;mcare_ben&#39;, &#39;mcaid_ben&#39;, &#39;snap_ben&#39;, &#39;tanf_ben&#39;,
-       &#39;wic_ben&#39;, &#39;e02400&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;ssi_ben&#39;, &#39;XTOT&#39;,
-       &#39;aftertax_income&#39;, &#39;other_ben&#39;, &#39;expanded_income&#39;, &#39;market_income&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;expanded_income&#39;, &#39;housing_ben&#39;, &#39;wic_ben&#39;, &#39;XTOT&#39;, &#39;aftertax_income&#39;,
+       &#39;snap_ben&#39;, &#39;ssi_ben&#39;, &#39;tanf_ben&#39;, &#39;mcare_ben&#39;, &#39;other_ben&#39;,
+       &#39;mcaid_ben&#39;, &#39;e02300&#39;, &#39;s006&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;market_income&#39;,
        &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;, &#39;tpc_eci&#39;, &#39;vat&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
@@ -372,20 +371,20 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>s006</th>
-      <th>e02300</th>
-      <th>mcare_ben</th>
-      <th>mcaid_ben</th>
-      <th>snap_ben</th>
-      <th>tanf_ben</th>
-      <th>wic_ben</th>
-      <th>e02400</th>
-      <th>housing_ben</th>
-      <th>vet_ben</th>
-      <th>...</th>
-      <th>aftertax_income</th>
-      <th>other_ben</th>
       <th>expanded_income</th>
+      <th>housing_ben</th>
+      <th>wic_ben</th>
+      <th>XTOT</th>
+      <th>aftertax_income</th>
+      <th>snap_ben</th>
+      <th>ssi_ben</th>
+      <th>tanf_ben</th>
+      <th>mcare_ben</th>
+      <th>other_ben</th>
+      <th>...</th>
+      <th>s006</th>
+      <th>e02400</th>
+      <th>vet_ben</th>
       <th>market_income</th>
       <th>bens</th>
       <th>tax</th>
@@ -422,20 +421,20 @@
   <tbody>
     <tr>
       <th>192722</th>
-      <td>383.58</td>
-      <td>0.000000</td>
+      <td>-294486.871312</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>2.0</td>
+      <td>-294486.871312</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-294486.871312</td>
+      <td>383.58</td>
       <td>0.0</td>
-      <td>-294486.871312</td>
+      <td>0.0</td>
       <td>-294486.871312</td>
       <td>0.000000</td>
       <td>0.0</td>
@@ -446,20 +445,20 @@
     </tr>
     <tr>
       <th>166558</th>
-      <td>151.16</td>
-      <td>5121.874971</td>
+      <td>-228882.576430</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>2.0</td>
+      <td>-228882.576430</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-228882.576430</td>
+      <td>151.16</td>
       <td>0.0</td>
-      <td>-228882.576430</td>
+      <td>0.0</td>
       <td>-234004.451401</td>
       <td>5121.874971</td>
       <td>0.0</td>
@@ -470,20 +469,20 @@
     </tr>
     <tr>
       <th>12643</th>
-      <td>1388.97</td>
-      <td>0.000000</td>
+      <td>-164595.951661</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>1.0</td>
+      <td>-164595.951661</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-164595.951661</td>
+      <td>1388.97</td>
       <td>0.0</td>
-      <td>-164595.951661</td>
+      <td>0.0</td>
       <td>-164595.951661</td>
       <td>0.000000</td>
       <td>0.0</td>
@@ -494,20 +493,20 @@
     </tr>
     <tr>
       <th>262111</th>
-      <td>588.26</td>
-      <td>5651.020630</td>
+      <td>-161468.454966</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>2.0</td>
+      <td>-161468.454966</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-161468.454966</td>
+      <td>588.26</td>
       <td>0.0</td>
-      <td>-161468.454966</td>
+      <td>0.0</td>
       <td>-167119.475596</td>
       <td>5651.020630</td>
       <td>0.0</td>
@@ -518,20 +517,20 @@
     </tr>
     <tr>
       <th>29689</th>
-      <td>265.19</td>
-      <td>0.000000</td>
+      <td>-152059.539175</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>2.0</td>
+      <td>-152059.539175</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-152059.539175</td>
+      <td>265.19</td>
       <td>0.0</td>
-      <td>-152059.539175</td>
+      <td>0.0</td>
       <td>-152059.539175</td>
       <td>0.000000</td>
       <td>0.0</td>
@@ -570,20 +569,20 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>s006</th>
-      <th>e02300</th>
-      <th>mcare_ben</th>
-      <th>mcaid_ben</th>
-      <th>snap_ben</th>
-      <th>tanf_ben</th>
-      <th>wic_ben</th>
-      <th>e02400</th>
-      <th>housing_ben</th>
-      <th>vet_ben</th>
-      <th>...</th>
-      <th>aftertax_income</th>
-      <th>other_ben</th>
       <th>expanded_income</th>
+      <th>housing_ben</th>
+      <th>wic_ben</th>
+      <th>XTOT</th>
+      <th>aftertax_income</th>
+      <th>snap_ben</th>
+      <th>ssi_ben</th>
+      <th>tanf_ben</th>
+      <th>mcare_ben</th>
+      <th>other_ben</th>
+      <th>...</th>
+      <th>s006</th>
+      <th>e02400</th>
+      <th>vet_ben</th>
       <th>market_income</th>
       <th>bens</th>
       <th>tax</th>
@@ -619,124 +618,124 @@
   </thead>
   <tbody>
     <tr>
-      <th>65406</th>
-      <td>155.70</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>188129</th>
+      <td>29088.723442</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
+      <td>1.0</td>
+      <td>29088.723442</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
-      <td>94042.455481</td>
-      <td>0.000000</td>
-      <td>116666.014838</td>
-      <td>1.166660e+05</td>
-      <td>0.000000</td>
-      <td>22623.559357</td>
-      <td>0.000156</td>
-      <td>0.000467</td>
-      <td>116666.014838</td>
-      <td>3197.443486</td>
-    </tr>
-    <tr>
-      <th>94284</th>
-      <td>831.34</td>
       <td>0.0</td>
       <td>14469.708379</td>
-      <td>0.000000</td>
-      <td>3942.988978</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>22869.404397</td>
-      <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>43588.257531</td>
-      <td>2306.155776</td>
-      <td>43588.257531</td>
-      <td>-7.275958e-12</td>
-      <td>43588.257531</td>
+      <td>1521.82</td>
+      <td>14511.620424</td>
+      <td>0.0</td>
+      <td>107.394639</td>
+      <td>28981.328803</td>
       <td>0.000000</td>
-      <td>0.000831</td>
-      <td>0.000831</td>
-      <td>29118.549152</td>
-      <td>1569.177271</td>
+      <td>0.001522</td>
+      <td>0.001522</td>
+      <td>14619.015063</td>
+      <td>1134.460214</td>
     </tr>
     <tr>
-      <th>74353</th>
-      <td>1366.31</td>
+      <th>39698</th>
+      <td>57953.371427</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>53600.706958</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.000000</td>
-      <td>8801.561911</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>28907.359781</td>
-      <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>93710.749293</td>
-      <td>4598.753905</td>
-      <td>107842.241454</td>
-      <td>6.553457e+04</td>
-      <td>42307.675598</td>
-      <td>14131.492161</td>
-      <td>0.001366</td>
-      <td>0.004099</td>
-      <td>99040.679543</td>
-      <td>3186.165476</td>
+      <td>80.36</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>57953.371427</td>
+      <td>0.000000</td>
+      <td>4352.664470</td>
+      <td>0.000080</td>
+      <td>0.000402</td>
+      <td>57953.371427</td>
+      <td>1929.625450</td>
     </tr>
     <tr>
-      <th>194589</th>
-      <td>1130.42</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>10526</th>
+      <td>76282.098626</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
+      <td>4.0</td>
+      <td>64522.540204</td>
       <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>...</td>
-      <td>30117.001735</td>
+      <td>703.15</td>
       <td>0.000000</td>
-      <td>38094.124304</td>
-      <td>3.809412e+04</td>
+      <td>0.0</td>
+      <td>76282.098626</td>
       <td>0.000000</td>
-      <td>7977.122569</td>
-      <td>0.001130</td>
-      <td>0.001130</td>
-      <td>38094.124304</td>
-      <td>1084.212062</td>
+      <td>11759.558422</td>
+      <td>0.000703</td>
+      <td>0.002813</td>
+      <td>76282.098626</td>
+      <td>2322.811447</td>
     </tr>
     <tr>
-      <th>121261</th>
-      <td>606.93</td>
+      <th>134747</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>601.15</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000601</td>
+      <td>0.000601</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>145539</th>
+      <td>30099.305188</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>30099.305188</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>14469.708379</td>
-      <td>17603.123823</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>51062.716082</td>
-      <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>242090.606081</td>
-      <td>12064.950178</td>
-      <td>259301.791916</td>
-      <td>1.595978e+05</td>
-      <td>99703.979673</td>
-      <td>17211.185835</td>
-      <td>0.000607</td>
-      <td>0.001214</td>
-      <td>227228.959714</td>
-      <td>7746.899395</td>
+      <td>956.85</td>
+      <td>15629.596809</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>30099.305188</td>
+      <td>0.000000</td>
+      <td>0.000957</td>
+      <td>0.001914</td>
+      <td>15629.596809</td>
+      <td>1173.872902</td>
     </tr>
   </tbody>
 </table>
@@ -753,9 +752,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;s006&#39;, &#39;e02300&#39;, &#39;mcare_ben&#39;, &#39;mcaid_ben&#39;, &#39;snap_ben&#39;, &#39;tanf_ben&#39;,
-       &#39;wic_ben&#39;, &#39;e02400&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;ssi_ben&#39;, &#39;XTOT&#39;,
-       &#39;aftertax_income&#39;, &#39;other_ben&#39;, &#39;expanded_income&#39;, &#39;market_income&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;expanded_income&#39;, &#39;housing_ben&#39;, &#39;wic_ben&#39;, &#39;XTOT&#39;, &#39;aftertax_income&#39;,
+       &#39;snap_ben&#39;, &#39;ssi_ben&#39;, &#39;tanf_ben&#39;, &#39;mcare_ben&#39;, &#39;other_ben&#39;,
+       &#39;mcaid_ben&#39;, &#39;e02300&#39;, &#39;s006&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;market_income&#39;,
        &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;, &#39;tpc_eci&#39;, &#39;vat&#39;, &#39;carbon_tax&#39;,
        &#39;ftt&#39;],
       dtype=&#39;object&#39;)
@@ -788,18 +787,18 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>s006</th>
-      <th>e02300</th>
-      <th>mcare_ben</th>
-      <th>mcaid_ben</th>
-      <th>snap_ben</th>
-      <th>tanf_ben</th>
-      <th>wic_ben</th>
-      <th>e02400</th>
-      <th>housing_ben</th>
-      <th>vet_ben</th>
-      <th>...</th>
       <th>expanded_income</th>
+      <th>housing_ben</th>
+      <th>wic_ben</th>
+      <th>XTOT</th>
+      <th>aftertax_income</th>
+      <th>snap_ben</th>
+      <th>ssi_ben</th>
+      <th>tanf_ben</th>
+      <th>mcare_ben</th>
+      <th>other_ben</th>
+      <th>...</th>
+      <th>vet_ben</th>
       <th>market_income</th>
       <th>bens</th>
       <th>tax</th>
@@ -837,124 +836,124 @@
   </thead>
   <tbody>
     <tr>
-      <th>164760</th>
-      <td>3180.27</td>
+      <th>122451</th>
+      <td>19999.570194</td>
+      <td>7538.674731</td>
       <td>0.0</td>
-      <td>14469.708379</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>21641.065092</td>
+      <td>4.0</td>
+      <td>19999.570194</td>
+      <td>7617.509844</td>
       <td>0.0</td>
       <td>0.0</td>
+      <td>0.0</td>
+      <td>4455.042846</td>
       <td>...</td>
-      <td>76440.861156</td>
-      <td>40330.087686</td>
-      <td>36110.773471</td>
-      <td>3496.441741</td>
-      <td>0.003180</td>
-      <td>0.003180</td>
-      <td>61971.152777</td>
-      <td>2625.999099</td>
-      <td>1240.055130</td>
-      <td>72.944419</td>
+      <td>0.0</td>
+      <td>388.342772</td>
+      <td>19611.227422</td>
+      <td>0.000000</td>
+      <td>0.001735</td>
+      <td>0.006940</td>
+      <td>12460.895462</td>
+      <td>779.983238</td>
+      <td>239.994842</td>
+      <td>19.999570</td>
     </tr>
     <tr>
-      <th>161292</th>
-      <td>2106.71</td>
-      <td>0.0</td>
+      <th>172799</th>
+      <td>28181.108509</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>1.0</td>
+      <td>23116.876363</td>
       <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
+      <td>0.0</td>
       <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td>...</td>
-      <td>66450.319746</td>
-      <td>66450.319746</td>
+      <td>0.0</td>
+      <td>28181.108509</td>
       <td>0.000000</td>
-      <td>7484.709996</td>
-      <td>0.002107</td>
-      <td>0.010534</td>
-      <td>66450.319746</td>
-      <td>2122.761951</td>
-      <td>1061.380975</td>
-      <td>117.931219</td>
+      <td>5064.232146</td>
+      <td>0.000943</td>
+      <td>0.000943</td>
+      <td>28181.108509</td>
+      <td>832.207549</td>
+      <td>323.636269</td>
+      <td>23.116876</td>
     </tr>
     <tr>
-      <th>129623</th>
-      <td>337.10</td>
+      <th>153308</th>
+      <td>125929.772384</td>
+      <td>0.000000</td>
       <td>0.0</td>
-      <td>14469.708379</td>
-      <td>0.0</td>
+      <td>5.0</td>
+      <td>102661.235817</td>
       <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>32721.502315</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>0.000000</td>
       <td>...</td>
-      <td>47204.635024</td>
-      <td>13.424330</td>
-      <td>47191.210694</td>
+      <td>0.0</td>
+      <td>125929.772384</td>
       <td>0.000000</td>
-      <td>0.000337</td>
-      <td>0.000674</td>
-      <td>32734.926645</td>
-      <td>1699.366861</td>
-      <td>708.069525</td>
-      <td>47.204635</td>
+      <td>23268.536566</td>
+      <td>0.000882</td>
+      <td>0.004410</td>
+      <td>125929.772384</td>
+      <td>3490.482018</td>
+      <td>1847.902245</td>
+      <td>205.322472</td>
     </tr>
     <tr>
-      <th>123949</th>
-      <td>496.02</td>
-      <td>0.0</td>
+      <th>62813</th>
+      <td>56981.217432</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>1.0</td>
+      <td>45478.135298</td>
       <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
+      <td>0.0</td>
       <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td>...</td>
-      <td>50524.385478</td>
-      <td>50524.385478</td>
+      <td>0.0</td>
+      <td>56981.217432</td>
       <td>0.000000</td>
-      <td>8236.890665</td>
-      <td>0.000496</td>
-      <td>0.000992</td>
-      <td>50524.385478</td>
-      <td>1522.349813</td>
-      <td>718.887412</td>
-      <td>42.287495</td>
+      <td>11503.082133</td>
+      <td>0.000721</td>
+      <td>0.000721</td>
+      <td>56981.217432</td>
+      <td>1637.212871</td>
+      <td>773.128300</td>
+      <td>45.478135</td>
     </tr>
     <tr>
-      <th>241399</th>
-      <td>262.34</td>
-      <td>0.0</td>
+      <th>279621</th>
+      <td>14647.883885</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>1235.389849</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>2.0</td>
+      <td>14647.883885</td>
       <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
+      <td>0.0</td>
+      <td>4598.753905</td>
       <td>...</td>
-      <td>64627.753629</td>
-      <td>62669.741188</td>
-      <td>1958.012441</td>
-      <td>12525.956679</td>
-      <td>0.000262</td>
-      <td>0.000525</td>
-      <td>64627.753629</td>
-      <td>1875.664690</td>
-      <td>937.832345</td>
-      <td>104.203594</td>
+      <td>0.0</td>
+      <td>1247.568069</td>
+      <td>13400.315817</td>
+      <td>0.000000</td>
+      <td>0.000329</td>
+      <td>0.000657</td>
+      <td>5846.321974</td>
+      <td>571.267472</td>
+      <td>117.183071</td>
+      <td>14.647884</td>
     </tr>
   </tbody>
 </table>
@@ -973,9 +972,9 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiplying tax by 1.14.
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;s006&#39;, &#39;e02300&#39;, &#39;mcare_ben&#39;, &#39;mcaid_ben&#39;, &#39;snap_ben&#39;, &#39;tanf_ben&#39;,
-       &#39;wic_ben&#39;, &#39;e02400&#39;, &#39;housing_ben&#39;, &#39;vet_ben&#39;, &#39;ssi_ben&#39;, &#39;XTOT&#39;,
-       &#39;aftertax_income&#39;, &#39;other_ben&#39;, &#39;expanded_income&#39;, &#39;market_income&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;expanded_income&#39;, &#39;housing_ben&#39;, &#39;wic_ben&#39;, &#39;XTOT&#39;, &#39;aftertax_income&#39;,
+       &#39;snap_ben&#39;, &#39;ssi_ben&#39;, &#39;tanf_ben&#39;, &#39;mcare_ben&#39;, &#39;other_ben&#39;,
+       &#39;mcaid_ben&#39;, &#39;e02300&#39;, &#39;s006&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;market_income&#39;,
        &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;, &#39;tpc_eci&#39;, &#39;vat&#39;, &#39;carbon_tax&#39;,
        &#39;ftt&#39;, &#39;vat2&#39;],
       dtype=&#39;object&#39;)
