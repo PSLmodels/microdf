@@ -1,5 +1,6 @@
 import os
 
+import numpy as np
 import pandas as pd
 
 import microdf as mdf
@@ -24,17 +25,17 @@ def differences(actual, expected, f_actual, f_expected):
         raise ValueError(msg.format(f_actual, f_actual, f_expected))
 
 
-def test_scf_percentile_agg_compare(tests_path):
+def test_percentile_agg_compare(tests_path):
     """
     :param tests_path: Folder path to write test results.
     """
-    SCF2016 = "https://www.federalreserve.gov/econres/files/scfp2016s.zip"
-    COLS = ["wgt", "networth"]
-    df = mdf.read_stata_zip(SCF2016, columns=COLS)
-    mdf.add_weighted_quantiles(df, "networth", "wgt")
-    percentile_sum = df.groupby("networth_percentile")[COLS].sum()
-    F_ACTUAL = "scf_percentile_actual.csv"
-    F_EXPECTED = "scf_percentile_expected.csv"
+    N = 1000
+    np.random.seed(0)
+    df = pd.DataFrame({"val": np.random.rand(N), "w": np.random.rand(N)})
+    mdf.add_weighted_quantiles(df, "val", "w")
+    percentile_sum = df.groupby("val_percentile")[["val", "w"]].sum()
+    F_ACTUAL = "test_percentile_actual.csv"
+    F_EXPECTED = "test_percentile_expected.csv"
     percentile_sum.to_csv(os.path.join(tests_path, F_ACTUAL))
     # Re-read as CSV to remove index and ensure CSVs are equal.
     actual = pd.read_csv(os.path.join(tests_path, F_ACTUAL))
