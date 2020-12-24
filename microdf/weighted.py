@@ -9,13 +9,14 @@ def weight(df, col, w=None):
 
     :param df: A pandas DataFrame.
     :param col: A string indicating the column in the DataFrame to weight.
+        Can also be a list of column strings.
     :param w: Weight column.
     :returns: A pandas Series multiplying the column by its weight.
 
     """
     if w is None:
         return df[col]
-    return df[col] * df[w]
+    return df[col].multiply(df[w], axis="index")
 
 
 def weighted_sum(df, col, w=None, groupby=None):
@@ -23,6 +24,7 @@ def weighted_sum(df, col, w=None, groupby=None):
 
     :param df: A pandas DataFrame.
     :param col: A string indicating the column in the DataFrame.
+        Can also be a list of column strings.
     :param w: Weight column.
     :param groupby: Groupby column.
     :returns: The weighted sum of a DataFrame's column.
@@ -31,7 +33,7 @@ def weighted_sum(df, col, w=None, groupby=None):
 
     def _weighted_sum(df, col, w):
         """ For weighted sum with provided weight. """
-        return (df[col] * df[w]).sum()
+        return weight(df, col, w).sum()
 
     if groupby is None:
         if w is None:
@@ -48,6 +50,7 @@ def weighted_mean(df, col, w=None, groupby=None):
 
     :param df: A pandas DataFrame.
     :param col: A string indicating the column in the DataFrame.
+        Can also be a list of column strings.
     :param w: Weight column.
     :param groupby: Groupby column.
     :returns: The weighted mean of a DataFrame's column.
