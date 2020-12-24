@@ -9,41 +9,66 @@ def weight(df, col, w=None):
 
     :param df: A pandas DataFrame.
     :param col: A string indicating the column in the DataFrame to weight.
+        Can also be a list of column strings.
     :param w: Weight column.
     :returns: A pandas Series multiplying the column by its weight.
 
     """
     if w is None:
         return df[col]
-    return df[col] * df[w]
+    return df[col].multiply(df[w], axis="index")
 
 
-def weighted_sum(df, col, w=None):
+def weighted_sum(df, col, w=None, groupby=None):
     """Calculates the weighted sum of a column in a DataFrame.
 
     :param df: A pandas DataFrame.
     :param col: A string indicating the column in the DataFrame.
+        Can also be a list of column strings.
     :param w: Weight column.
+    :param groupby: Groupby column.
     :returns: The weighted sum of a DataFrame's column.
 
     """
+
+    def _weighted_sum(df, col, w):
+        """ For weighted sum with provided weight. """
+        return weight(df, col, w).sum()
+
+    if groupby is None:
+        if w is None:
+            return df[col].sum()
+        return _weighted_sum(df, col, w)
+    # If grouping.
     if w is None:
-        return df[col].sum()
-    return (df[col] * df[w]).sum()
+        return df.groupby(groupby)[col].sum()
+    return df.groupby(groupby).apply(lambda x: _weighted_sum(x, col, w))
 
 
-def weighted_mean(df, col, w=None):
+def weighted_mean(df, col, w=None, groupby=None):
     """Calculates the weighted mean of a column in a DataFrame.
 
     :param df: A pandas DataFrame.
     :param col: A string indicating the column in the DataFrame.
+        Can also be a list of column strings.
     :param w: Weight column.
+    :param groupby: Groupby column.
     :returns: The weighted mean of a DataFrame's column.
 
     """
+
+    def _weighted_mean(df, col, w=None):
+        """ For weighted mean with provided weight. """
+        return weighted_sum(df, col, w) / df[w].sum()
+
+    if groupby is None:
+        if w is None:
+            return df[col].mean()
+        return _weighted_mean(df, col, w)
+    # Group.
     if w is None:
-        return df[col].mean()
-    return weighted_sum(df, col, w) / df[w].sum()
+        return df.groupby(groupby)[col].mean()
+    return df.groupby(groupby).apply(lambda x: _weighted_mean(x, col, w))
 
 
 def weighted_quantile(df: pd.DataFrame, col: str, w: str, quantiles: np.array):
@@ -81,7 +106,7 @@ def weighted_quantile(df: pd.DataFrame, col: str, w: str, quantiles: np.array):
     return np.interp(quantiles, weighted_quantiles, values)
 
 
-def weighted_median(df, col, w=None):
+def weighted_median(df, col, w=None, groupby=None):
     """Calculates the weighted median of a column in a DataFrame.
 
     :param df: A pandas DataFrame containing Tax-Calculator data.
@@ -90,9 +115,19 @@ def weighted_median(df, col, w=None):
     :returns: The weighted median of a DataFrame's column.
 
     """
+
+    def _weighted_median(df, col, w):
+        """ For weighted median with provided weight. """
+        return weighted_quantile(df, col, w, 0.5)
+
+    if groupby is None:
+        if w is None:
+            return df[col].median()
+        return _weighted_median(df, col, w)
+    # Group.
     if w is None:
-        return df[col].median()
-    return weighted_quantile(df, col, w, 0.5)
+        return df.groupby(groupby)[col].median()
+    return df.groupby(groupby).apply(lambda x: _weighted_median(x, col, w))
 
 
 def add_weighted_quantiles(df, col, w):

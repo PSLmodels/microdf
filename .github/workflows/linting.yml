@@ -22,7 +22,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
-        uses: goanpeca/setup-miniconda@v1
+        uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: microdf
           environment-file: environment.yml
