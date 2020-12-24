@@ -14,19 +14,15 @@ def test_weighted_quantile():
 
 
 def test_weighted_median():
-    # TODO: Add None default to w.
-    # assert mdf.weighted_median(df, 'x') == 2
+    assert mdf.weighted_median(df, 'x') == 2
     mdf.weighted_median(df, "x", "w")
 
 
 def test_weighted_mean():
-    # TODO: Add None default to w.
-    # assert mdf.weighted_mean(df, 'x') == 8 / 3
+    assert mdf.weighted_mean(df, 'x') == 8 / 3
     assert mdf.weighted_mean(df, "x", "w") == 11 / 6
 
 
 def test_weighted_sum():
-    """ """
-    # TODO: Add None default to w.
-    # assert mdf.weighted_sum(df, 'x') == 8
+    assert mdf.weighted_sum(df, 'x') == 8
     assert mdf.weighted_sum(df, "x", "w") == 11
