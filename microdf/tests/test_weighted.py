@@ -57,6 +57,6 @@ def test_gini():
     # Weighted
     mdf.gini(df, "x", "w")
     # Unweighted, grouped
-    mdf.gini(df, "x", groupby="g")
+    mdf.gini(dfg, "x", groupby="g")
     # Weighted, grouped
-    mdf.gini(df, "x", "w", groupby="g")
+    mdf.gini(dfg, "x", "w", groupby="g")
