@@ -49,3 +49,10 @@ def test_weighted_sum():
     # Test grouped.
     mdf.weighted_sum(dfg, "x", "w", "g")
     mdf.weighted_sum(dfg, ["x", "y"], "w", "g")
+
+
+def test_gini():
+    # Unweighted
+    mdf.gini(df, "x")
+    # Weighted
+    mdf.gini(df, "x", "w")
