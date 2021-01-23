@@ -14,4 +14,4 @@ dependencies:
 - pip:
   - matplotlib-label-lines
   - jupyter-book
-  - git+http://github.com/pslmodels/taxcalc.git
+  - git+https://github.com/PSLmodels/Tax-Calculator.git
