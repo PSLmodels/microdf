@@ -22,15 +22,20 @@ import pandas as pd
 
 import taxcalc as tc
 import microdf as mdf
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import seaborn as sns
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-[0;32m<ipython-input-1-6d80e93aca8e>[0m in [0;36m<module>[0;34m[0m
+[0;32m<ipython-input-1-17833b0c9c0f>[0m in [0;36m<module>[0;34m[0m
 [1;32m      2[0m [0;32mimport[0m [0mpandas[0m [0;32mas[0m [0mpd[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      3[0m [0;34m[0m[0m
 [0;32m----> 4[0;31m [0;32mimport[0m [0mtaxcalc[0m [0;32mas[0m [0mtc[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m      5[0m [0;32mimport[0m [0mmicrodf[0m [0;32mas[0m [0mmdf[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      6[0m [0;34m[0m[0m
 
 [0;31mModuleNotFoundError[0m: No module named 'taxcalc'
 ModuleNotFoundError: No module named 'taxcalc'

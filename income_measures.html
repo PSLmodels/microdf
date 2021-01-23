@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Income measures &#8212; microdf documentation</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -303,6 +303,19 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">6</span><span class="n">d80e93aca8e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">microdf</span> <span class="k">as</span> <span class="nn">mdf</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;taxcalc&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -311,7 +324,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;3.0.0&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.3.0&#39;
 </pre></div>
 </div>
 </div>
@@ -362,21 +375,21 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>aftertax_income</th>
-      <th>housing_ben</th>
-      <th>e02400</th>
-      <th>XTOT</th>
-      <th>tanf_ben</th>
       <th>snap_ben</th>
-      <th>other_ben</th>
-      <th>ssi_ben</th>
-      <th>expanded_income</th>
+      <th>vet_ben</th>
       <th>mcaid_ben</th>
-      <th>...</th>
+      <th>mcare_ben</th>
+      <th>aftertax_income</th>
+      <th>e02300</th>
+      <th>ssi_ben</th>
       <th>wic_ben</th>
       <th>s006</th>
-      <th>vet_ben</th>
-      <th>e02300</th>
+      <th>expanded_income</th>
+      <th>...</th>
+      <th>tanf_ben</th>
+      <th>other_ben</th>
+      <th>e02400</th>
+      <th>XTOT</th>
       <th>market_income</th>
       <th>bens</th>
       <th>tax</th>
@@ -412,123 +425,123 @@
   <tbody>
     <tr>
       <th>1</th>
-      <td>56671.604435</td>
+      <td>0.00000</td>
       <td>0.0</td>
-      <td>24567.889745</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>2670.493781</td>
-      <td>6161.950619</td>
-      <td>0.0</td>
-      <td>56671.604435</td>
-      <td>8801.561911</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>280.60</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>43371.012504</td>
       <td>0.0</td>
       <td>0.00000</td>
-      <td>-7.275958e-12</td>
-      <td>56671.604435</td>
+      <td>0.0</td>
+      <td>250.14</td>
+      <td>53636.919015</td>
+      <td>...</td>
+      <td>0.0</td>
       <td>0.000000</td>
-      <td>0.000281</td>
-      <td>0.000281</td>
-      <td>33400.334145</td>
+      <td>0.000000</td>
+      <td>2.0</td>
+      <td>53636.919015</td>
+      <td>0.000000</td>
+      <td>10265.906511</td>
+      <td>0.000250</td>
+      <td>0.000500</td>
+      <td>53636.919015</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>44924.168333</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>2.0</td>
+      <td>0.00000</td>
       <td>0.0</td>
       <td>0.000000</td>
       <td>0.000000</td>
+      <td>20937.886511</td>
       <td>0.0</td>
-      <td>55452.916535</td>
-      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>211.63</td>
+      <td>18650.034959</td>
       <td>...</td>
       <td>0.0</td>
-      <td>216.81</td>
-      <td>0.0</td>
-      <td>1250.18631</td>
-      <td>5.420273e+04</td>
-      <td>1250.186310</td>
-      <td>10528.748202</td>
-      <td>0.000217</td>
-      <td>0.000434</td>
-      <td>55452.916535</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>3.0</td>
+      <td>18650.034959</td>
+      <td>0.000000</td>
+      <td>-2287.851553</td>
+      <td>0.000212</td>
+      <td>0.000635</td>
+      <td>18650.034959</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>43927.829137</td>
+      <td>1734.12939</td>
       <td>0.0</td>
-      <td>16057.804941</td>
-      <td>2.0</td>
+      <td>8211.593627</td>
+      <td>13640.390612</td>
+      <td>52516.165397</td>
       <td>0.0</td>
-      <td>0.000000</td>
-      <td>4598.753905</td>
+      <td>3374.52239</td>
       <td>0.0</td>
-      <td>43927.829137</td>
-      <td>8801.561911</td>
+      <td>323.50</td>
+      <td>52516.165397</td>
       <td>...</td>
       <td>0.0</td>
-      <td>268.85</td>
-      <td>0.0</td>
-      <td>0.00000</td>
-      <td>0.000000e+00</td>
-      <td>43927.829137</td>
+      <td>6663.701623</td>
+      <td>13227.079816</td>
+      <td>1.0</td>
       <td>0.000000</td>
-      <td>0.000269</td>
-      <td>0.000538</td>
-      <td>20656.558846</td>
+      <td>52516.165397</td>
+      <td>0.000000</td>
+      <td>0.000324</td>
+      <td>0.000324</td>
+      <td>24999.433219</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>29936.234000</td>
+      <td>0.00000</td>
       <td>0.0</td>
+      <td>8211.593627</td>
       <td>0.000000</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>35639.635313</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>224.88</td>
+      <td>36857.709188</td>
       <td>0.0</td>
       <td>0.00000</td>
-      <td>3.563964e+04</td>
+      <td>0.0</td>
+      <td>186.32</td>
+      <td>37764.286717</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>3906.542368</td>
       <td>0.000000</td>
-      <td>5703.401313</td>
-      <td>0.000225</td>
-      <td>0.000450</td>
-      <td>35639.635313</td>
+      <td>2.0</td>
+      <td>25646.150723</td>
+      <td>12118.135995</td>
+      <td>906.577529</td>
+      <td>0.000186</td>
+      <td>0.000373</td>
+      <td>29552.693091</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>72320.705333</td>
+      <td>0.00000</td>
       <td>0.0</td>
       <td>0.000000</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>85247.723237</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>240.80</td>
+      <td>27280.781223</td>
+      <td>63941.158283</td>
       <td>0.0</td>
       <td>0.00000</td>
-      <td>8.524772e+04</td>
+      <td>0.0</td>
+      <td>343.08</td>
+      <td>63941.158283</td>
+      <td>...</td>
+      <td>0.0</td>
       <td>0.000000</td>
-      <td>12927.017904</td>
-      <td>0.000241</td>
-      <td>0.000482</td>
-      <td>85247.723237</td>
+      <td>35560.553286</td>
+      <td>2.0</td>
+      <td>1099.823774</td>
+      <td>62841.334509</td>
+      <td>0.000000</td>
+      <td>0.000343</td>
+      <td>0.000686</td>
+      <td>36660.377060</td>
     </tr>
   </tbody>
 </table>
@@ -587,7 +600,7 @@
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

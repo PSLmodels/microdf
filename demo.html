@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>microdf demo &#8212; microdf documentation</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -342,6 +342,20 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">17833</span><span class="n">b0c9c0f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">microdf</span> <span class="k">as</span> <span class="nn">mdf</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;taxcalc&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>Chart options.</p>
 <div class="cell docutils container">
@@ -351,7 +365,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/microdf/microdf/microdf/style.py:24: MatplotlibDeprecationWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/mghenis/anaconda3/lib/python3.7/site-packages/microdf/style.py:24: MatplotlibDeprecationWarning: 
 The createFontList function was deprecated in Matplotlib 3.2 and will be removed two minor releases later. Use FontManager.addfont instead.
   fm.fontManager.ttflist += fm.createFontList([&quot;Roboto-Regular.ttf&quot;])
 </pre></div>
@@ -376,11 +390,10 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;s006&#39;, &#39;e02300&#39;, &#39;aftertax_income&#39;, &#39;ssi_ben&#39;, &#39;expanded_income&#39;,
-       &#39;wic_ben&#39;, &#39;other_ben&#39;, &#39;e02400&#39;, &#39;vet_ben&#39;, &#39;snap_ben&#39;, &#39;MARS&#39;,
-       &#39;mcare_ben&#39;, &#39;mcaid_ben&#39;, &#39;tanf_ben&#39;, &#39;housing_ben&#39;, &#39;XTOT&#39;,
-       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
-       &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;e02400&#39;, &#39;mcare_ben&#39;, &#39;aftertax_income&#39;, &#39;ssi_ben&#39;, &#39;expanded_income&#39;,
+       &#39;snap_ben&#39;, &#39;vet_ben&#39;, &#39;housing_ben&#39;, &#39;s006&#39;, &#39;other_ben&#39;, &#39;e02300&#39;,
+       &#39;mcaid_ben&#39;, &#39;XTOT&#39;, &#39;tanf_ben&#39;, &#39;MARS&#39;, &#39;wic_ben&#39;, &#39;market_income&#39;,
+       &#39;bens&#39;, &#39;tax&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;, &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -412,11 +425,11 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;expanded_income&#39;, &#39;other_ben&#39;, &#39;e02400&#39;, &#39;housing_ben&#39;, &#39;s006&#39;,
-       &#39;vet_ben&#39;, &#39;snap_ben&#39;, &#39;mcaid_ben&#39;, &#39;ssi_ben&#39;, &#39;wic_ben&#39;, &#39;XTOT&#39;,
-       &#39;tanf_ben&#39;, &#39;e02300&#39;, &#39;aftertax_income&#39;, &#39;MARS&#39;, &#39;mcare_ben&#39;,
-       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;XTOT_m&#39;,
-       &#39;aftertax_income_m&#39;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;vet_ben&#39;, &#39;s006&#39;, &#39;e02300&#39;, &#39;MARS&#39;, &#39;e02400&#39;, &#39;mcare_ben&#39;, &#39;ssi_ben&#39;,
+       &#39;snap_ben&#39;, &#39;housing_ben&#39;, &#39;other_ben&#39;, &#39;aftertax_income&#39;,
+       &#39;expanded_income&#39;, &#39;mcaid_ben&#39;, &#39;XTOT&#39;, &#39;tanf_ben&#39;, &#39;wic_ben&#39;,
+       &#39;market_income&#39;, &#39;bens&#39;, &#39;tax&#39;, &#39;n65&#39;, &#39;s006_m&#39;, &#39;aftertax_income_m&#39;,
+       &#39;XTOT_m&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -561,13 +574,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
-</pre></div>
-</div>
-<img alt="_images/demo_28_2.png" src="_images/demo_28_2.png" />
+<img alt="_images/demo_28_0.png" src="_images/demo_28_0.png" />
 </div>
 </div>
 </div>
@@ -623,7 +630,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

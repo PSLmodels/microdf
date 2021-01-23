@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The agg function &#8212; microdf documentation</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -335,6 +335,19 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">6</span><span class="n">d80e93aca8e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">microdf</span> <span class="k">as</span> <span class="nn">mdf</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;taxcalc&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -343,7 +356,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;3.0.0&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.3.0&#39;
 </pre></div>
 </div>
 </div>
@@ -383,15 +396,57 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">5</span><span class="n">f25679b9c40</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mdf</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;aftertax_income&#39;</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">TypeError</span>: agg() missing 2 required positional arguments: &#39;base_metrics&#39; and &#39;reform_metrics&#39;
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aftertax_income_m_base</th>
+      <th>aftertax_income_m_reform</th>
+      <th>aftertax_income_pctchg</th>
+    </tr>
+    <tr>
+      <th>MARS</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1.0</th>
+      <td>3.916351e+06</td>
+      <td>4.939093e+06</td>
+      <td>0.261147</td>
+    </tr>
+    <tr>
+      <th>2.0</th>
+      <td>7.692072e+06</td>
+      <td>9.577865e+06</td>
+      <td>0.245161</td>
+    </tr>
+    <tr>
+      <th>4.0</th>
+      <td>8.531427e+05</td>
+      <td>1.275820e+06</td>
+      <td>0.495436</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="also-sum-baseline-expanded-income">
@@ -582,7 +637,7 @@
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

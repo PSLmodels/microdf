@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>microdf charts &#8212; microdf documentation</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -351,6 +351,31 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">c4f597f02806</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">base</span> <span class="o">=</span> <span class="n">mdf</span><span class="o">.</span><span class="n">calc_df</span><span class="p">(</span><span class="n">group_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;expanded_income&#39;</span><span class="p">,</span> <span class="s1">&#39;MARS&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                    <span class="n">metric_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aftertax_income&#39;</span><span class="p">,</span> <span class="s1">&#39;XTOT&#39;</span><span class="p">])</span>
+
+<span class="nn">~/work/microdf/microdf/microdf/taxcalc.py</span> in <span class="ni">calc_df</span><span class="nt">(records, policy, year, reform, group_vars, metric_vars, group_n65)</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span> 
+<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">88</span><span class="s2">     tc = import_optional_dependency(&quot;taxcalc&quot;)</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span><span class="s2">     # Assign defaults.</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span><span class="s2">     if records is None:</span>
+
+<span class="nn">~/work/microdf/microdf/microdf/_optional.py</span> in <span class="ni">import_optional_dependency</span><span class="nt">(name, extra, raise_on_missing, on_version)</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span><span class="s2">     except ImportError:</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span><span class="s2">         if raise_on_missing:</span>
+<span class="ne">---&gt; </span><span class="mi">66</span><span class="s2">             raise ImportError(msg) from None</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span><span class="s2">             return None</span>
+
+<span class="ne">ImportError</span>: Missing optional dependency &#39;taxcalc&#39;.  Use pip or conda to install taxcalc.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -378,13 +403,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
-</pre></div>
-</div>
-<img alt="_images/charts_7_2.png" src="_images/charts_7_2.png" />
+<img alt="_images/charts_7_0.png" src="_images/charts_7_0.png" />
 </div>
 </div>
 </div>
@@ -506,7 +525,7 @@ The createFontList function was deprecated in Matplotlib 3.2 and will be removed
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

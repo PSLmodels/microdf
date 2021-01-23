@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/site-packages/nbclient/client.py", line 1087, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/site-packages/nbclient/client.py", line 540, in async_execute
+    await self.async_execute_cell(
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/site-packages/nbclient/client.py", line 832, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/usr/share/miniconda/envs/microdf/lib/python3.9/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+base = mdf.calc_df(group_vars=['expanded_income', 'MARS'],
+                   metric_vars=['aftertax_income', 'XTOT'])
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mImportError[0m                               Traceback (most recent call last)
+[0;32m<ipython-input-3-c4f597f02806>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m base = mdf.calc_df(group_vars=['expanded_income', 'MARS'],
+[0m[1;32m      2[0m                    metric_vars=['aftertax_income', 'XTOT'])
+
+[0;32m~/work/microdf/microdf/microdf/taxcalc.py[0m in [0;36mcalc_df[0;34m(records, policy, year, reform, group_vars, metric_vars, group_n65)[0m
+[1;32m     86[0m [0;34m[0m[0m
+[1;32m     87[0m     """
+[0;32m---> 88[0;31m     [0mtc[0m [0;34m=[0m [0mimport_optional_dependency[0m[0;34m([0m[0;34m"taxcalc"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     89[0m     [0;31m# Assign defaults.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     90[0m     [0;32mif[0m [0mrecords[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/work/microdf/microdf/microdf/_optional.py[0m in [0;36mimport_optional_dependency[0;34m(name, extra, raise_on_missing, on_version)[0m
+[1;32m     64[0m     [0;32mexcept[0m [0mImportError[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     65[0m         [0;32mif[0m [0mraise_on_missing[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 66[0;31m             [0;32mraise[0m [0mImportError[0m[0;34m([0m[0mmsg[0m[0;34m)[0m [0;32mfrom[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     67[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     68[0m             [0;32mreturn[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mImportError[0m: Missing optional dependency 'taxcalc'.  Use pip or conda to install taxcalc.
+ImportError: Missing optional dependency 'taxcalc'.  Use pip or conda to install taxcalc.
+
