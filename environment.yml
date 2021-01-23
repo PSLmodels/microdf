@@ -1,7 +1,6 @@
 name: microdf
 channels:
 - conda-forge
-- PSLmodels
 dependencies:
 - codecov
 - flake8
@@ -12,7 +11,6 @@ dependencies:
 - pytest
 - seaborn
 - setuptools
-- taxcalc
 - pip:
   - matplotlib-label-lines
   - jupyter-book
