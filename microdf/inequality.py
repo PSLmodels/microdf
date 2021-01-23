@@ -17,7 +17,6 @@ def gini(df, col, w=None, negatives=None, groupby=None):
         minimum value.
         Defaults to None, which leaves negative values as they are.
     :param groupby: Column, or list of columns, to group by.
-    
     :returns: A float, the Gini index.
 
     """
