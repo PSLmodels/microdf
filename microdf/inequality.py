@@ -128,7 +128,7 @@ def top_10_pct_share(df, col, w=None, groupby=None):
     return top_x_pct_share(df, col, 0.1, w, groupby)
 
 
-def top_1_pct_share(df, col, w=None):
+def top_1_pct_share(df, col, w=None, groupby=None):
     """Calculates top 1% share.
 
     :param df: DataFrame.
@@ -138,7 +138,7 @@ def top_1_pct_share(df, col, w=None):
     :returns: The share of w-weighted val held by the top 1%.
 
     """
-    return top_x_pct_share(df, col, 0.01, w)
+    return top_x_pct_share(df, col, 0.01, w, groupby)
 
 
 def top_0_1_pct_share(df, col, w=None, groupby=None):
