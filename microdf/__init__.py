@@ -124,6 +124,10 @@ __all__ = [
     "read_stata_zip",
     # poverty.py
     "fpl",
+    "poverty_rate",
+    "deep_poverty_rate",
+    "poverty_gap",
+    "squared_poverty_gap",
     # style.py
     "AXIS_COLOR",
     "DPI",
