@@ -37,7 +37,13 @@ from .inequality import (
     top_x_pct_share,
 )
 from .io import read_stata_zip
-from .poverty import fpl
+from .poverty import (
+    fpl,
+    poverty_rate,
+    deep_poverty_rate,
+    poverty_gap,
+    squared_poverty_gap,
+)
 from .style import AXIS_COLOR, DPI, GRID_COLOR, TITLE_COLOR, set_plot_style
 from .tax import mtr, tax_from_mtrs
 from .taxcalc import (
