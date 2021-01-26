@@ -36,7 +36,7 @@ def poverty_rate(
     pov = df[income] < df[threshold]
     if w is None:
         return pov.mean()
-    return (pov * w).sum() / w.sum()
+    return (pov * df[w]).sum() / df[w].sum()
 
 
 def deep_poverty_rate(
@@ -60,7 +60,7 @@ def deep_poverty_rate(
     pov = df[income] < df[threshold] / 2
     if w is None:
         return pov.mean()
-    return (pov * w).sum() / w.sum()
+    return (pov * df[w]).sum() / df[w].sum()
 
 
 def poverty_gap(
@@ -107,7 +107,7 @@ def squared_poverty_gap(
     :rtype: float
     """
     gap = np.maximum(df[threshold] - df[income], 0)
-    sq_gap = gap ** 2
+    sq_gap = np.power(gap, 2)
     if w is None:
         return sq_gap.sum()
     return (sq_gap * df[w]).sum()
