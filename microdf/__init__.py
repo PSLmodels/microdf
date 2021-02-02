@@ -70,6 +70,7 @@ from .weighted import (
     weighted_quantile,
     weighted_sum,
 )
+from .generic import MicroDataFrame, MicroSeries
 
 name = "microdf"
 __version__ = "0.1.0"
