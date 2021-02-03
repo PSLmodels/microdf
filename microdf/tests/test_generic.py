@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 import microdf as mdf
 
@@ -20,7 +19,7 @@ def test_sum():
     try:
         series.set_weights(w)
         assert False
-    except:
+    except Exception:
         pass
 
 
@@ -41,5 +40,5 @@ def test_mean():
     try:
         series.set_weights(w)
         assert False
-    except:
+    except Exception:
         pass

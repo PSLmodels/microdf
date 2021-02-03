@@ -160,4 +160,7 @@ __all__ = [
     "weighted_median",
     "add_weighted_quantiles",
     "quantile_chg",
+    # generic.py
+    "MicroSeries",
+    "MicroDataFrame",
 ]
