@@ -1,24 +1,25 @@
 import numpy as np
 import pandas as pd
 
+
 class MicroSeries(pd.Series):
     def __init__(self, *args, weights=None, **kwargs):
         """A Series-inheriting class for weighted microdata.
         Weights can be provided at initialisation, or using
         set_weights.
-    
+
         :param weights: Array of weights.
         :type weights: np.array
         """
         super().__init__(*args, **kwargs)
         self.weights = weights
-      
+
     def _init_micro(self, weights=None):
-      self.weights = weights
-    
+        self.weights = weights
+
     def set_weights(self, weights):
         """Sets the weight values.
-        
+
         :param weights: Array of weights.
         :type weights: np.array.
 
@@ -32,21 +33,21 @@ class MicroSeries(pd.Series):
         :returns: A Pandas Series multiplying the MicroSeries by its weight.
         """
         return self.multiply(self.weights)
-    
+
     def sum(self):
         """Calculates the weighted sum of the MicroSeries.
 
         :returns: The weighted sum.
         """
         return self.weight().sum()
-    
+
     def mean(self):
         """Calculates the weighted mean of the MicroSeries
 
         :returns: The weighted mean.
         """
         return np.average(self.values, weights=self.weights)
-    
+
     def quantile(self, quantiles):
         """Calculates weighted quantiles of the MicroSeries.
 
@@ -82,51 +83,52 @@ class MicroSeries(pd.Series):
         """
         return self.quantile(0.5)
 
+
 class MicroDataFrame(pd.DataFrame):
-  def __init__(self, *args, weights=None, **kwargs):
-    """A DataFrame-inheriting class for weighted microdata.
-    Weights can be provided at initialisation, or using set_weights
-    or set_weight_col.
-    
-    :param weights: Array of weights.
-    :type weights: np.array
-    """
-    super().__init__(*args, **kwargs)
-    self.weights = weights
-    self.weight_col = None
+    def __init__(self, *args, weights=None, **kwargs):
+        """A DataFrame-inheriting class for weighted microdata.
+        Weights can be provided at initialisation, or using set_weights
+        or set_weight_col.
 
-  def _link_weights(self, column):
-    # self[column] = ... triggers __setitem__, which forces pd.Series
-    # this workaround avoids that
-    self[column].__class__ = MicroSeries
-    self[column]._init_micro(weights=self.weights)
-  
-  def _link_all_weights(self):
-    for column in self.columns:
-      if column != self.weight_col:
-        self._link_weights(column)
-  
-  def set_weights(self, weights):
-    """Sets the weights for the MicroDataFrame. If a 
-    string is received, it will be assumed to be the column 
-    name of the weight column.
-    
-    :param weights: Array of weights.
-    :type weights: np.array
-    """
-    if isinstance(weights, str):
-        self.set_weight_col(weights)
-    else:
-        self.weights = np.array(weights)
+        :param weights: Array of weights.
+        :type weights: np.array
+        """
+        super().__init__(*args, **kwargs)
+        self.weights = weights
+        self.weight_col = None
+
+    def _link_weights(self, column):
+        # self[column] = ... triggers __setitem__, which forces pd.Series
+        # this workaround avoids that
+        self[column].__class__ = MicroSeries
+        self[column]._init_micro(weights=self.weights)
+
+    def _link_all_weights(self):
+        for column in self.columns:
+            if column != self.weight_col:
+                self._link_weights(column)
+
+    def set_weights(self, weights):
+        """Sets the weights for the MicroDataFrame. If a
+        string is received, it will be assumed to be the column
+        name of the weight column.
+
+        :param weights: Array of weights.
+        :type weights: np.array
+        """
+        if isinstance(weights, str):
+            self.set_weight_col(weights)
+        else:
+            self.weights = np.array(weights)
+            self._link_all_weights()
+
+    def set_weight_col(self, column):
+        """Sets the weights for the MicroDataFrame by
+        specifying the name of the weight column.
+
+        :param weights: Array of weights.
+        :type weights: np.array
+        """
+        self.weights = np.array(self[column])
+        self.weight_col = column
         self._link_all_weights()
-
-  def set_weight_col(self, column):
-    """Sets the weights for the MicroDataFrame by 
-    specifying the name of the weight column.
-    
-    :param weights: Array of weights.
-    :type weights: np.array
-    """
-    self.weights = np.array(self[column])
-    self.weight_col = column
-    self._link_all_weights()

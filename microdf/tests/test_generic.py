@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import microdf as mdf
 
+
 def test_sum():
     arr = np.array([0, 1, 1])
     w = np.array([3, 0, 9])
@@ -21,6 +22,7 @@ def test_sum():
         assert False
     except:
         pass
+
 
 def test_mean():
     arr = np.array([3, 0, 2])
