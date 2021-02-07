@@ -104,7 +104,6 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
     def __init__(self, weights=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.weights = weights
-        self.mean = self.weighted_agg(self.mean)
 
     def _weighted_agg(func):
         def via_micro_series(row, fn, *args, **kwargs):
@@ -192,3 +191,22 @@ class MicroDataFrame(pd.DataFrame):
         self.weights = np.array(self[column])
         self.weight_col = column
         self._link_all_weights()
+
+    def groupby(self, by, *args, **kwargs):
+        """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
+
+        :param by: column to group by
+        :type by: str
+
+        return: DataFrameGroupBy object with columns using weights
+        rtype: DataFrameGroupBy
+        """
+        gb = super().groupby(by, *args, **kwargs)
+        weights = pd.Series(self.weights).groupby(self[by], *args, **kwargs)
+        for col in self.columns: # df.groupby(...)[col]s use weights
+            if col != by:
+                res = gb[col]
+                res.__class__ = MicroSeriesGroupBy
+                res.weights = weights
+                setattr(gb, col, res)
+        return gb
