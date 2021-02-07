@@ -71,3 +71,9 @@ def test_mean():
         assert False
     except Exception:
         pass
+
+def test_median():
+    arr = np.array([3, 0, 2])
+    w = np.array([4, 1, 1])
+    series = mdf.MicroSeries(arr, weights=w)
+    assert series.median() == 3

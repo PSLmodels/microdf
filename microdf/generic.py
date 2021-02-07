@@ -74,10 +74,7 @@ class MicroSeries(pd.Series):
         """
         values = np.array(self.values)
         quantiles = np.array(q)
-        if self.weights is None:
-            sample_weight = np.ones(len(values))
-        else:
-            sample_weight = np.array(self.weights)
+        sample_weight = np.array(self.weights)
         assert np.all(quantiles >= 0) and np.all(
             quantiles <= 1
         ), "quantiles should be in [0, 1]"
