@@ -51,6 +51,14 @@ class MicroSeries(pd.Series):
         return self.multiply(self.weights).sum()
 
     @handles_zero_weights
+    def count(self):
+        """Calculates the weighted count of the MicroSeries.
+
+        :returns: The weighted count.
+        """
+        return self.weights.sum()
+
+    @handles_zero_weights
     def mean(self):
         """Calculates the weighted mean of the MicroSeries
 
