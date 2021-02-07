@@ -117,8 +117,8 @@ class MicroSeries(pd.Series):
             x -= np.amin(x)
         if self.weights is not None:
             sorted_indices = np.argsort(self.weights)
-            sorted_x = self[sorted_indices]
-            sorted_w = self.weights[sorted_indices]
+            sorted_x = np.array(self[sorted_indices])
+            sorted_w = np.array(self.weights[sorted_indices])
             cumw = np.cumsum(sorted_w)
             cumxw = np.cumsum(sorted_x * sorted_w)
             return np.sum(cumxw[1:] * cumw[:-1] - cumxw[:-1] * cumw[1:]) / (
