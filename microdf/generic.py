@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+import microdf as mdf
+
 
 class MicroSeries(pd.Series):
     def __init__(self, *args, weights=None, **kwargs):
@@ -83,6 +85,30 @@ class MicroSeries(pd.Series):
         """
         return self.quantile(0.5)
 
+    def gini(self, negatives=None):
+        x = np.array(self).astype("float")
+        if negatives == "zero":
+            x[x < 0] = 0
+        if negatives == "shift" and np.amin(x) < 0:
+            x -= np.amin(x)
+        if self.weights is not None:
+            sorted_indices = np.argsort(self.weights)
+            sorted_x = self[sorted_indices]
+            sorted_w = self.weights[sorted_indices]
+            cumw = np.cumsum(sorted_w)
+            cumxw = np.cumsum(sorted_x * sorted_w)
+            return np.sum(cumxw[1:] * cumw[:-1] - cumxw[:-1] * cumw[1:]) / (
+                cumxw[-1] * cumw[-1]
+            )
+        else:
+            sorted_x = np.sort(self)
+            n = len(x)
+            cumxw = np.cumsum(sorted_x)
+            # The above formula, with all weights equal to 1 simplifies to:
+            return (n + 1 - 2 * np.sum(cumxw) / cumxw[-1]) / n
+
+    
+
 
 class MicroDataFrame(pd.DataFrame):
     def __init__(self, *args, weights=None, **kwargs):
@@ -132,3 +158,15 @@ class MicroDataFrame(pd.DataFrame):
         self.weights = np.array(self[column])
         self.weight_col = column
         self._link_all_weights()
+
+    def poverty_rate(self, income: str, threshold: str):
+        return mdf.poverty_rate(self, income, threshold, self.weights)
+
+    def deep_poverty_rate(self, income: str, threshold: str):
+        return mdf.deep_poverty_rate(self, income, threshold, self.weights)
+
+    def poverty_gap(self, income: str, threshold: str):
+        return mdf.poverty_gap(self, income, threshold, self.weights)
+
+    def squared_poverty_gap(self, income: str, threshold: str):
+        return mdf.poverty_gap(self, income, threshold, self.weights)
