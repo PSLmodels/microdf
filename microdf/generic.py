@@ -99,6 +99,12 @@ class MicroSeries(pd.Series):
         gb.__class__ = MicroSeriesGroupBy
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
         return gb
+    
+    def _get_values(self, indexer):
+        try:
+            return MicroSeries(self._mgr.get_slice(indexer), weights=pd.Series(self.weights)._mgr.get_slice(indexer)).__finalize__(self)
+        except ValueError:
+            return np.asarray(self._values[indexer])
 
 class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
     def __init__(self, weights=None, *args, **kwargs):
