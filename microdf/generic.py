@@ -330,7 +330,7 @@ class MicroDataFrame(pd.DataFrame):
         :rtype: float
         """
         pov = self[income] < self[threshold]
-        return (pov * self.weights).sum() / self.sum()
+        return (pov * self.weights).sum() / self.weights.sum()
 
     def deep_poverty_rate(self, income: str, threshold: str) -> float:
         """Calculate deep poverty rate, i.e., the population share with income
@@ -344,7 +344,7 @@ class MicroDataFrame(pd.DataFrame):
         :rtype: float
         """
         pov = self[income] < (self[threshold] / 2)
-        return (pov * self.weights).sum() / self.sum()
+        return (pov * self.weights).sum() / self.weights.sum()
 
     def poverty_gap(self, income: str, threshold: str) -> float:
         """Calculate poverty gap, i.e., the total gap between income and
