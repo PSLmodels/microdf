@@ -48,20 +48,20 @@ class MicroSeries(pd.Series):
         """
         return np.average(self.values, weights=self.weights)
 
-    def quantile(self, quantiles):
+    def quantile(self, q):
         """Calculates weighted quantiles of the MicroSeries.
 
         Doesn't exactly match unweighted quantiles of stacked values.
         See stackoverflow.com/q/21844024#comment102342137_29677616.
 
-        :param quantiles: Array of quantiles to calculate.
-        :type quantiles: np.array
+        :param q: Array of quantiles to calculate.
+        :type q: np.array
 
         :return: Array of weighted quantiles.
         :rtype: np.array
         """
         values = np.array(self.values)
-        quantiles = np.array(quantiles)
+        quantiles = np.array(q)
         if self.weights is None:
             sample_weight = np.ones(len(values))
         else:
