@@ -1,6 +1,7 @@
 import numpy as np
 import microdf as mdf
 
+
 def test_df_init():
     arr = np.array([0, 1, 1])
     w = np.array([3, 0, 9])
@@ -18,12 +19,13 @@ def test_df_init():
     df.set_weight_col("w")
     assert df.a.mean() == np.average(arr, weights=w)
 
+
 def test_series_getitem():
     arr = np.array([0, 1, 1])
     w = np.array([3, 0, 9])
     s = mdf.MicroSeries(arr, weights=w)
     assert s[[1, 2]].sum() == np.sum(arr[[1, 2]] * w[[1, 2]])
-    
+
     assert s[1:3].sum() == np.sum(arr[1:3] * w[1:3])
 
 
