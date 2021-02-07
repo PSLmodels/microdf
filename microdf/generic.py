@@ -115,7 +115,7 @@ class MicroSeries(pd.Series):
             weights = self.weights.__getitem__(key)
             return MicroSeries(result, weights=weights)
         return result
-    
+
     def __add__(self, other):
         return MicroSeries(super().__add__(other), weights=self.weights)
 
@@ -224,7 +224,7 @@ class MicroDataFrame(pd.DataFrame):
         super().__init__(*args, **kwargs)
         self.set_weights(weights)
         self._link_all_weights()
-    
+
     def get_args_as_micro_series(*kwarg_names):
         """Decorator for auto-parsing column names into MicroSeries objects.
         If given, kwarg_names limits arguments checked to keyword arguments
@@ -233,6 +233,7 @@ class MicroDataFrame(pd.DataFrame):
         :param arg_names: argument names to restrict to.
         :type arg_names: str
         """
+
         def arg_series_decorator(fn):
             def series_function(self, *args, **kwargs):
                 new_args = []
@@ -246,14 +247,18 @@ class MicroDataFrame(pd.DataFrame):
                         else:
                             new_args += [value]
                     for name, value in kwargs.items():
-                        if isinstance(value, str) and (len(kwarg_names) == 0 or name in kwarg_names):
+                        if isinstance(value, str) and (
+                            len(kwarg_names) == 0 or name in kwarg_names
+                        ):
                             if value not in self.columns:
                                 raise Exception("Column not found")
                             new_kwargs[name] = self[value]
                         else:
                             new_kwargs[name] = value
                 return fn(self, *new_args, **new_kwargs)
+
             return series_function
+
         return arg_series_decorator
 
     def __setitem__(self, *args, **kwargs):
