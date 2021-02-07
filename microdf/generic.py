@@ -222,8 +222,7 @@ class MicroDataFrame(pd.DataFrame):
         :type weights: np.array
         """
         super().__init__(*args, **kwargs)
-        self.weights = weights
-        self.weight_col = None
+        self.set_weights(weights)
         self._link_all_weights()
 
     def __setitem__(self, *args, **kwargs):
@@ -238,7 +237,7 @@ class MicroDataFrame(pd.DataFrame):
 
     def _link_all_weights(self):
         for column in self.columns:
-            if column != self.weight_col:
+            if column != self.weights_col:
                 self._link_weights(column)
 
     def set_weights(self, weights):
@@ -250,9 +249,11 @@ class MicroDataFrame(pd.DataFrame):
         :type weights: np.array
         """
         if isinstance(weights, str):
-            self.set_weight_col(weights)
+            self.weights_col = weights
+            self.weights = pd.Series(self[weights])
         else:
-            self.weights = np.array(weights)
+            self.weights_col = None
+            self.weights = pd.Series(weights)
             self._link_all_weights()
 
     def set_weight_col(self, column):
