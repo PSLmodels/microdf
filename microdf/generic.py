@@ -15,9 +15,6 @@ class MicroSeries(pd.Series):
         super().__init__(*args, **kwargs)
         self.set_weights(weights)
 
-    def _init_micro(self, weights=None):
-        self.weights = weights
-
     def handles_zero_weights(fn):
         def safe_fn(*args, **kwargs):
             try:
@@ -33,7 +30,10 @@ class MicroSeries(pd.Series):
         :param weights: Array of weights.
         :type weights: np.array.
         """
-        self.weights = pd.Series(weights)
+        if weights is None:
+            self.weights = pd.Series(np.ones_like(self.values))
+        else:
+            self.weights = pd.Series(weights)
 
     @handles_zero_weights
     def weight(self):
@@ -287,7 +287,7 @@ class MicroDataFrame(pd.DataFrame):
         # self[column] = ... triggers __setitem__, which forces pd.Series
         # this workaround avoids that
         self[column].__class__ = MicroSeries
-        self[column]._init_micro(weights=self.weights)
+        self[column].set_weights(self.weights)
 
     def _link_all_weights(self):
         for column in self.columns:
