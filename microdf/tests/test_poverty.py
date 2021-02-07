@@ -56,4 +56,3 @@ def test_squared_poverty_gap():
         mdf.squared_poverty_gap(df, "income", "threshold", "weight"), RES,
     )
     assert np.allclose(md.squared_poverty_gap("income", "threshold"), RES)
-

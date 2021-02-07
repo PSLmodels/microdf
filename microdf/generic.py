@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
 
-import microdf as mdf
-
 
 class MicroSeries(pd.Series):
     def __init__(self, *args, weights=None, **kwargs):
