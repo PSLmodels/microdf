@@ -107,14 +107,14 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
         self.mean = self.weighted_agg(self.mean)
 
     def _weighted_agg(func):
-        def via_micro_series(row, fn):
-            return getattr(MicroSeries(row.a, weights=row.w), fn.__name__)()
+        def via_micro_series(row, fn, *args, **kwargs):
+            return getattr(MicroSeries(row.a, weights=row.w), fn.__name__)(*args, **kwargs)
 
         def _weighted_agg_fn(self, *args, **kwargs):
             arrays = self.apply(np.array)
             weights = self.weights.apply(np.array)
             df = pd.DataFrame(dict(a=arrays, w=weights))
-            result = df.agg(lambda row: via_micro_series(row, func), axis=1)
+            result = df.agg(lambda row: via_micro_series(row, func, *args, **kwargs), axis=1)
             return result
         return _weighted_agg_fn
     
@@ -131,8 +131,8 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
         return MicroSeries.mean(self)
 
     @_weighted_agg
-    def quantile(self):
-        return MicroSeries.quantile(self)
+    def quantile(self, quantiles):
+        return MicroSeries.quantile(self, quantiles)
 
     @_weighted_agg
     def median(self):
