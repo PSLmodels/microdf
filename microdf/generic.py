@@ -23,6 +23,7 @@ class MicroSeries(pd.Series):
                 return fn(*args, **kwargs)
             except ZeroDivisionError:
                 return np.NaN
+
         return safe_fn
 
     def set_weights(self, weights):
@@ -99,13 +100,14 @@ class MicroSeries(pd.Series):
         gb.__class__ = MicroSeriesGroupBy
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
         return gb
-    
+
     def __getitem__(self, key):
         result = super().__getitem__(key)
         if isinstance(result, pd.Series):
             weights = self.weights.__getitem__(key)
             return MicroSeries(result, weights=weights)
         return result
+
 
 class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
     def __init__(self, weights=None, *args, **kwargs):
@@ -114,16 +116,22 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
 
     def _weighted_agg(func):
         def via_micro_series(row, fn, *args, **kwargs):
-            return getattr(MicroSeries(row.a, weights=row.w), fn.__name__)(*args, **kwargs)
+            return getattr(MicroSeries(row.a, weights=row.w), fn.__name__)(
+                *args, **kwargs
+            )
 
         def _weighted_agg_fn(self, *args, **kwargs):
             arrays = self.apply(np.array)
             weights = self.weights.apply(np.array)
             df = pd.DataFrame(dict(a=arrays, w=weights))
-            result = df.agg(lambda row: via_micro_series(row, func, *args, **kwargs), axis=1)
+            result = df.agg(
+                lambda row: via_micro_series(row, func, *args, **kwargs),
+                axis=1,
+            )
             return result
+
         return _weighted_agg_fn
-    
+
     @_weighted_agg
     def weight(self):
         return MicroSeries.weight(self)
@@ -131,7 +139,7 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
     @_weighted_agg
     def sum(self):
         return MicroSeries.sum(self)
-    
+
     @_weighted_agg
     def mean(self):
         return MicroSeries.mean(self)
@@ -143,7 +151,7 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
     @_weighted_agg
     def median(self):
         return MicroSeries.median(self)
-    
+
 
 class MicroDataFrame(pd.DataFrame):
     def __init__(self, *args, weights=None, **kwargs):
@@ -158,7 +166,7 @@ class MicroDataFrame(pd.DataFrame):
         self.weights = weights
         self.weight_col = None
         self._link_all_weights()
-    
+
     def __setitem__(self, *args, **kwargs):
         super().__setitem__(*args, **kwargs)
         self._link_all_weights()
@@ -210,7 +218,7 @@ class MicroDataFrame(pd.DataFrame):
         """
         gb = super().groupby(by, *args, **kwargs)
         weights = pd.Series(self.weights).groupby(self[by], *args, **kwargs)
-        for col in self.columns: # df.groupby(...)[col]s use weights
+        for col in self.columns:  # df.groupby(...)[col]s use weights
             if col != by:
                 res = gb[col]
                 res.__class__ = MicroSeriesGroupBy
