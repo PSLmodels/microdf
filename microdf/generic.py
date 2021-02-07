@@ -13,21 +13,29 @@ class MicroSeries(pd.Series):
         :type weights: np.array
         """
         super().__init__(*args, **kwargs)
-        self.weights = weights
+        self.set_weights(weights)
 
     def _init_micro(self, weights=None):
         self.weights = weights
+
+    def handles_zero_weights(fn):
+        def safe_fn(*args, **kwargs):
+            try:
+                return fn(*args, **kwargs)
+            except ZeroDivisionError:
+                return np.NaN
+
+        return safe_fn
 
     def set_weights(self, weights):
         """Sets the weight values.
 
         :param weights: Array of weights.
         :type weights: np.array.
-
-        :returns: A Pandas Series multiplying the MicroSeries by its weight.
         """
-        self.weights = weights
+        self.weights = pd.Series(weights)
 
+    @handles_zero_weights
     def weight(self):
         """Calculates the weighted value of the MicroSeries.
 
@@ -35,13 +43,15 @@ class MicroSeries(pd.Series):
         """
         return self.multiply(self.weights)
 
+    @handles_zero_weights
     def sum(self):
         """Calculates the weighted sum of the MicroSeries.
 
         :returns: The weighted sum.
         """
-        return self.weight().sum()
+        return self.multiply(self.weights).sum()
 
+    @handles_zero_weights
     def mean(self):
         """Calculates the weighted mean of the MicroSeries
 
@@ -49,6 +59,7 @@ class MicroSeries(pd.Series):
         """
         return np.average(self.values, weights=self.weights)
 
+    @handles_zero_weights
     def quantile(self, q):
         """Calculates weighted quantiles of the MicroSeries.
 
@@ -77,6 +88,7 @@ class MicroSeries(pd.Series):
         weighted_quantiles /= np.sum(sample_weight)
         return np.interp(quantiles, weighted_quantiles, values)
 
+    @handles_zero_weights
     def median(self):
         """Calculates the weighted median of the MicroSeries.
 
@@ -194,6 +206,62 @@ class MicroSeries(pd.Series):
         t10 = self.top_10_pct_share()
         b50 = self.bottom_50_pct_share()
         return t10 / b50
+    def groupby(self, *args, **kwargs):
+        gb = super().groupby(*args, **kwargs)
+        gb.__class__ = MicroSeriesGroupBy
+        gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
+        return gb
+
+    def __getitem__(self, key):
+        result = super().__getitem__(key)
+        if isinstance(result, pd.Series):
+            weights = self.weights.__getitem__(key)
+            return MicroSeries(result, weights=weights)
+        return result
+
+
+class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
+    def __init__(self, weights=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.weights = weights
+
+    def _weighted_agg(func):
+        def via_micro_series(row, fn, *args, **kwargs):
+            return getattr(MicroSeries(row.a, weights=row.w), fn.__name__)(
+                *args, **kwargs
+            )
+
+        def _weighted_agg_fn(self, *args, **kwargs):
+            arrays = self.apply(np.array)
+            weights = self.weights.apply(np.array)
+            df = pd.DataFrame(dict(a=arrays, w=weights))
+            result = df.agg(
+                lambda row: via_micro_series(row, func, *args, **kwargs),
+                axis=1,
+            )
+            return result
+
+        return _weighted_agg_fn
+
+    @_weighted_agg
+    def weight(self):
+        return MicroSeries.weight(self)
+
+    @_weighted_agg
+    def sum(self):
+        return MicroSeries.sum(self)
+
+    @_weighted_agg
+    def mean(self):
+        return MicroSeries.mean(self)
+
+    @_weighted_agg
+    def quantile(self, quantiles):
+        return MicroSeries.quantile(self, quantiles)
+
+    @_weighted_agg
+    def median(self):
+        return MicroSeries.median(self)
 
 
 class MicroDataFrame(pd.DataFrame):
@@ -208,6 +276,11 @@ class MicroDataFrame(pd.DataFrame):
         super().__init__(*args, **kwargs)
         self.weights = weights
         self.weight_col = None
+        self._link_all_weights()
+
+    def __setitem__(self, *args, **kwargs):
+        super().__setitem__(*args, **kwargs)
+        self._link_all_weights()
 
     def _link_weights(self, column):
         # self[column] = ... triggers __setitem__, which forces pd.Series
@@ -296,3 +369,21 @@ class MicroDataFrame(pd.DataFrame):
         :rtype: float
         """
         return mdf.poverty_gap(self, income, threshold, self.weights)
+    def groupby(self, by, *args, **kwargs):
+        """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
+
+        :param by: column to group by
+        :type by: str
+
+        return: DataFrameGroupBy object with columns using weights
+        rtype: DataFrameGroupBy
+        """
+        gb = super().groupby(by, *args, **kwargs)
+        weights = pd.Series(self.weights).groupby(self[by], *args, **kwargs)
+        for col in self.columns:  # df.groupby(...)[col]s use weights
+            if col != by:
+                res = gb[col]
+                res.__class__ = MicroSeriesGroupBy
+                res.weights = weights
+                setattr(gb, col, res)
+        return gb
