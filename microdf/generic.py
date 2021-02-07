@@ -7,8 +7,7 @@ import microdf as mdf
 class MicroSeries(pd.Series):
     def __init__(self, *args, weights=None, **kwargs):
         """A Series-inheriting class for weighted microdata.
-        Weights can be provided at initialisation, or using
-        set_weights.
+        Weights can be provided at initialisation, or using set_weights.
 
         :param weights: Array of weights.
         :type weights: np.array
@@ -85,7 +84,7 @@ class MicroSeries(pd.Series):
         """
         return self.quantile(0.5)
 
-    def gini(self, negatives: str=None) -> float:
+    def gini(self, negatives: str = None) -> float:
         """Calculates Gini index.
 
         :param negatives: An optional string indicating how to treat negative
@@ -123,7 +122,8 @@ class MicroSeries(pd.Series):
     def top_x_pct_share(self, top_x_pct: float) -> float:
         """Calculates top x% share.
 
-        :param top_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1, 0.001.
+        :param top_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1,
+            0.001.
         :type top_x_pct: float
         :returns: The weighted share held by the top x%.
         :rtype: float
@@ -136,7 +136,8 @@ class MicroSeries(pd.Series):
     def bottom_x_pct_share(self, bottom_x_pct) -> float:
         """Calculates bottom x% share.
 
-        :param bottom_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1, 0.001.
+        :param bottom_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1,
+            0.001.
         :type bottom_x_pct: float
         :returns: The weighted share held by the bottom x%.
         :rtype: float
@@ -198,8 +199,8 @@ class MicroSeries(pd.Series):
 class MicroDataFrame(pd.DataFrame):
     def __init__(self, *args, weights=None, **kwargs):
         """A DataFrame-inheriting class for weighted microdata.
-        Weights can be provided at initialisation, or using set_weights
-        or set_weight_col.
+        Weights can be provided at initialisation, or using set_weights or
+        set_weight_col.
 
         :param weights: Array of weights.
         :type weights: np.array
@@ -220,9 +221,8 @@ class MicroDataFrame(pd.DataFrame):
                 self._link_weights(column)
 
     def set_weights(self, weights):
-        """Sets the weights for the MicroDataFrame. If a
-        string is received, it will be assumed to be the column
-        name of the weight column.
+        """Sets the weights for the MicroDataFrame. If a string is received,
+        it will be assumed to be the column name of the weight column.
 
         :param weights: Array of weights.
         :type weights: np.array
@@ -234,8 +234,8 @@ class MicroDataFrame(pd.DataFrame):
             self._link_all_weights()
 
     def set_weight_col(self, column):
-        """Sets the weights for the MicroDataFrame by
-        specifying the name of the weight column.
+        """Sets the weights for the MicroDataFrame by specifying the name of
+        the weight column.
 
         :param weights: Array of weights.
         :type weights: np.array
