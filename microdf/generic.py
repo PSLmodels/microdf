@@ -31,7 +31,7 @@ class MicroSeries(pd.Series):
         :param weights: Array of weights.
         :type weights: np.array.
         """
-        self.weights = weights
+        self.weights = pd.Series(weights)
 
     @handles_zero_weights
     def weight(self):
@@ -100,11 +100,12 @@ class MicroSeries(pd.Series):
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
         return gb
     
-    def _get_values(self, indexer):
-        try:
-            return MicroSeries(self._mgr.get_slice(indexer), weights=pd.Series(self.weights)._mgr.get_slice(indexer)).__finalize__(self)
-        except ValueError:
-            return np.asarray(self._values[indexer])
+    def __getitem__(self, key):
+        result = super().__getitem__(key)
+        if isinstance(result, pd.Series):
+            weights = self.weights.__getitem__(key)
+            return MicroSeries(result, weights=weights)
+        return result
 
 class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
     def __init__(self, weights=None, *args, **kwargs):
