@@ -14,6 +14,8 @@ def test_sum():
     series.set_weights(w)
     assert series.sum() == (arr * w).sum()
 
+    # Verify that an error is thrown when passing weights of different size
+    # from the values.
     w = np.linspace(1, 3, 101)
     series = mdf.MicroSeries(arr)
     try:
