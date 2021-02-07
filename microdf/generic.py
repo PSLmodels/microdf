@@ -206,6 +206,7 @@ class MicroSeries(pd.Series):
         t10 = self.top_10_pct_share()
         b50 = self.bottom_50_pct_share()
         return t10 / b50
+
     def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
         gb.__class__ = MicroSeriesGroupBy
@@ -328,7 +329,8 @@ class MicroDataFrame(pd.DataFrame):
         :return: Poverty rate between zero and one.
         :rtype: float
         """
-        return mdf.poverty_rate(self, income, threshold, self.weights)
+        pov = self[income] < self[threshold]
+        return (pov * self.weights).sum() / self.sum()
 
     def deep_poverty_rate(self, income: str, threshold: str) -> float:
         """Calculate deep poverty rate, i.e., the population share with income
@@ -341,7 +343,8 @@ class MicroDataFrame(pd.DataFrame):
         :return: Deep poverty rate between zero and one.
         :rtype: float
         """
-        return mdf.deep_poverty_rate(self, income, threshold, self.weights)
+        pov = self[income] < (self[threshold] / 2)
+        return (pov * self.weights).sum() / self.sum()
 
     def poverty_gap(self, income: str, threshold: str) -> float:
         """Calculate poverty gap, i.e., the total gap between income and
@@ -354,7 +357,8 @@ class MicroDataFrame(pd.DataFrame):
         :return: Poverty gap.
         :rtype: float
         """
-        return mdf.poverty_gap(self, income, threshold, self.weights)
+        gaps = np.maximum(self[threshold] - self[income], 0)
+        return (gaps * self.weights).sum()
 
     def squared_poverty_gap(self, income: str, threshold: str) -> float:
         """Calculate squared poverty gap, i.e., the total squared gap between
@@ -368,7 +372,10 @@ class MicroDataFrame(pd.DataFrame):
         :return: Squared poverty gap.
         :rtype: float
         """
-        return mdf.poverty_gap(self, income, threshold, self.weights)
+        gaps = np.maximum(self[threshold] - self[income], 0)
+        squared_gaps = np.power(gaps, 2)
+        return (squared_gaps * self.weights).sum()
+
     def groupby(self, by, *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
 
