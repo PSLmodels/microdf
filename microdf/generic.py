@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from typing import Union, Optional
+import warnings
 
 
 class MicroSeries(pd.Series):
@@ -31,9 +31,9 @@ class MicroSeries(pd.Series):
         :type weights: np.array.
         """
         if weights is None:
-            self.weights = pd.Series(np.ones_like(self.values))
+            self.weights = pd.Series(np.ones_like(self.values), dtype=float)
         else:
-            self.weights = pd.Series(weights)
+            self.weights = pd.Series(weights, dtype=float)
 
     @handles_zero_weights
     def weight(self):
@@ -287,10 +287,12 @@ class MicroDataFrame(pd.DataFrame):
         """
         if isinstance(weights, str):
             self.weights_col = weights
-            self.weights = pd.Series(self[weights])
+            self.weights = pd.Series(self[weights], dtype=float)
         else:
             self.weights_col = None
-            self.weights = pd.Series(weights)
+            with warnings.catch_warnings():
+                warnings.filterwarnings('ignore', category=UserWarning)
+                self.weights = pd.Series(weights, dtype=float)
             self._link_all_weights()
 
     def set_weight_col(self, column):
