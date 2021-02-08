@@ -7,12 +7,15 @@ X = [1, 5, 2]
 Y = [0, -6, 3]
 W = [4, 1, 1]
 df = pd.DataFrame({"x": X, "y": Y, "w": W})
+ms = mdf.MicroSeries(X, weights=W)
+md = mdf.MicroDataFrame(df[["x", "y"]], weights=W)
 # Also make a version with groups.
 df2 = df.copy(deep=True)
 df2.x *= 2
 df2.y *= 1.5
 dfg = pd.concat([df, df2])
 dfg["g"] = ["a"] * 3 + ["b"] * 3
+mdg = mdf.MicroDataFrame(dfg[["x", "y", "g"]], weights=W)
 
 
 def test_weighted_quantile():
@@ -52,7 +55,9 @@ def test_weighted_sum():
 
 
 def test_gini():
-    # Unweighted
+    # Test nothing breaks.
+    ms.gini()
+    # Unweighted.
     mdf.gini(df, "x")
     # Weighted
     mdf.gini(df, "x", "w")
@@ -60,3 +65,5 @@ def test_gini():
     mdf.gini(dfg, "x", groupby="g")
     # Weighted, grouped
     mdf.gini(dfg, "x", "w", groupby="g")
+    # Test old and new match.
+    assert ms.gini() == mdf.gini(df, "x", "w")

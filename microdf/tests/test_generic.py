@@ -41,6 +41,8 @@ def test_sum():
     series.set_weights(w)
     assert series.sum() == (arr * w).sum()
 
+    # Verify that an error is thrown when passing weights of different size
+    # from the values.
     w = np.linspace(1, 3, 101)
     series = mdf.MicroSeries(arr)
     try:
@@ -69,3 +71,11 @@ def test_mean():
         assert False
     except Exception:
         pass
+
+
+def test_median():
+    # 1, 2, 3, 4, *4*, 4, 5, 5, 5
+    arr = np.array([1, 2, 3, 4, 5])
+    w = np.array([1, 1, 1, 3, 3])
+    series = mdf.MicroSeries(arr, weights=w)
+    assert series.median() == 4
