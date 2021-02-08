@@ -1,3 +1,4 @@
+from microdf.generic import MicroDataFrame, MicroSeriesGroupBy
 import numpy as np
 import microdf as mdf
 
@@ -69,3 +70,11 @@ def test_mean():
         assert False
     except Exception:
         pass
+
+def test_poverty_count():
+    arr = np.array([10000, 20000, 50000])
+    w = np.array([1123, 1144, 2211])
+    df = MicroDataFrame(weights=w)
+    df["income"] = arr
+    df["threshold"] = 16000
+    assert df.poverty_count("income", "threshold") == w[0]
