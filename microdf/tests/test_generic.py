@@ -74,7 +74,8 @@ def test_mean():
 
 
 def test_median():
-    arr = np.array([3, 0, 2])
-    w = np.array([4, 1, 1])
+    # 1, 2, 3, 4, *4*, 4, 5, 5, 5
+    arr = np.array([1, 2, 3, 4, 5])
+    w = np.array([1, 1, 1, 3, 3])
     series = mdf.MicroSeries(arr, weights=w)
-    assert series.median() == 3
+    assert series.median() == 4
