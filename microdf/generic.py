@@ -115,7 +115,7 @@ class MicroSeries(pd.Series):
         if negatives == "shift" and np.amin(x) < 0:
             x -= np.amin(x)
         if (self.weights != np.ones(len(self))).any():  # Varying weights.
-            sorted_indices = np.argsort(self.weights)
+            sorted_indices = np.argsort(self)
             sorted_x = np.array(self[sorted_indices])
             sorted_w = np.array(self.weights[sorted_indices])
             cumw = np.cumsum(sorted_w)
