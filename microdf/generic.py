@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from typing import Union, Optional
 
 
 class MicroSeries(pd.Series):
@@ -323,7 +324,18 @@ class MicroDataFrame(pd.DataFrame):
         return gb
 
     @get_args_as_micro_series()
-    def poverty_count(self, income, threshold):
+    def poverty_count(self, income: Union[MicroSeries, str], threshold: Union[MicroSeries, str]) -> int:
+        """Calculates the number of entities with income below a poverty threshold.
+
+        :param income: income array or column name
+        :type income: Union[MicroSeries, str]
+
+        :param threshold: threshold array or column name
+        :type threshold: Union[MicroSeries, str]
+
+        return: number of entities in poverty
+        rtype: int
+        """
         in_poverty = income < threshold
         x = in_poverty.sum()
         return x.count()
