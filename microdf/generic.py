@@ -23,6 +23,7 @@ class MicroSeries(pd.Series):
                 return fn(*args, **kwargs)
             except ZeroDivisionError:
                 return np.NaN
+
         return safe_fn
 
     def set_weights(self, weights):
@@ -294,7 +295,7 @@ class MicroDataFrame(pd.DataFrame):
         else:
             self.weights_col = None
             with warnings.catch_warnings():
-                warnings.filterwarnings('ignore', category=UserWarning)
+                warnings.filterwarnings("ignore", category=UserWarning)
                 self.weights = pd.Series(weights, dtype=float)
             self._link_all_weights()
 

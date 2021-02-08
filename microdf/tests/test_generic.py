@@ -71,6 +71,7 @@ def test_mean():
     except Exception:
         pass
 
+
 def test_poverty_count():
     arr = np.array([10000, 20000, 50000])
     w = np.array([1123, 1144, 2211])
