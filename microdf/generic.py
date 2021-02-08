@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+from typing import Callable, Union, Optional
+from functools import wraps
 import warnings
 
 
@@ -21,7 +23,6 @@ class MicroSeries(pd.Series):
                 return fn(*args, **kwargs)
             except ZeroDivisionError:
                 return np.NaN
-
         return safe_fn
 
     def set_weights(self, weights):
@@ -174,13 +175,14 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
         super().__init__(*args, **kwargs)
         self.weights = weights
 
-    def _weighted_agg(func):
+    def _weighted_agg(func) -> Callable:
         def via_micro_series(row, fn, *args, **kwargs):
             return getattr(MicroSeries(row.a, weights=row.w), fn.__name__)(
                 *args, **kwargs
             )
 
-        def _weighted_agg_fn(self, *args, **kwargs):
+        @wraps(func)
+        def _weighted_agg_fn(self, *args, **kwargs) -> Callable:
             arrays = self.apply(np.array)
             weights = self.weights.apply(np.array)
             df = pd.DataFrame(dict(a=arrays, w=weights))
@@ -226,7 +228,7 @@ class MicroDataFrame(pd.DataFrame):
         self.set_weights(weights)
         self._link_all_weights()
 
-    def get_args_as_micro_series(*kwarg_names):
+    def get_args_as_micro_series(*kwarg_names: tuple) -> Callable:
         """Decorator for auto-parsing column names into MicroSeries objects.
         If given, kwarg_names limits arguments checked to keyword arguments
         specified.
@@ -236,6 +238,7 @@ class MicroDataFrame(pd.DataFrame):
         """
 
         def arg_series_decorator(fn):
+            @wraps(fn)
             def series_function(self, *args, **kwargs):
                 new_args = []
                 new_kwargs = {}
@@ -343,5 +346,4 @@ class MicroDataFrame(pd.DataFrame):
         rtype: int
         """
         in_poverty = income < threshold
-        x = in_poverty.sum()
-        return x.count()
+        return in_poverty.sum()
