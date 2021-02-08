@@ -114,7 +114,7 @@ class MicroSeries(pd.Series):
             x[x < 0] = 0
         if negatives == "shift" and np.amin(x) < 0:
             x -= np.amin(x)
-        if self.weights is not None:
+        if self.weights is not None:  # Check if it's not np.ones instead?
             sorted_indices = np.argsort(self.weights)
             sorted_x = np.array(self[sorted_indices])
             sorted_w = np.array(self.weights[sorted_indices])
@@ -206,7 +206,7 @@ class MicroSeries(pd.Series):
         b50 = self.bottom_50_pct_share()
         return t10 / b50
 
-    def groupby(self, *args, **kwargs) -> MicroSeriesGroupBy:
+    def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
         gb.__class__ = MicroSeriesGroupBy
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
@@ -375,7 +375,7 @@ class MicroDataFrame(pd.DataFrame):
         squared_gaps = np.power(gaps, 2)
         return (squared_gaps * self.weights).sum()
 
-    def groupby(self, by: str, *args, **kwargs) -> DataFrameGroupBy:
+    def groupby(self, by: str, *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
 
         :param by: column to group by
