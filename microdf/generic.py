@@ -114,7 +114,7 @@ class MicroSeries(pd.Series):
             x[x < 0] = 0
         if negatives == "shift" and np.amin(x) < 0:
             x -= np.amin(x)
-        if self.weights is not None:  # Check if it's not np.ones instead?
+        if (self.weights != np.ones(len(self))).any():  # Varying weights.
             sorted_indices = np.argsort(self.weights)
             sorted_x = np.array(self[sorted_indices])
             sorted_w = np.array(self.weights[sorted_indices])
