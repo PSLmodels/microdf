@@ -1,4 +1,4 @@
-from microdf.generic import MicroDataFrame, MicroSeriesGroupBy
+from microdf.generic import MicroDataFrame
 import numpy as np
 import microdf as mdf
 

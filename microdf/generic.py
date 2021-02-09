@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from typing import Callable, Union, Optional
+from typing import Callable, Union
 from functools import wraps
 import warnings
 
