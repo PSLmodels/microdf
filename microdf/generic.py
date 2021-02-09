@@ -6,10 +6,9 @@ import warnings
 
 
 class MicroSeries(pd.Series):
-    def __init__(self, *args, weights=None, **kwargs):
+    def __init__(self, *args, weights: np.array = None, **kwargs):
         """A Series-inheriting class for weighted microdata.
-        Weights can be provided at initialisation, or using
-        set_weights.
+        Weights can be provided at initialisation, or using set_weights.
 
         :param weights: Array of weights.
         :type weights: np.array
@@ -26,7 +25,7 @@ class MicroSeries(pd.Series):
 
         return safe_fn
 
-    def set_weights(self, weights):
+    def set_weights(self, weights: np.array) -> None:
         """Sets the weight values.
 
         :param weights: Array of weights.
@@ -38,18 +37,20 @@ class MicroSeries(pd.Series):
             self.weights = pd.Series(weights, dtype=float)
 
     @handles_zero_weights
-    def weight(self):
+    def weight(self) -> pd.Series:
         """Calculates the weighted value of the MicroSeries.
 
-        :returns: A Pandas Series multiplying the MicroSeries by its weight.
+        :returns: A Series multiplying the MicroSeries by its weight.
+        :rtype: pd.Series
         """
         return self.multiply(self.weights)
 
     @handles_zero_weights
-    def sum(self):
+    def sum(self) -> float:
         """Calculates the weighted sum of the MicroSeries.
 
         :returns: The weighted sum.
+        :rtype: float
         """
         return self.multiply(self.weights).sum()
 
@@ -62,32 +63,30 @@ class MicroSeries(pd.Series):
         return self.weights.sum()
 
     @handles_zero_weights
-    def mean(self):
+    def mean(self) -> float:
         """Calculates the weighted mean of the MicroSeries
 
         :returns: The weighted mean.
+        :rtype: float
         """
         return np.average(self.values, weights=self.weights)
 
     @handles_zero_weights
-    def quantile(self, quantiles):
+    def quantile(self, q: np.array) -> np.array:
         """Calculates weighted quantiles of the MicroSeries.
 
         Doesn't exactly match unweighted quantiles of stacked values.
         See stackoverflow.com/q/21844024#comment102342137_29677616.
 
-        :param quantiles: Array of quantiles to calculate.
-        :type quantiles: np.array
+        :param q: Array of quantiles to calculate.
+        :type q: np.array
 
         :return: Array of weighted quantiles.
         :rtype: np.array
         """
         values = np.array(self.values)
-        quantiles = np.array(quantiles)
-        if self.weights is None:
-            sample_weight = np.ones(len(values))
-        else:
-            sample_weight = np.array(self.weights)
+        quantiles = np.array(q)
+        sample_weight = np.array(self.weights)
         assert np.all(quantiles >= 0) and np.all(
             quantiles <= 1
         ), "quantiles should be in [0, 1]"
@@ -99,12 +98,124 @@ class MicroSeries(pd.Series):
         return np.interp(quantiles, weighted_quantiles, values)
 
     @handles_zero_weights
-    def median(self):
+    def median(self) -> float:
         """Calculates the weighted median of the MicroSeries.
 
         :returns: The weighted median of a DataFrame's column.
+        :rtype: float
         """
         return self.quantile(0.5)
+
+    def gini(self, negatives: str = None) -> float:
+        """Calculates Gini index.
+
+        :param negatives: An optional string indicating how to treat negative
+            values of x:
+            'zero' replaces negative values with zeroes.
+            'shift' subtracts the minimum value from all values of x,
+            when this minimum is negative. That is, it adds the absolute
+            minimum value.
+            Defaults to None, which leaves negative values as they are.
+        :type q: str
+        :returns: Gini index.
+        :rtype: float
+        """
+        x = np.array(self).astype("float")
+        if negatives == "zero":
+            x[x < 0] = 0
+        if negatives == "shift" and np.amin(x) < 0:
+            x -= np.amin(x)
+        if (self.weights != np.ones(len(self))).any():  # Varying weights.
+            sorted_indices = np.argsort(self)
+            sorted_x = np.array(self[sorted_indices])
+            sorted_w = np.array(self.weights[sorted_indices])
+            cumw = np.cumsum(sorted_w)
+            cumxw = np.cumsum(sorted_x * sorted_w)
+            return np.sum(cumxw[1:] * cumw[:-1] - cumxw[:-1] * cumw[1:]) / (
+                cumxw[-1] * cumw[-1]
+            )
+        else:
+            sorted_x = np.sort(self)
+            n = len(x)
+            cumxw = np.cumsum(sorted_x)
+            # The above formula, with all weights equal to 1 simplifies to:
+            return (n + 1 - 2 * np.sum(cumxw) / cumxw[-1]) / n
+
+    def top_x_pct_share(self, top_x_pct: float) -> float:
+        """Calculates top x% share.
+
+        :param top_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1,
+            0.001.
+        :type top_x_pct: float
+        :returns: The weighted share held by the top x%.
+        :rtype: float
+        """
+        threshold = self.quantile(1 - top_x_pct)
+        top_x_pct_sum = self[self >= threshold].sum()
+        total_sum = self.sum()
+        return top_x_pct_sum / total_sum
+
+    def bottom_x_pct_share(self, bottom_x_pct) -> float:
+        """Calculates bottom x% share.
+
+        :param bottom_x_pct: Decimal between 0 and 1 of the top %, e.g. 0.1,
+            0.001.
+        :type bottom_x_pct: float
+        :returns: The weighted share held by the bottom x%.
+        :rtype: float
+        """
+        return 1 - self.top_x_pct_share(1 - bottom_x_pct)
+
+    def bottom_50_pct_share(self) -> float:
+        """Calculates bottom 50% share.
+
+        :returns: The weighted share held by the bottom 50%.
+        :rtype: float
+        """
+        return self.bottom_x_pct_share(0.5)
+
+    def top_50_pct_share(self) -> float:
+        """Calculates top 50% share.
+
+        :returns: The weighted share held by the top 50%.
+        :rtype: float
+        """
+        return self.top_x_pct_share(0.5)
+
+    def top_10_pct_share(self) -> float:
+        """Calculates top 10% share.
+
+        :returns: The weighted share held by the top 10%.
+        :rtype: float
+        """
+        return self.top_x_pct_share(0.1)
+
+    def top_1_pct_share(self) -> float:
+        """Calculates top 1% share.
+
+        :returns: The weighted share held by the top 50%.
+        :rtype: float
+        """
+        return self.top_x_pct_share(0.01)
+
+    def top_0_1_pct_share(self) -> float:
+        """Calculates top 0.1% share.
+
+        :returns: The weighted share held by the top 0.1%.
+        :rtype: float
+        """
+        return self.top_x_pct_share(0.001)
+
+    def t10_b50(self) -> float:
+        """Calculates ratio between the top 10% and bottom 50% shares.
+
+        :returns: The weighted share held by the top 10% divided by
+            the weighted share held by the bottom 50%.
+
+        """
+        t10 = self.top_10_pct_share()
+        b50 = self.bottom_50_pct_share()
+        return t10 / b50
 
     def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
@@ -196,31 +307,31 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
         return _weighted_agg_fn
 
     @_weighted_agg
-    def weight(self):
+    def weight(self) -> pd.Series:
         return MicroSeries.weight(self)
 
     @_weighted_agg
-    def sum(self):
+    def sum(self) -> float:
         return MicroSeries.sum(self)
 
     @_weighted_agg
-    def mean(self):
+    def mean(self) -> float:
         return MicroSeries.mean(self)
 
     @_weighted_agg
-    def quantile(self, quantiles):
+    def quantile(self, quantiles) -> np.array:
         return MicroSeries.quantile(self, quantiles)
 
     @_weighted_agg
-    def median(self):
+    def median(self) -> float:
         return MicroSeries.median(self)
 
 
 class MicroDataFrame(pd.DataFrame):
     def __init__(self, *args, weights=None, **kwargs):
         """A DataFrame-inheriting class for weighted microdata.
-        Weights can be provided at initialisation, or using set_weights
-        or set_weight_col.
+        Weights can be provided at initialisation, or using set_weights or
+        set_weight_col.
 
         :param weights: Array of weights.
         :type weights: np.array
@@ -281,10 +392,9 @@ class MicroDataFrame(pd.DataFrame):
             if column != self.weights_col:
                 self._link_weights(column)
 
-    def set_weights(self, weights):
-        """Sets the weights for the MicroDataFrame. If a
-        string is received, it will be assumed to be the column
-        name of the weight column.
+    def set_weights(self, weights) -> None:
+        """Sets the weights for the MicroDataFrame. If a string is received,
+        it will be assumed to be the column name of the weight column.
 
         :param weights: Array of weights.
         :type weights: np.array
@@ -299,9 +409,9 @@ class MicroDataFrame(pd.DataFrame):
                 self.weights = pd.Series(weights, dtype=float)
             self._link_all_weights()
 
-    def set_weight_col(self, column):
-        """Sets the weights for the MicroDataFrame by
-        specifying the name of the weight column.
+    def set_weight_col(self, column) -> None:
+        """Sets the weights for the MicroDataFrame by specifying the name of
+        the weight column.
 
         :param weights: Array of weights.
         :type weights: np.array
@@ -310,7 +420,65 @@ class MicroDataFrame(pd.DataFrame):
         self.weight_col = column
         self._link_all_weights()
 
-    def groupby(self, by, *args, **kwargs):
+    def poverty_rate(self, income: str, threshold: str) -> float:
+        """Calculate poverty rate, i.e., the population share with income
+        below their poverty threshold.
+
+        :param income: Column indicating income.
+        :type income: str
+        :param threshold: Column indicating threshold.
+        :type threshold: str
+        :return: Poverty rate between zero and one.
+        :rtype: float
+        """
+        pov = self[income] < self[threshold]
+        return (pov * self.weights).sum() / self.weights.sum()
+
+    def deep_poverty_rate(self, income: str, threshold: str) -> float:
+        """Calculate deep poverty rate, i.e., the population share with income
+        below half their poverty threshold.
+
+        :param income: Column indicating income.
+        :type income: str
+        :param threshold: Column indicating threshold.
+        :type threshold: str
+        :return: Deep poverty rate between zero and one.
+        :rtype: float
+        """
+        pov = self[income] < (self[threshold] / 2)
+        return (pov * self.weights).sum() / self.weights.sum()
+
+    def poverty_gap(self, income: str, threshold: str) -> float:
+        """Calculate poverty gap, i.e., the total gap between income and
+        poverty thresholds for all people in poverty.
+
+        :param income: Column indicating income.
+        :type income: str
+        :param threshold: Column indicating threshold.
+        :type threshold: str
+        :return: Poverty gap.
+        :rtype: float
+        """
+        gaps = np.maximum(self[threshold] - self[income], 0)
+        return (gaps * self.weights).sum()
+
+    def squared_poverty_gap(self, income: str, threshold: str) -> float:
+        """Calculate squared poverty gap, i.e., the total squared gap between
+        income and poverty thresholds for all people in poverty.
+        Also known as the poverty severity index.
+
+        :param income: Column indicating income.
+        :type income: str
+        :param threshold: Column indicating threshold.
+        :type threshold: str
+        :return: Squared poverty gap.
+        :rtype: float
+        """
+        gaps = np.maximum(self[threshold] - self[income], 0)
+        squared_gaps = np.power(gaps, 2)
+        return (squared_gaps * self.weights).sum()
+
+    def groupby(self, by: str, *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
 
         :param by: column to group by
