@@ -74,7 +74,6 @@ def test_mean():
         pass
 
 
-      
 def test_poverty_count():
     arr = np.array([10000, 20000, 50000])
     w = np.array([1123, 1144, 2211])
@@ -82,11 +81,11 @@ def test_poverty_count():
     df["income"] = arr
     df["threshold"] = 16000
     assert df.poverty_count("income", "threshold") == w[0]
-    
+
+
 def test_median():
     # 1, 2, 3, 4, *4*, 4, 5, 5, 5
     arr = np.array([1, 2, 3, 4, 5])
     w = np.array([1, 1, 1, 3, 3])
     series = mdf.MicroSeries(arr, weights=w)
     assert series.median() == 4
-
