@@ -7,6 +7,7 @@ import warnings
 
 class MicroSeries(pd.Series):
     SCALAR_FUNCTIONS = ["sum", "count", "mean", "median", "gini"]
+    ARRAY_FUNCTIONS = ["weight", "quantile"]
 
     def __init__(self, *args, weights: np.array = None, **kwargs):
         """A Series-inheriting class for weighted microdata.
@@ -18,7 +19,7 @@ class MicroSeries(pd.Series):
         super().__init__(*args, **kwargs)
         self.set_weights(weights)
 
-    def handles_zero_weights(fn):
+    def handles_zero_weights(fn) -> Callable:
         def safe_fn(*args, **kwargs):
             try:
                 return fn(*args, **kwargs)
@@ -313,49 +314,43 @@ class MicroSeries(pd.Series):
         return MicroSeries(super().__pos__(other), weights=self.weights)
 
 
-class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
-    def __init__(self, weights=None, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.weights = weights
+class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):    
+    def _init(self):
+        def _weighted_agg(name) -> Callable:
+            def via_micro_series(row, *args, **kwargs):
+                return getattr(MicroSeries(row.a, weights=row.w), name)(
+                    *args, **kwargs
+                )
 
-    def _weighted_agg(func) -> Callable:
-        def via_micro_series(row, fn, *args, **kwargs):
-            return getattr(MicroSeries(row.a, weights=row.w), fn.__name__)(
-                *args, **kwargs
-            )
+            fn = getattr(MicroSeries, name)
+            @wraps(fn)
+            def _weighted_agg_fn(*args, **kwargs):
+                arrays = self.apply(np.array)
+                weights = self.weights.apply(np.array)
+                df = pd.DataFrame(dict(a=arrays, w=weights))
+                result = df.agg(
+                    lambda row: via_micro_series(row, *args, **kwargs),
+                    axis=1,
+                )
+                return result
 
-        @wraps(func)
-        def _weighted_agg_fn(self, *args, **kwargs) -> Callable:
-            arrays = self.apply(np.array)
-            weights = self.weights.apply(np.array)
-            df = pd.DataFrame(dict(a=arrays, w=weights))
-            result = df.agg(
-                lambda row: via_micro_series(row, func, *args, **kwargs),
-                axis=1,
-            )
-            return result
+            return _weighted_agg_fn
+        for fn_name in MicroSeries.SCALAR_FUNCTIONS + MicroSeries.ARRAY_FUNCTIONS:
+            setattr(self, fn_name, _weighted_agg(fn_name))
 
-        return _weighted_agg_fn
 
-    @_weighted_agg
-    def weight(self) -> pd.Series:
-        return MicroSeries.weight(self)
-
-    @_weighted_agg
-    def sum(self) -> float:
-        return MicroSeries.sum(self)
-
-    @_weighted_agg
-    def mean(self) -> float:
-        return MicroSeries.mean(self)
-
-    @_weighted_agg
-    def quantile(self, quantiles) -> np.array:
-        return MicroSeries.quantile(self, quantiles)
-
-    @_weighted_agg
-    def median(self) -> float:
-        return MicroSeries.median(self)
+class MicroDataFrameGroupBy(pd.core.groupby.generic.DataFrameGroupBy):
+    def _init(self, by: str):
+        self.columns = list(self.obj.columns)
+        self.columns.remove(by)
+        for fn_name in MicroSeries.SCALAR_FUNCTIONS + MicroSeries.ARRAY_FUNCTIONS:
+            def get_fn(name):
+                def fn(*args, **kwargs):
+                    return MicroDataFrame({
+                        col: getattr(getattr(self, col), name)(*args, **kwargs) for col in self.columns
+                    })
+                return fn
+            setattr(self, fn_name, get_fn(fn_name))
 
 
 class MicroDataFrame(pd.DataFrame):
@@ -440,7 +435,7 @@ class MicroDataFrame(pd.DataFrame):
                 self.weights = pd.Series(weights, dtype=float)
             self._link_all_weights()
 
-    def set_weight_col(self, column) -> None:
+    def set_weight_col(self, column: str) -> None:
         """Sets the weights for the MicroDataFrame by specifying the name of
         the weight column.
 
@@ -458,19 +453,39 @@ class MicroDataFrame(pd.DataFrame):
             return MicroDataFrame(result, weights=weights)
         return result
 
-    def __getattr__(self, name):
+    def __getattr__(self, name: str):
         if name in MicroSeries.SCALAR_FUNCTIONS:
             results = MicroSeries(
                 [self[col].__getattr__(name) for col in self.columns]
             )
             results.index = self.columns
             return results
+        elif name in MicroSeries.ARRAY_FUNCTIONS:
+            results = MicroDataFrame({
+                col: self[col].__getattr__(name) for col in self.columns
+            })
         return super().__getattr__(name)
 
-    def sum(self) -> MicroSeries:
-        results = MicroSeries([self[col].sum() for col in self.columns])
-        results.index = self.columns
-        return results
+    def groupby(self, by: str, *args, **kwargs):
+        """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
+
+        :param by: column to group by
+        :type by: str
+
+        return: DataFrameGroupBy object with columns using weights
+        rtype: DataFrameGroupBy
+        """
+        gb = super().groupby(by, *args, **kwargs)
+        weights = pd.Series(self.weights).groupby(self[by], *args, **kwargs)
+        for col in self.columns:  # df.groupby(...)[col]s use weights
+            res = gb[col]
+            res.__class__ = MicroSeriesGroupBy
+            res._init()
+            res.weights = weights
+            setattr(gb, col, res)
+        gb.__class__ = MicroDataFrameGroupBy
+        gb._init(by)
+        return gb
 
     @get_args_as_micro_series()
     def poverty_rate(self, income: str, threshold: str) -> float:
@@ -533,25 +548,6 @@ class MicroDataFrame(pd.DataFrame):
         gaps = (threshold - income)[threshold > income]
         squared_gaps = gaps ** 2
         return squared_gaps.sum()
-
-    def groupby(self, by: str, *args, **kwargs):
-        """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
-
-        :param by: column to group by
-        :type by: str
-
-        return: DataFrameGroupBy object with columns using weights
-        rtype: DataFrameGroupBy
-        """
-        gb = super().groupby(by, *args, **kwargs)
-        weights = pd.Series(self.weights).groupby(self[by], *args, **kwargs)
-        for col in self.columns:  # df.groupby(...)[col]s use weights
-            if col != by:
-                res = gb[col]
-                res.__class__ = MicroSeriesGroupBy
-                res.weights = weights
-                setattr(gb, col, res)
-        return gb
 
     @get_args_as_micro_series()
     def poverty_count(
