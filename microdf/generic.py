@@ -314,7 +314,7 @@ class MicroSeries(pd.Series):
         return MicroSeries(super().__pos__(other), weights=self.weights)
 
 
-class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):    
+class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
     def _init(self):
         def _weighted_agg(name) -> Callable:
             def via_micro_series(row, *args, **kwargs):
@@ -323,6 +323,7 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
                 )
 
             fn = getattr(MicroSeries, name)
+
             @wraps(fn)
             def _weighted_agg_fn(*args, **kwargs):
                 arrays = self.apply(np.array)
@@ -335,7 +336,10 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
                 return result
 
             return _weighted_agg_fn
-        for fn_name in MicroSeries.SCALAR_FUNCTIONS + MicroSeries.ARRAY_FUNCTIONS:
+
+        for fn_name in (
+            MicroSeries.SCALAR_FUNCTIONS + MicroSeries.ARRAY_FUNCTIONS
+        ):
             setattr(self, fn_name, _weighted_agg(fn_name))
 
 
@@ -343,13 +347,23 @@ class MicroDataFrameGroupBy(pd.core.groupby.generic.DataFrameGroupBy):
     def _init(self, by: str):
         self.columns = list(self.obj.columns)
         self.columns.remove(by)
-        for fn_name in MicroSeries.SCALAR_FUNCTIONS + MicroSeries.ARRAY_FUNCTIONS:
+        for fn_name in (
+            MicroSeries.SCALAR_FUNCTIONS + MicroSeries.ARRAY_FUNCTIONS
+        ):
+
             def get_fn(name):
                 def fn(*args, **kwargs):
-                    return MicroDataFrame({
-                        col: getattr(getattr(self, col), name)(*args, **kwargs) for col in self.columns
-                    })
+                    return MicroDataFrame(
+                        {
+                            col: getattr(getattr(self, col), name)(
+                                *args, **kwargs
+                            )
+                            for col in self.columns
+                        }
+                    )
+
                 return fn
+
             setattr(self, fn_name, get_fn(fn_name))
 
 
@@ -461,9 +475,9 @@ class MicroDataFrame(pd.DataFrame):
             results.index = self.columns
             return results
         elif name in MicroSeries.ARRAY_FUNCTIONS:
-            results = MicroDataFrame({
-                col: self[col].__getattr__(name) for col in self.columns
-            })
+            results = MicroDataFrame(
+                {col: self[col].__getattr__(name) for col in self.columns}
+            )
         return super().__getattr__(name)
 
     def groupby(self, by: str, *args, **kwargs):
