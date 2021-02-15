@@ -235,8 +235,6 @@ class MicroSeries(pd.Series):
     def __getattr__(self, name):
         return MicroSeries(super().__getattr__(name), weights=self.weights)
 
-
-"""
     # operators
 
     def __add__(self, other):
@@ -313,8 +311,6 @@ class MicroSeries(pd.Series):
 
     def __pos__(self, other):
         return MicroSeries(super().__pos__(other), weights=self.weights)
-
-"""
 
 
 class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
