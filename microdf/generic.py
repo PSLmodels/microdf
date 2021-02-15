@@ -446,6 +446,7 @@ class MicroDataFrame(pd.DataFrame):
         self.weight_col = column
         self._link_all_weights()
 
+    @get_args_as_micro_series()
     def poverty_rate(self, income: str, threshold: str) -> float:
         """Calculate poverty rate, i.e., the population share with income
         below their poverty threshold.
@@ -457,9 +458,10 @@ class MicroDataFrame(pd.DataFrame):
         :return: Poverty rate between zero and one.
         :rtype: float
         """
-        pov = self[income] < self[threshold]
-        return (pov * self.weights).sum() / self.weights.sum()
+        pov = income < threshold
+        return pov.sum() / pov.count()
 
+    @get_args_as_micro_series()
     def deep_poverty_rate(self, income: str, threshold: str) -> float:
         """Calculate deep poverty rate, i.e., the population share with income
         below half their poverty threshold.
@@ -471,9 +473,10 @@ class MicroDataFrame(pd.DataFrame):
         :return: Deep poverty rate between zero and one.
         :rtype: float
         """
-        pov = self[income] < (self[threshold] / 2)
-        return (pov * self.weights).sum() / self.weights.sum()
+        pov = income < (threshold / 2)
+        return pov.sum() / pov.count()
 
+    @get_args_as_micro_series()
     def poverty_gap(self, income: str, threshold: str) -> float:
         """Calculate poverty gap, i.e., the total gap between income and
         poverty thresholds for all people in poverty.
@@ -485,9 +488,10 @@ class MicroDataFrame(pd.DataFrame):
         :return: Poverty gap.
         :rtype: float
         """
-        gaps = np.maximum(self[threshold] - self[income], 0)
-        return (gaps * self.weights).sum()
+        gaps = (threshold - income)[threshold > income]
+        return gaps.sum()
 
+    @get_args_as_micro_series()
     def squared_poverty_gap(self, income: str, threshold: str) -> float:
         """Calculate squared poverty gap, i.e., the total squared gap between
         income and poverty thresholds for all people in poverty.
@@ -500,9 +504,9 @@ class MicroDataFrame(pd.DataFrame):
         :return: Squared poverty gap.
         :rtype: float
         """
-        gaps = np.maximum(self[threshold] - self[income], 0)
-        squared_gaps = np.power(gaps, 2)
-        return (squared_gaps * self.weights).sum()
+        gaps = (threshold - income)[threshold > income]
+        squared_gaps = gaps ** 2
+        return squared_gaps.sum()
 
     def groupby(self, by: str, *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
