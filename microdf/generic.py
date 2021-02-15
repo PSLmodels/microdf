@@ -230,6 +230,8 @@ class MicroSeries(pd.Series):
             return MicroSeries(result, weights=weights)
         return result
 
+    # operators
+
     def __add__(self, other):
         return MicroSeries(super().__add__(other), weights=self.weights)
 
@@ -239,29 +241,19 @@ class MicroSeries(pd.Series):
     def __mul__(self, other):
         return MicroSeries(super().__mul__(other), weights=self.weights)
 
-    def __truediv__(self, other):
-        return MicroSeries(super().__truediv__(other), weights=self.weights)
-
     def __floordiv__(self, other):
         return MicroSeries(super().__floordiv__(other), weights=self.weights)
 
-    def __iadd__(self, other):
-        return MicroSeries(super().__iadd__(other), weights=self.weights)
+    def __truediv__(self, other):
+        return MicroSeries(super().__truediv__(other), weights=self.weights)
 
-    def __isub__(self, other):
-        return MicroSeries(super().__isub__(other), weights=self.weights)
+    def __mod__(self, other):
+        return MicroSeries(super().__mod__(other), weights=self.weights)
 
-    def __imul__(self, other):
-        return MicroSeries(super().__imul__(other), weights=self.weights)
+    def __pow__(self, other):
+        return MicroSeries(super().__pow__(other), weights=self.weights)
 
-    def __idiv__(self, other):
-        return MicroSeries(super().__idiv__(other), weights=self.weights)
-
-    def __neg__(self, other):
-        return MicroSeries(super().__neg__(other), weights=self.weights)
-
-    def __pos__(self, other):
-        return MicroSeries(super().__pos__(other), weights=self.weights)
+    # comparators
 
     def __lt__(self, other):
         return MicroSeries(super().__lt__(other), weights=self.weights)
@@ -280,6 +272,40 @@ class MicroSeries(pd.Series):
 
     def __gt__(self, other):
         return MicroSeries(super().__gt__(other), weights=self.weights)
+
+    # assignment operators
+
+    def __iadd__(self, other):
+        return MicroSeries(super().__iadd__(other), weights=self.weights)
+
+    def __isub__(self, other):
+        return MicroSeries(super().__isub__(other), weights=self.weights)
+
+    def __imul__(self, other):
+        return MicroSeries(super().__imul__(other), weights=self.weights)
+
+    def __ifloordiv__(self, other):
+        return MicroSeries(super().__ifloordiv__(other), weights=self.weights)
+
+    def __idiv__(self, other):
+        return MicroSeries(super().__idiv__(other), weights=self.weights)
+
+    def __itruediv__(self, other):
+        return MicroSeries(super().__itruediv__(other), weights=self.weights)
+
+    def __imod__(self, other):
+        return MicroSeries(super().__imod__(other), weights=self.weights)
+
+    def __ipow__(self, other):
+        return MicroSeries(super().__ipow__(other), weights=self.weights)
+
+    # other
+
+    def __neg__(self, other):
+        return MicroSeries(super().__neg__(other), weights=self.weights)
+
+    def __pos__(self, other):
+        return MicroSeries(super().__pos__(other), weights=self.weights)
 
 
 class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
