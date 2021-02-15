@@ -20,10 +20,7 @@ def currency_format(currency="USD", suffix=""):
 
     """
 
-    prefix = {
-        "USD": "$",
-        "GBP": "£"
-    }[currency]
+    prefix = {"USD": "$", "GBP": "£"}[currency]
 
     return mpl.ticker.FuncFormatter(
         lambda x, _: prefix + format(int(x), ",") + suffix

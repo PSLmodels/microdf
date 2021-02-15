@@ -6,6 +6,8 @@ import warnings
 
 
 class MicroSeries(pd.Series):
+    SCALAR_FUNCTIONS = ["sum", "count", "mean", "median", "gini"]
+
     def __init__(self, *args, weights: np.array = None, **kwargs):
         """A Series-inheriting class for weighted microdata.
         Weights can be provided at initialisation, or using set_weights.
@@ -55,7 +57,7 @@ class MicroSeries(pd.Series):
         return self.multiply(self.weights).sum()
 
     @handles_zero_weights
-    def count(self):
+    def count(self) -> float:
         """Calculates the weighted count of the MicroSeries.
 
         :returns: The weighted count.
@@ -230,6 +232,11 @@ class MicroSeries(pd.Series):
             return MicroSeries(result, weights=weights)
         return result
 
+    def __getattr__(self, name):
+        return MicroSeries(super().__getattr__(name), weights=self.weights)
+
+
+"""
     # operators
 
     def __add__(self, other):
@@ -306,6 +313,8 @@ class MicroSeries(pd.Series):
 
     def __pos__(self, other):
         return MicroSeries(super().__pos__(other), weights=self.weights)
+
+"""
 
 
 class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
@@ -452,6 +461,20 @@ class MicroDataFrame(pd.DataFrame):
             weights = self.weights.__getitem__(key)
             return MicroDataFrame(result, weights=weights)
         return result
+
+    def __getattr__(self, name):
+        if name in MicroSeries.SCALAR_FUNCTIONS:
+            results = MicroSeries(
+                [self[col].__getattr__(name) for col in self.columns]
+            )
+            results.index = self.columns
+            return results
+        return super().__getattr__(name)
+
+    def sum(self) -> MicroSeries:
+        results = MicroSeries([self[col].sum() for col in self.columns])
+        results.index = self.columns
+        return results
 
     @get_args_as_micro_series()
     def poverty_rate(self, income: str, threshold: str) -> float:
