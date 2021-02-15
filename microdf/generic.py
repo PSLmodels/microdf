@@ -446,6 +446,13 @@ class MicroDataFrame(pd.DataFrame):
         self.weight_col = column
         self._link_all_weights()
 
+    def __getitem__(self, key):
+        result = super().__getitem__(key)
+        if isinstance(result, pd.DataFrame):
+            weights = self.weights.__getitem__(key)
+            return MicroDataFrame(result, weights=weights)
+        return result
+
     @get_args_as_micro_series()
     def poverty_rate(self, income: str, threshold: str) -> float:
         """Calculate poverty rate, i.e., the population share with income
