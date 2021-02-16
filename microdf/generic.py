@@ -6,9 +6,6 @@ import warnings
 
 
 class MicroSeries(pd.Series):
-    # SCALAR_FUNCTIONS = ["sum", "count", "mean", "median", "gini", "top_x_pct_share", "bottom_x_pct_share", "bottom_50_pct_share", "top_50_pct"]
-    # ARRAY_FUNCTIONS = ["weight", "quantile"]
-
     def __init__(self, *args, weights: np.array = None, **kwargs):
         """A Series-inheriting class for weighted microdata.
         Weights can be provided at initialisation, or using set_weights.
