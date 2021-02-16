@@ -6,8 +6,8 @@ import warnings
 
 
 class MicroSeries(pd.Series):
-    SCALAR_FUNCTIONS = ["sum", "count", "mean", "median", "gini"]
-    ARRAY_FUNCTIONS = ["weight", "quantile"]
+    # SCALAR_FUNCTIONS = ["sum", "count", "mean", "median", "gini", "top_x_pct_share", "bottom_x_pct_share", "bottom_50_pct_share", "top_50_pct"]
+    # ARRAY_FUNCTIONS = ["weight", "quantile"]
 
     def __init__(self, *args, weights: np.array = None, **kwargs):
         """A Series-inheriting class for weighted microdata.
@@ -19,7 +19,8 @@ class MicroSeries(pd.Series):
         super().__init__(*args, **kwargs)
         self.set_weights(weights)
 
-    def handles_zero_weights(fn) -> Callable:
+    def weighted_function(fn: Callable) -> Callable:
+        @wraps(fn)
         def safe_fn(*args, **kwargs):
             try:
                 return fn(*args, **kwargs)
@@ -27,6 +28,16 @@ class MicroSeries(pd.Series):
                 return np.NaN
 
         return safe_fn
+
+    @weighted_function
+    def scalar_function(fn: Callable) -> Callable:
+        fn._rtype = float
+        return fn
+
+    @weighted_function
+    def vector_function(fn: Callable) -> Callable:
+        fn._rtype = pd.Series
+        return fn
 
     def set_weights(self, weights: np.array) -> None:
         """Sets the weight values.
@@ -39,7 +50,7 @@ class MicroSeries(pd.Series):
         else:
             self.weights = pd.Series(weights, dtype=float)
 
-    @handles_zero_weights
+    @vector_function
     def weight(self) -> pd.Series:
         """Calculates the weighted value of the MicroSeries.
 
@@ -48,7 +59,7 @@ class MicroSeries(pd.Series):
         """
         return self.multiply(self.weights)
 
-    @handles_zero_weights
+    @scalar_function
     def sum(self) -> float:
         """Calculates the weighted sum of the MicroSeries.
 
@@ -57,7 +68,7 @@ class MicroSeries(pd.Series):
         """
         return self.multiply(self.weights).sum()
 
-    @handles_zero_weights
+    @scalar_function
     def count(self) -> float:
         """Calculates the weighted count of the MicroSeries.
 
@@ -65,7 +76,7 @@ class MicroSeries(pd.Series):
         """
         return self.weights.sum()
 
-    @handles_zero_weights
+    @scalar_function
     def mean(self) -> float:
         """Calculates the weighted mean of the MicroSeries
 
@@ -74,8 +85,7 @@ class MicroSeries(pd.Series):
         """
         return np.average(self.values, weights=self.weights)
 
-    @handles_zero_weights
-    def quantile(self, q: np.array) -> np.array:
+    def quantile(self, q: np.array) -> pd.Series:
         """Calculates weighted quantiles of the MicroSeries.
 
         Doesn't exactly match unweighted quantiles of stacked values.
@@ -85,7 +95,7 @@ class MicroSeries(pd.Series):
         :type q: np.array
 
         :return: Array of weighted quantiles.
-        :rtype: np.array
+        :rtype: pd.Series
         """
         values = np.array(self.values)
         quantiles = np.array(q)
@@ -98,9 +108,12 @@ class MicroSeries(pd.Series):
         sample_weight = sample_weight[sorter]
         weighted_quantiles = np.cumsum(sample_weight) - 0.5 * sample_weight
         weighted_quantiles /= np.sum(sample_weight)
-        return np.interp(quantiles, weighted_quantiles, values)
+        result = np.interp(quantiles, weighted_quantiles, values)
+        if quantiles.shape == ():
+            return result
+        return pd.Series(result, index=quantiles)
 
-    @handles_zero_weights
+    @scalar_function
     def median(self) -> float:
         """Calculates the weighted median of the MicroSeries.
 
@@ -109,6 +122,7 @@ class MicroSeries(pd.Series):
         """
         return self.quantile(0.5)
 
+    @scalar_function
     def gini(self, negatives: str = None) -> float:
         """Calculates Gini index.
 
@@ -144,6 +158,7 @@ class MicroSeries(pd.Series):
             # The above formula, with all weights equal to 1 simplifies to:
             return (n + 1 - 2 * np.sum(cumxw) / cumxw[-1]) / n
 
+    @scalar_function
     def top_x_pct_share(self, top_x_pct: float) -> float:
         """Calculates top x% share.
 
@@ -158,6 +173,7 @@ class MicroSeries(pd.Series):
         total_sum = self.sum()
         return top_x_pct_sum / total_sum
 
+    @scalar_function
     def bottom_x_pct_share(self, bottom_x_pct) -> float:
         """Calculates bottom x% share.
 
@@ -169,6 +185,7 @@ class MicroSeries(pd.Series):
         """
         return 1 - self.top_x_pct_share(1 - bottom_x_pct)
 
+    @scalar_function
     def bottom_50_pct_share(self) -> float:
         """Calculates bottom 50% share.
 
@@ -177,6 +194,7 @@ class MicroSeries(pd.Series):
         """
         return self.bottom_x_pct_share(0.5)
 
+    @scalar_function
     def top_50_pct_share(self) -> float:
         """Calculates top 50% share.
 
@@ -185,6 +203,7 @@ class MicroSeries(pd.Series):
         """
         return self.top_x_pct_share(0.5)
 
+    @scalar_function
     def top_10_pct_share(self) -> float:
         """Calculates top 10% share.
 
@@ -193,6 +212,7 @@ class MicroSeries(pd.Series):
         """
         return self.top_x_pct_share(0.1)
 
+    @scalar_function
     def top_1_pct_share(self) -> float:
         """Calculates top 1% share.
 
@@ -201,6 +221,7 @@ class MicroSeries(pd.Series):
         """
         return self.top_x_pct_share(0.01)
 
+    @scalar_function
     def top_0_1_pct_share(self) -> float:
         """Calculates top 0.1% share.
 
@@ -209,6 +230,7 @@ class MicroSeries(pd.Series):
         """
         return self.top_x_pct_share(0.001)
 
+    @scalar_function
     def t10_b50(self) -> float:
         """Calculates ratio between the top 10% and bottom 50% shares.
 
@@ -223,6 +245,7 @@ class MicroSeries(pd.Series):
     def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
         gb.__class__ = MicroSeriesGroupBy
+        gb._init()
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
         return gb
 
@@ -312,6 +335,29 @@ class MicroSeries(pd.Series):
 
     def __pos__(self, other):
         return MicroSeries(super().__pos__(other), weights=self.weights)
+
+
+MicroSeries.SCALAR_FUNCTIONS = [
+    fn
+    for fn in dir(MicroSeries)
+    if "_rtype" in dir(getattr(MicroSeries, fn))
+    and getattr(getattr(MicroSeries, fn), "_rtype") == float
+]
+MicroSeries.VECTOR_FUNCTIONS = [
+    fn
+    for fn in dir(MicroSeries)
+    if "_rtype" in dir(getattr(MicroSeries, fn))
+    and getattr(getattr(MicroSeries, fn), "_rtype") == pd.Series
+]
+MicroSeries.AGNOSTIC_FUNCTIONS = ["quantile"]
+MicroSeries.FUNCTIONS = sum(
+    [
+        MicroSeries.SCALAR_FUNCTIONS,
+        MicroSeries.VECTOR_FUNCTIONS,
+        MicroSeries.AGNOSTIC_FUNCTIONS,
+    ],
+    [],
+)
 
 
 class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
