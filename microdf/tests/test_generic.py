@@ -89,3 +89,13 @@ def test_median():
     w = np.array([1, 1, 1, 3, 3])
     series = mdf.MicroSeries(arr, weights=w)
     assert series.median() == 4
+
+
+def test_unweighted_groupby():
+    df = mdf.MicroDataFrame({"x": [1, 2], "y": [3, 4], "z": [5, 6]})
+    assert (df.groupby("x").z.sum().values == np.array([5.0, 6.0])).all()
+
+
+def test_multiple_groupby():
+    df = mdf.MicroDataFrame({"x": [1, 2], "y": [3, 4], "z": [5, 6]})
+    assert (df.groupby(["x", "y"]).z.sum() == np.array([5, 6])).all()
