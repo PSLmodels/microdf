@@ -401,9 +401,13 @@ class MicroSeriesGroupBy(pd.core.groupby.generic.SeriesGroupBy):
 
 
 class MicroDataFrameGroupBy(pd.core.groupby.generic.DataFrameGroupBy):
-    def _init(self, by: str):
+    def _init(self, by: Union[str, list]):
         self.columns = list(self.obj.columns)
-        self.columns.remove(by)
+        if isinstance(by, list):
+            for column in by:
+                self.columns.remove(column)
+        else:
+            self.columns.remove(by)
         for fn_name in MicroSeries.SCALAR_FUNCTIONS:
 
             def get_fn(name):
@@ -448,6 +452,7 @@ class MicroDataFrame(pd.DataFrame):
         :type weights: np.array
         """
         super().__init__(*args, **kwargs)
+        self.weights = None
         self.set_weights(weights)
         self._link_all_weights()
         self.override_df_functions()
@@ -537,6 +542,8 @@ class MicroDataFrame(pd.DataFrame):
         self[column].set_weights(self.weights)
 
     def _link_all_weights(self):
+        if self.weights is None:
+            self.set_weights(np.ones((len(self))))
         for column in self.columns:
             if column != self.weights_col:
                 self._link_weights(column)
@@ -551,7 +558,7 @@ class MicroDataFrame(pd.DataFrame):
         if isinstance(weights, str):
             self.weights_col = weights
             self.weights = pd.Series(self[weights], dtype=float)
-        else:
+        elif weights is not None:
             self.weights_col = None
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore", category=UserWarning)
@@ -576,17 +583,18 @@ class MicroDataFrame(pd.DataFrame):
             return MicroDataFrame(result, weights=weights)
         return result
 
-    def groupby(self, by: str, *args, **kwargs):
+    def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
 
         :param by: column to group by
-        :type by: str
+        :type by: Union[str, list]
 
         return: DataFrameGroupBy object with columns using weights
         rtype: DataFrameGroupBy
         """
+        self["__tmp_weights"] = self.weights
         gb = super().groupby(by, *args, **kwargs)
-        weights = pd.Series(self.weights).groupby(self[by], *args, **kwargs)
+        weights = gb["__tmp_weights"].sum()
         for col in self.columns:  # df.groupby(...)[col]s use weights
             res = gb[col]
             res.__class__ = MicroSeriesGroupBy
