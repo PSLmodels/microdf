@@ -408,6 +408,7 @@ class MicroDataFrameGroupBy(pd.core.groupby.generic.DataFrameGroupBy):
                 self.columns.remove(column)
         else:
             self.columns.remove(by)
+        self.columns.remove("__tmp_weights")
         for fn_name in MicroSeries.SCALAR_FUNCTIONS:
 
             def get_fn(name):
@@ -594,7 +595,7 @@ class MicroDataFrame(pd.DataFrame):
         """
         self["__tmp_weights"] = self.weights
         gb = super().groupby(by, *args, **kwargs)
-        weights = gb["__tmp_weights"].sum()
+        weights = gb["__tmp_weights"]
         for col in self.columns:  # df.groupby(...)[col]s use weights
             res = gb[col]
             res.__class__ = MicroSeriesGroupBy
