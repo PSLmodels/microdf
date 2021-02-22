@@ -113,9 +113,9 @@ def test_concat():
     mdf_long = mdf.concat([df1, df2])
     assert isinstance(mdf_long, mdf.MicroDataFrame)
     # Weights should be preserved.
-    assert mdf_long.weights == pd.concat([df1.weights, df2.weights])
+    assert mdf_long.weights.equals(pd.concat([df1.weights, df2.weights]))
     # Verify it works horizontally too (take the first set of weights).
     mdf_wide = mdf.concat([df1, df2], axis=1)
     assert isinstance(mdf_wide, mdf.MicroDataFrame)
-    assert mdf_wide.weights == df1.weights
+    assert mdf_wide.weights.equals(df1.weights)
 
