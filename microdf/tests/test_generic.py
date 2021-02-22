@@ -118,4 +118,3 @@ def test_concat():
     mdf_wide = mdf.concat([df1, df2], axis=1)
     assert isinstance(mdf_wide, mdf.MicroDataFrame)
     assert mdf_wide.weights.equals(df1.weights)
-
