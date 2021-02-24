@@ -584,11 +584,15 @@ class MicroDataFrame(pd.DataFrame):
             return MicroDataFrame(result, weights=weights)
         return result
     
-    def __setattr__(self, key, value):
-        super().__setattr__(key, value)
+    def catch_series_relapse(self):
         for col in self.columns:
             if self[col].__class__ == pd.Series:
                 self._link_weights(col)
+
+    
+    def __setattr__(self, key, value):
+        super().__setattr__(key, value)
+        self.catch_series_relapse()
 
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
