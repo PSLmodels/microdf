@@ -1,4 +1,4 @@
-from microdf.generic import MicroDataFrame
+from microdf.generic import MicroDataFrame, MicroSeries
 import numpy as np
 import microdf as mdf
 import pandas as pd
@@ -118,3 +118,9 @@ def test_concat():
     mdf_wide = mdf.concat([df1, df2], axis=1)
     assert isinstance(mdf_wide, mdf.MicroDataFrame)
     assert mdf_wide.weights.equals(df1.weights)
+
+def test_set_index():
+    d = mdf.MicroDataFrame(dict(x=[1, 2, 3]), weights=[4, 5, 6])
+    assert d.x.__class__ == MicroSeries
+    d.index = [1, 2, 3]
+    assert d.x.__class__ == MicroSeries
