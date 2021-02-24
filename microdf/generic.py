@@ -593,6 +593,11 @@ class MicroDataFrame(pd.DataFrame):
     def __setattr__(self, key, value):
         super().__setattr__(key, value)
         self.catch_series_relapse()
+    
+    def reset_index(self):
+        res = super().reset_index()
+        res = MicroDataFrame(res, weights=self.weights)
+        return res
 
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
