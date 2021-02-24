@@ -124,3 +124,7 @@ def test_set_index():
     assert d.x.__class__ == MicroSeries
     d.index = [1, 2, 3]
     assert d.x.__class__ == MicroSeries
+
+def test_reset_index():
+    d = mdf.MicroDataFrame(dict(x=[1, 2, 3]), weights=[4, 5, 6])
+    assert d.reset_index().__class__ == MicroDataFrame
