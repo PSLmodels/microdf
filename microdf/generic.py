@@ -583,6 +583,12 @@ class MicroDataFrame(pd.DataFrame):
             weights = self.weights.__getitem__(key)
             return MicroDataFrame(result, weights=weights)
         return result
+    
+    def __setattr__(self, key, value):
+        super().__setattr__(key, value)
+        for col in self.columns:
+            if self[col].__class__ == pd.Series:
+                self._link_weights(col)
 
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
