@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 import microdf as mdf
 
@@ -67,3 +68,8 @@ def test_gini():
     mdf.gini(dfg, "x", "w", groupby="g")
     # Test old and new match.
     assert ms.gini() == mdf.gini(df, "x", "w")
+
+
+def test_add_weighted_quantiles():
+    with pytest.deprecated_call():
+        mdf.add_weighted_quantiles(df, "x", "w")
