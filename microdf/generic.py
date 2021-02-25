@@ -245,9 +245,8 @@ class MicroSeries(pd.Series):
 
     @vector_function
     def rank(self, pct=False) -> pd.Series:
-        original_order = np.array(self.index)
         order = np.argsort(self.values)
-        inverse_order = original_order[order]
+        inverse_order = np.argsort(order)
         ranks = np.array(self.weights)[order].cumsum()[inverse_order]
         if pct:
             ranks /= self.weights.sum()

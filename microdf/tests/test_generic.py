@@ -136,7 +136,19 @@ def test_cumsum():
     s = mdf.MicroSeries([1, 2, 3], weights=[4, 5, 6])
     assert np.array_equal(s.cumsum().values, [4, 14, 32])
 
+    s = mdf.MicroSeries([2, 1, 3], weights=[5, 4, 6])
+    assert np.array_equal(s.cumsum().values, [10, 14, 32])
+
+    s = mdf.MicroSeries([3, 1, 2], weights=[6, 4, 5])
+    assert np.array_equal(s.cumsum().values, [18, 22, 32])
+
 
 def test_rank():
     s = mdf.MicroSeries([1, 2, 3], weights=[4, 5, 6])
     assert np.array_equal(s.rank().values, [4, 9, 15])
+
+    s = mdf.MicroSeries([3, 1, 2], weights=[6, 4, 5])
+    assert np.array_equal(s.rank().values, [15, 4, 9])
+
+    s = mdf.MicroSeries([2, 1, 3], weights=[5, 4, 6])
+    assert np.array_equal(s.rank().values, [9, 4, 15])
