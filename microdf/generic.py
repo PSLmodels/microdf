@@ -239,6 +239,19 @@ class MicroSeries(pd.Series):
         b50 = self.bottom_50_pct_share()
         return t10 / b50
 
+    @vector_function
+    def cumsum(self) -> pd.Series:
+        return pd.Series(self * self.weights).cumsum()
+
+    @vector_function
+    def rank(self, pct=False) -> pd.Series:
+        order = np.argsort(self.values)
+        inverse_order = np.argsort(order)
+        ranks = np.array(self.weights)[order].cumsum()[inverse_order]
+        if pct:
+            ranks /= self.weights.sum()
+        return pd.Series(ranks)
+
     def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
         gb.__class__ = MicroSeriesGroupBy
@@ -583,6 +596,20 @@ class MicroDataFrame(pd.DataFrame):
             weights = self.weights.__getitem__(key)
             return MicroDataFrame(result, weights=weights)
         return result
+
+    def catch_series_relapse(self):
+        for col in self.columns:
+            if self[col].__class__ == pd.Series:
+                self._link_weights(col)
+
+    def __setattr__(self, key, value):
+        super().__setattr__(key, value)
+        self.catch_series_relapse()
+
+    def reset_index(self):
+        res = super().reset_index()
+        res = MicroDataFrame(res, weights=self.weights)
+        return res
 
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column

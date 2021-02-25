@@ -1,4 +1,4 @@
-from microdf.generic import MicroDataFrame
+from microdf.generic import MicroDataFrame, MicroSeries
 import numpy as np
 import microdf as mdf
 import pandas as pd
@@ -118,3 +118,37 @@ def test_concat():
     mdf_wide = mdf.concat([df1, df2], axis=1)
     assert isinstance(mdf_wide, mdf.MicroDataFrame)
     assert mdf_wide.weights.equals(df1.weights)
+
+
+def test_set_index():
+    d = mdf.MicroDataFrame(dict(x=[1, 2, 3]), weights=[4, 5, 6])
+    assert d.x.__class__ == MicroSeries
+    d.index = [1, 2, 3]
+    assert d.x.__class__ == MicroSeries
+
+
+def test_reset_index():
+    d = mdf.MicroDataFrame(dict(x=[1, 2, 3]), weights=[4, 5, 6])
+    assert d.reset_index().__class__ == MicroDataFrame
+
+
+def test_cumsum():
+    s = mdf.MicroSeries([1, 2, 3], weights=[4, 5, 6])
+    assert np.array_equal(s.cumsum().values, [4, 14, 32])
+
+    s = mdf.MicroSeries([2, 1, 3], weights=[5, 4, 6])
+    assert np.array_equal(s.cumsum().values, [10, 14, 32])
+
+    s = mdf.MicroSeries([3, 1, 2], weights=[6, 4, 5])
+    assert np.array_equal(s.cumsum().values, [18, 22, 32])
+
+
+def test_rank():
+    s = mdf.MicroSeries([1, 2, 3], weights=[4, 5, 6])
+    assert np.array_equal(s.rank().values, [4, 9, 15])
+
+    s = mdf.MicroSeries([3, 1, 2], weights=[6, 4, 5])
+    assert np.array_equal(s.rank().values, [15, 4, 9])
+
+    s = mdf.MicroSeries([2, 1, 3], weights=[5, 4, 6])
+    assert np.array_equal(s.rank().values, [9, 4, 15])
