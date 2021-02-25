@@ -128,3 +128,11 @@ def test_set_index():
 def test_reset_index():
     d = mdf.MicroDataFrame(dict(x=[1, 2, 3]), weights=[4, 5, 6])
     assert d.reset_index().__class__ == MicroDataFrame
+
+def test_cumsum():
+    s = mdf.MicroSeries([1, 2, 3], weights=[4, 5, 6])
+    assert np.array_equal(s.cumsum().values, [4, 14, 32])
+
+def test_rank():
+    s = mdf.MicroSeries([1, 2, 3], weights=[4, 5, 6])
+    assert np.array_equal(s.rank().values, [4, 9, 15])
