@@ -252,7 +252,7 @@ class MicroSeries(pd.Series):
         if pct:
             ranks /= self.weights.values.sum()
         return pd.Series(ranks, index=self.index)
-    
+
     @vector_function
     def decile_rank(self):
         return MicroSeries(np.ceil(self.rank(pct=True) * 10))
@@ -264,7 +264,7 @@ class MicroSeries(pd.Series):
     @vector_function
     def quartile_rank(self):
         return MicroSeries(np.ceil(self.rank(pct=True) * 4))
-    
+
     @vector_function
     def percentile_rank(self):
         return MicroSeries(np.ceil(self.rank(pct=True) * 100))
