@@ -239,6 +239,20 @@ class MicroSeries(pd.Series):
         b50 = self.bottom_50_pct_share()
         return t10 / b50
 
+    @vector_function
+    def cumsum(self) -> pd.Series:
+        return pd.Series(self * self.weights).cumsum()
+    
+    @vector_function
+    def rank(self, pct=False) -> pd.Series:
+        original_order = np.array(self.index)
+        order = np.argsort(self.values)
+        inverse_order = original_order[order]
+        ranks = np.array(self.weights)[order].cumsum()[inverse_order]
+        if pct:
+            ranks /= self.weights.sum()
+        return pd.Series(ranks)
+
     def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
         gb.__class__ = MicroSeriesGroupBy
