@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import warnings
 
 import microdf as mdf
 
@@ -132,6 +133,8 @@ def weighted_median(df, col, w=None, groupby=None):
 
 def add_weighted_quantiles(df, col, w):
     """Adds weighted quantiles of a column to a DataFrame.
+    This will be deprecated in the next minor release. Please use
+    MicroSeries.rank instead.
 
     Adds columns for each of these types of quantiles to a DataFrame:
     * *_percentile_exact: Exact percentile.
@@ -148,8 +151,12 @@ def add_weighted_quantiles(df, col, w):
     :param col: A string indicating the column in the DataFrame to calculate.
     :param w: Weight column.
     :returns: Nothing. Columns are added in place. Also sorts df by col.
-
     """
+    warnings.warn(
+        "This will be deprecated in the next minor release. "
+        "Please use MicroSeries.rank instead.",
+        DeprecationWarning,
+    )
     df.sort_values(by=col, inplace=True)
     col_pctile = col + "_percentile_exact"
     df[col_pctile] = 100 * df[w].cumsum() / df[w].sum()
