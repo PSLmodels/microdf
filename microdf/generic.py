@@ -242,7 +242,7 @@ class MicroSeries(pd.Series):
     @vector_function
     def cumsum(self) -> pd.Series:
         return pd.Series(self * self.weights).cumsum()
-    
+
     @vector_function
     def rank(self, pct=False) -> pd.Series:
         original_order = np.array(self.index)
@@ -597,17 +597,16 @@ class MicroDataFrame(pd.DataFrame):
             weights = self.weights.__getitem__(key)
             return MicroDataFrame(result, weights=weights)
         return result
-    
+
     def catch_series_relapse(self):
         for col in self.columns:
             if self[col].__class__ == pd.Series:
                 self._link_weights(col)
 
-    
     def __setattr__(self, key, value):
         super().__setattr__(key, value)
         self.catch_series_relapse()
-    
+
     def reset_index(self):
         res = super().reset_index()
         res = MicroDataFrame(res, weights=self.weights)
