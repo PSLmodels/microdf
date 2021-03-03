@@ -154,6 +154,17 @@ def test_rank():
     assert np.array_equal(s.rank().values, [9, 4, 15])
 
 
+def test_copy_equals():
+    d = mdf.MicroDataFrame(
+        {"x": [1, 2], "y": [3, 4], "z": [5, 6]}, weights=[7, 8]
+    )
+    d_copy = d.copy(deep=True)
+    d_copy_diff_weights = d_copy.copy(deep=True)
+    d_copy_diff_weights.weights *= 2
+    assert d.equals(d_copy)
+    assert not d.equals(d_copy_diff_weights)
+
+
 def test_subset():
     df = mdf.MicroDataFrame(
         {"x": [1, 2], "y": [3, 4], "z": [5, 6]}, weights=[7, 8]
