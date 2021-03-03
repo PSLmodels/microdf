@@ -163,6 +163,9 @@ def test_copy_equals():
     d_copy_diff_weights.weights *= 2
     assert d.equals(d_copy)
     assert not d.equals(d_copy_diff_weights)
+    # Same for a MicroSeries.
+    assert d.x.equals(d_copy.x)
+    assert not d.x.equals(d_copy_diff_weights.x)
 
 
 def test_subset():

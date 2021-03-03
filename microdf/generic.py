@@ -259,6 +259,16 @@ class MicroSeries(pd.Series):
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
         return gb
 
+    def copy(self, deep=True):
+        res = super().copy(deep)
+        res = MicroSeries(res, weights=self.weights.copy(deep))
+        return res
+
+    def equals(self, other) -> bool:
+        equal_values = super().equals(other)
+        equal_weights = self.weights.equals(other.weights)
+        return equal_values and equal_weights
+
     def __getitem__(self, key):
         result = super().__getitem__(key)
         if isinstance(result, pd.Series):
@@ -613,13 +623,13 @@ class MicroDataFrame(pd.DataFrame):
 
     def copy(self, deep=True):
         res = super().copy(deep)
-        res = MicroDataFrame(res, weights=self.weights)
+        res = MicroDataFrame(res, weights=self.weights.copy(deep))
         return res
 
     def equals(self, other) -> bool:
-        equal_df = super().equals(other)
+        equal_values = super().equals(other)
         equal_weights = self.weights.equals(other.weights)
-        return equal_df and equal_weights
+        return equal_values and equal_weights
 
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
