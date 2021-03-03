@@ -611,8 +611,8 @@ class MicroDataFrame(pd.DataFrame):
         res = MicroDataFrame(res, weights=self.weights)
         return res
 
-    def copy(self, *args, **kwargs):
-        res = super().copy(*args, **kwargs)
+    def copy(self, deep=True):
+        res = super().copy(deep)
         res = MicroDataFrame(res, weights=self.weights)
         return res
 
