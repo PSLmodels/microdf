@@ -611,10 +611,15 @@ class MicroDataFrame(pd.DataFrame):
         res = MicroDataFrame(res, weights=self.weights)
         return res
 
-    def copy(self, *args, **kwargs) -> MicroDataFrame:
+    def copy(self, *args, **kwargs):
         res = super().copy(*args, **kwargs)
         res = MicroDataFrame(res, weights=self.weights)
         return res
+
+    def equals(self, other) -> bool:
+        equal_df = super().equals(other)
+        equal_weights = self.weights.equals(other.weights)
+        return equal_df and equal_weights
 
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
