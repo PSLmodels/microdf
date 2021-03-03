@@ -3,7 +3,6 @@ from functools import wraps
 import warnings
 import numpy as np
 import pandas as pd
-import copy
 
 
 class MicroSeries(pd.Series):
@@ -260,8 +259,10 @@ class MicroSeries(pd.Series):
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
         return gb
 
-    def copy(self):
-        return copy.deepcopy(self)
+    def copy(self, deep=True):
+        res = super().copy(deep)
+        res = MicroSeries(res, weights=self.weights.copy(deep))
+        return res
 
     def equals(self, other) -> bool:
         equal_values = super().equals(other)
@@ -620,8 +621,10 @@ class MicroDataFrame(pd.DataFrame):
         res = MicroDataFrame(res, weights=self.weights)
         return res
 
-    def copy(self):
-        return copy.deepcopy(self)
+    def copy(self, deep=True):
+        res = super().copy(deep)
+        res = MicroDataFrame(res, weights=self.weights.copy(deep))
+        return res
 
     def equals(self, other) -> bool:
         equal_values = super().equals(other)
