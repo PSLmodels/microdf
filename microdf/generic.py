@@ -611,6 +611,11 @@ class MicroDataFrame(pd.DataFrame):
         res = MicroDataFrame(res, weights=self.weights)
         return res
 
+    def copy(self, *args, **kwargs) -> MicroDataFrame:
+        res = super().copy(*args, **kwargs)
+        res = MicroDataFrame(res, weights=self.weights)
+        return res
+
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
 
