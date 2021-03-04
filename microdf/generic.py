@@ -623,6 +623,9 @@ class MicroDataFrame(pd.DataFrame):
 
     def copy(self, deep=True):
         res = super().copy(deep)
+        # This changes the original columns to Series. Undo it:
+        for col in self.columns:
+            self[col] = MicroSeries(self[col])
         res = MicroDataFrame(res, weights=self.weights.copy(deep))
         return res
 
