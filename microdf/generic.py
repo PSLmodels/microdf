@@ -1,8 +1,8 @@
-import numpy as np
-import pandas as pd
 from typing import Callable, Union
 from functools import wraps
 import warnings
+import numpy as np
+import pandas as pd
 
 
 class MicroSeries(pd.Series):
@@ -258,6 +258,16 @@ class MicroSeries(pd.Series):
         gb._init()
         gb.weights = pd.Series(self.weights).groupby(*args, **kwargs)
         return gb
+
+    def copy(self, deep=True):
+        res = super().copy(deep)
+        res = MicroSeries(res, weights=self.weights.copy(deep))
+        return res
+
+    def equals(self, other) -> bool:
+        equal_values = super().equals(other)
+        equal_weights = self.weights.equals(other.weights)
+        return equal_values and equal_weights
 
     def __getitem__(self, key):
         result = super().__getitem__(key)
@@ -593,7 +603,7 @@ class MicroDataFrame(pd.DataFrame):
     def __getitem__(self, key):
         result = super().__getitem__(key)
         if isinstance(result, pd.DataFrame):
-            weights = self.weights.__getitem__(key)
+            weights = self.weights
             return MicroDataFrame(result, weights=weights)
         return result
 
@@ -610,6 +620,19 @@ class MicroDataFrame(pd.DataFrame):
         res = super().reset_index()
         res = MicroDataFrame(res, weights=self.weights)
         return res
+
+    def copy(self, deep=True):
+        res = super().copy(deep)
+        # This changes the original columns to Series. Undo it:
+        for col in self.columns:
+            self[col] = MicroSeries(self[col])
+        res = MicroDataFrame(res, weights=self.weights.copy(deep))
+        return res
+
+    def equals(self, other) -> bool:
+        equal_values = super().equals(other)
+        equal_weights = self.weights.equals(other.weights)
+        return equal_values and equal_weights
 
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
