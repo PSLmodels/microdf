@@ -177,3 +177,19 @@ def test_subset():
     df_no_z_diff_weights = df_no_z.copy()
     df_no_z_diff_weights.weights += 1
     assert not df[["x", "y"]].equals(df_no_z_diff_weights)
+
+
+def test_drop():
+    d = mdf.MicroDataFrame({"x": [1, 2], "y": [3, 4]}, weights=[5, 6])
+    # Drop a row.
+    d_drop_row = d.drop(1)
+    assert isinstance(d_drop_row, mdf.MicroDataFrame)
+    assert d_drop_row.equals(
+        mdf.MicroDataFrame({"x": [1], "y": [3]}, weights=[5])
+    )
+    # Drop a column.
+    d_drop_column = d.drop("y", axis=1)
+    assert isinstance(d_drop_column, mdf.MicroDataFrame)
+    assert d_drop_column.equals(
+        mdf.MicroDataFrame({"x": [1, 2]}, weights=[5, 6])
+    )
