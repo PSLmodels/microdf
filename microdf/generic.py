@@ -659,7 +659,7 @@ class MicroDataFrame(pd.DataFrame):
 
     def reset_index(self):
         res = super().reset_index()
-        res = MicroDataFrame(res, weights=self.weights)
+        res = MicroDataFrame(res, weights=self.weights.reset_index(drop=True))
         return res
 
     def copy(self, deep=True):
