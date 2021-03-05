@@ -1,4 +1,3 @@
-from microdf.generic import MicroDataFrame, MicroSeries
 import numpy as np
 import microdf as mdf
 import pandas as pd
@@ -78,7 +77,7 @@ def test_mean():
 def test_poverty_count():
     arr = np.array([10000, 20000, 50000])
     w = np.array([1123, 1144, 2211])
-    df = MicroDataFrame(weights=w)
+    df = mdf.MicroDataFrame(weights=w)
     df["income"] = arr
     df["threshold"] = 16000
     assert df.poverty_count("income", "threshold") == w[0]
@@ -122,14 +121,14 @@ def test_concat():
 
 def test_set_index():
     d = mdf.MicroDataFrame(dict(x=[1, 2, 3]), weights=[4, 5, 6])
-    assert d.x.__class__ == MicroSeries
+    assert isinstance(d.x, mdf.MicroSeries)
     d.index = [1, 2, 3]
-    assert d.x.__class__ == MicroSeries
+    assert isinstance(d.x, mdf.MicroSeries)
 
 
 def test_reset_index():
     d = mdf.MicroDataFrame(dict(x=[1, 2, 3]), weights=[4, 5, 6])
-    assert d.reset_index().__class__ == MicroDataFrame
+    assert isinstance(d.reset_index(), mdf.MicroDataFrame)
 
 
 def test_cumsum():
