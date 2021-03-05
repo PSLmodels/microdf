@@ -264,6 +264,25 @@ class MicroSeries(pd.Series):
         res = MicroSeries(res, weights=self.weights.copy(deep))
         return res
 
+    def drop(
+        self,
+        labels=None,
+        axis=0,
+        index=None,
+        columns=None,
+        level=None,
+        inplace=False,
+        errors="raise",
+    ):
+        if inplace:
+            raise NotImplementedError("inplace not yet implemented.")
+        res = super().drop(
+            labels, axis, index, columns, level, inplace, errors
+        )
+        # Define weights.
+        weights = self.weights.drop(labels)
+        return MicroSeries(res, weights=weights)
+
     def equals(self, other) -> bool:
         equal_values = super().equals(other)
         equal_weights = self.weights.equals(other.weights)
@@ -571,6 +590,28 @@ class MicroDataFrame(pd.DataFrame):
         for column in self.columns:
             if column != self.weights_col:
                 self._link_weights(column)
+
+    def drop(
+        self,
+        labels=None,
+        axis=0,
+        index=None,
+        columns=None,
+        level=None,
+        inplace=False,
+        errors="raise",
+    ):
+        if inplace:
+            raise NotImplementedError("inplace not yet implemented.")
+        res = super().drop(
+            labels, axis, index, columns, level, inplace, errors
+        )
+        # Define weights.
+        if axis == 0:
+            weights = self.weights.drop(labels)
+        else:  # If dropping columns, use full weights.
+            weights = self.weights
+        return MicroDataFrame(res, weights=weights)
 
     def set_weights(self, weights) -> None:
         """Sets the weights for the MicroDataFrame. If a string is received,

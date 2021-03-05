@@ -181,10 +181,10 @@ def test_subset():
 def test_drop():
     d = mdf.MicroDataFrame({"x": [1, 2], "y": [3, 4]}, weights=[5, 6])
     # Drop a row.
-    d_drop_row = d.drop(1)
+    d_drop_row = d.drop(0)
     assert isinstance(d_drop_row, mdf.MicroDataFrame)
     assert d_drop_row.equals(
-        mdf.MicroDataFrame({"x": [1], "y": [3]}, weights=[5])
+        mdf.MicroDataFrame({"x": [2], "y": [4]}, weights=[6], index=[1])
     )
     # Drop a column.
     d_drop_column = d.drop("y", axis=1)
@@ -195,4 +195,4 @@ def test_drop():
     # Drop an item from a MicroSeries.
     s_drop = d.x.drop(0)
     assert isinstance(s_drop, mdf.MicroSeries)
-    assert s_drop.equals(mdf.MicroSeries({"x": 2}, weights=[5]))
+    assert s_drop.equals(mdf.MicroSeries([2], weights=[6]))
