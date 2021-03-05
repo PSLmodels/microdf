@@ -192,3 +192,7 @@ def test_drop():
     assert d_drop_column.equals(
         mdf.MicroDataFrame({"x": [1, 2]}, weights=[5, 6])
     )
+    # Drop an item from a MicroSeries.
+    s_drop = d.x.drop(0)
+    assert isinstance(s_drop, mdf.MicroSeries)
+    assert s_drop.equals(mdf.MicroSeries({"x": 2}, weights=[5]))
