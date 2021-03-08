@@ -1,6 +1,7 @@
 from typing import Callable, Union
 from functools import wraps
 import warnings
+import copy
 import numpy as np
 import pandas as pd
 
@@ -247,10 +248,26 @@ class MicroSeries(pd.Series):
     def rank(self, pct=False) -> pd.Series:
         order = np.argsort(self.values)
         inverse_order = np.argsort(order)
-        ranks = np.array(self.weights)[order].cumsum()[inverse_order]
+        ranks = np.array(self.weights.values)[order].cumsum()[inverse_order]
         if pct:
-            ranks /= self.weights.sum()
-        return pd.Series(ranks)
+            ranks /= self.weights.values.sum()
+        return pd.Series(ranks, index=self.index)
+
+    @vector_function
+    def decile_rank(self):
+        return MicroSeries(np.ceil(self.rank(pct=True) * 10))
+
+    @vector_function
+    def quintile_rank(self):
+        return MicroSeries(np.ceil(self.rank(pct=True) * 5))
+
+    @vector_function
+    def quartile_rank(self):
+        return MicroSeries(np.ceil(self.rank(pct=True) * 4))
+
+    @vector_function
+    def percentile_rank(self):
+        return MicroSeries(np.ceil(self.rank(pct=True) * 100))
 
     def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
@@ -429,7 +446,7 @@ class MicroDataFrameGroupBy(pd.core.groupby.generic.DataFrameGroupBy):
         if isinstance(by, list):
             for column in by:
                 self.columns.remove(column)
-        else:
+        elif isinstance(by, str):
             self.columns.remove(by)
         self.columns.remove("__tmp_weights")
         for fn_name in MicroSeries.SCALAR_FUNCTIONS:
@@ -634,6 +651,7 @@ class MicroDataFrame(pd.DataFrame):
         equal_weights = self.weights.equals(other.weights)
         return equal_values and equal_weights
 
+    @get_args_as_micro_series()
     def groupby(self, by: Union[str, list], *args, **kwargs):
         """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
 
@@ -645,7 +663,7 @@ class MicroDataFrame(pd.DataFrame):
         """
         self["__tmp_weights"] = self.weights
         gb = super().groupby(by, *args, **kwargs)
-        weights = gb["__tmp_weights"]
+        weights = copy.deepcopy(gb["__tmp_weights"])
         for col in self.columns:  # df.groupby(...)[col]s use weights
             res = gb[col]
             res.__class__ = MicroSeriesGroupBy
