@@ -657,8 +657,12 @@ class MicroDataFrame(pd.DataFrame):
         super().__setattr__(key, value)
         self.catch_series_relapse()
 
-    def reset_index(self):
-        res = super().reset_index()
+    def reset_index(
+        self, level=None, drop=False, inplace=False, col_level=0, col_fill=""
+    ):
+        if inplace:
+            raise NotImplementedError("inplace not yet implemented.")
+        res = super().reset_index(level, drop, inplace, col_level, col_fill)
         res = MicroDataFrame(res, weights=self.weights.reset_index(drop=True))
         return res
 
