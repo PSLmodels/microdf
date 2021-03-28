@@ -200,3 +200,8 @@ def test_subset():
     df_no_z_diff_weights = df_no_z.copy()
     df_no_z_diff_weights.weights += 1
     assert not df[["x", "y"]].equals(df_no_z_diff_weights)
+
+
+def test_decode():
+    s = MicroSeries([1, 2, 2], codebook={1: "Male", 2: "Female"})
+    assert pd.Series(s.decode()).equals(pd.Series(["Male", "Female", "Female"]))

@@ -7,7 +7,7 @@ import pandas as pd
 
 
 class MicroSeries(pd.Series):
-    def __init__(self, *args, weights: np.array = None, **kwargs):
+    def __init__(self, *args, weights: np.array = None, codebook: dict = {}, **kwargs):
         """A Series-inheriting class for weighted microdata.
         Weights can be provided at initialisation, or using set_weights.
 
@@ -16,6 +16,18 @@ class MicroSeries(pd.Series):
         """
         super().__init__(*args, **kwargs)
         self.set_weights(weights)
+        self.description = "No description provided."
+        self.codebook = codebook
+    
+    def decode(self):
+        if len(self.codebook) == 0:
+            raise Exception("No codebook supplied.")
+        result = self.apply(self.codebook.__getitem__)
+        try:
+            return MicroSeries(result, weights=self.weights)
+        except:
+            raise Exception("Could not decode values.")
+
 
     def weighted_function(fn: Callable) -> Callable:
         @wraps(fn)
