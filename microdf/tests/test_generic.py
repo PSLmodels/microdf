@@ -204,4 +204,6 @@ def test_subset():
 
 def test_decode():
     s = MicroSeries([1, 2, 2], codebook={1: "Male", 2: "Female"})
-    assert pd.Series(s.decode()).equals(pd.Series(["Male", "Female", "Female"]))
+    assert pd.Series(s.decode()).equals(
+        pd.Series(["Male", "Female", "Female"])
+    )
