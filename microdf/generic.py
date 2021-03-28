@@ -65,10 +65,7 @@ class MicroSeries(pd.Series):
         if self.codebook == {}:
             return self
         result = MicroSeries(self.map(self.codebook), weights=self.weights)
-        try:
-            return MicroSeries(result, weights=self.weights)
-        except:
-            raise Exception("Could not decode values.")
+        return MicroSeries(result, weights=self.weights)
 
     @vector_function
     def weight(self) -> pd.Series:
