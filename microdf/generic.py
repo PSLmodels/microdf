@@ -373,6 +373,11 @@ class MicroSeries(pd.Series):
     def __pos__(self, other):
         return MicroSeries(super().__pos__(other), weights=self.weights)
 
+    def __repr__(self):
+        return pd.DataFrame(
+            dict(value=self.values, weight=self.weights.values)
+        ).__repr__()
+
 
 MicroSeries.SCALAR_FUNCTIONS = [
     fn
@@ -755,3 +760,8 @@ class MicroDataFrame(pd.DataFrame):
         """
         in_poverty = income < threshold
         return in_poverty.sum()
+
+    def __repr__(self):
+        df = pd.DataFrame(self)
+        df["weight"] = self.weights
+        return df[[df.columns[-1]] + list(df.columns[:-1])].__repr__()
