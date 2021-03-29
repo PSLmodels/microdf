@@ -1,4 +1,4 @@
-from typing import Callable, Union
+from typing import Any, Callable, Dict, Union
 from functools import wraps
 import warnings
 import copy
@@ -23,6 +23,12 @@ class MicroSeries(pd.Series):
 
         :param weights: Array of weights.
         :type weights: np.array
+        
+        :param codebook: Dictionary to decode categorical codes.
+        :type codebook: dict
+
+        :param description: A description of this series.
+        :type description: str
         """
         super().__init__(*args, **kwargs)
         self.codebook = codebook or self.codebook
@@ -503,19 +509,35 @@ class MicroDataFrameGroupBy(pd.core.groupby.generic.DataFrameGroupBy):
 
 
 class MicroDataFrame(pd.DataFrame):
-    def __init__(self, *args, weights=None, **kwargs):
+    description = "No description provided."
+    codebook = {}
+    def __init__(self, *args, weights=None, codebook: Dict[str, Dict[Any, Any]] = None, description: str = None,**kwargs):
         """A DataFrame-inheriting class for weighted microdata.
         Weights can be provided at initialisation, or using set_weights or
         set_weight_col.
 
         :param weights: Array of weights.
         :type weights: np.array
+
+
+        :param codebook: A dict dicts for categorical columns.
+        :type codebook: Dict[str, Dict[Any, Any]]
+
+        :param description: A description of this dataframe.
+        :type description: str
         """
         super().__init__(*args, **kwargs)
+        if codebook is not None:
+            self.set_codebook(codebook)
+        self.description = description or self.description
         self.weights = None
         self.set_weights(weights)
         self._link_all_weights()
         self.override_df_functions()
+
+    def set_codebook(self, codebook : dict):
+        for col in codebook:
+            self[col].codebook = codebook[col]
 
     def override_df_functions(self):
         for name in MicroSeries.FUNCTIONS:
