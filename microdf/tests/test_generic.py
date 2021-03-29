@@ -200,3 +200,9 @@ def test_subset():
     df_no_z_diff_weights = df_no_z.copy()
     df_no_z_diff_weights.weights += 1
     assert not df[["x", "y"]].equals(df_no_z_diff_weights)
+
+
+def test_value_subset():
+    d = mdf.MicroDataFrame({"x": [1, 2, 3], "y": [1, 2, 2]}, weights=[4, 5, 6])
+    d2 = d[d.y > 1]
+    assert d2.y.shape == d2.weights.shape
