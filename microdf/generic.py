@@ -23,7 +23,7 @@ class MicroSeries(pd.Series):
 
         :param weights: Array of weights.
         :type weights: np.array
-        
+
         :param codebook: Dictionary to decode categorical codes.
         :type codebook: dict
 
@@ -511,7 +511,15 @@ class MicroDataFrameGroupBy(pd.core.groupby.generic.DataFrameGroupBy):
 class MicroDataFrame(pd.DataFrame):
     description = "No description provided."
     codebook = {}
-    def __init__(self, *args, weights=None, codebook: Dict[str, Dict[Any, Any]] = None, description: str = None,**kwargs):
+
+    def __init__(
+        self,
+        *args,
+        weights=None,
+        codebook: Dict[str, Dict[Any, Any]] = None,
+        description: str = None,
+        **kwargs
+    ):
         """A DataFrame-inheriting class for weighted microdata.
         Weights can be provided at initialisation, or using set_weights or
         set_weight_col.
@@ -535,7 +543,7 @@ class MicroDataFrame(pd.DataFrame):
         self._link_all_weights()
         self.override_df_functions()
 
-    def set_codebook(self, codebook : dict):
+    def set_codebook(self, codebook: dict):
         for col in codebook:
             self[col].codebook = codebook[col]
 
