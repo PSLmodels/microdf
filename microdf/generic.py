@@ -625,7 +625,10 @@ class MicroDataFrame(pd.DataFrame):
     def __getitem__(self, key):
         result = super().__getitem__(key)
         if isinstance(result, pd.DataFrame):
-            weights = self.weights
+            try:
+                weights = self.weights[key]
+            except:
+                weights = self.weights
             return MicroDataFrame(result, weights=weights)
         return result
 
