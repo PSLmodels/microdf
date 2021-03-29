@@ -535,13 +535,13 @@ class MicroDataFrame(pd.DataFrame):
         :type description: str
         """
         super().__init__(*args, **kwargs)
-        if codebook is not None:
-            self.set_codebook(codebook)
-        self.description = description or self.description
         self.weights = None
         self.set_weights(weights)
         self._link_all_weights()
         self.override_df_functions()
+        if codebook is not None:
+            self.set_codebook(codebook)
+        self.description = description or self.description
 
     def set_codebook(self, codebook: dict):
         for col in codebook:
