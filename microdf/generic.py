@@ -627,7 +627,7 @@ class MicroDataFrame(pd.DataFrame):
         if isinstance(result, pd.DataFrame):
             try:
                 weights = self.weights[key]
-            except:
+            except Exception:
                 weights = self.weights
             return MicroDataFrame(result, weights=weights)
         return result
