@@ -153,6 +153,29 @@ def test_rank():
     assert np.array_equal(s.rank().values, [9, 4, 15])
 
 
+def test_percentile_rank():
+    s = mdf.MicroSeries([4, 2, 3, 1], weights=[20, 40, 20, 20])
+    assert np.array_equal(s.percentile_rank().values, [100, 60, 80, 20])
+
+
+def test_quartile_rank():
+    s = mdf.MicroSeries([4, 2, 3], weights=[25, 50, 25])
+    assert np.array_equal(s.quartile_rank().values, [4, 2, 3])
+
+
+def test_quintile_rank():
+    s = mdf.MicroSeries([4, 2, 3], weights=[20, 60, 20])
+    assert np.array_equal(s.quintile_rank().values, [5, 3, 4])
+
+
+def test_decile_rank_rank():
+    s = mdf.MicroSeries(
+        [5, 4, 3, 2, 1, 6, 7, 8, 9],
+        weights=[10, 20, 10, 10, 10, 10, 10, 10, 10, 10],
+    )
+    assert np.array_equal(s.decile_rank().values, [6, 5, 3, 2, 1, 7, 8, 9, 10])
+
+
 def test_copy_equals():
     d = mdf.MicroDataFrame(
         {"x": [1, 2], "y": [3, 4], "z": [5, 6]}, weights=[7, 8]
@@ -196,3 +219,9 @@ def test_drop():
     s_drop = d.x.drop(0)
     assert isinstance(s_drop, mdf.MicroSeries)
     assert s_drop.equals(mdf.MicroSeries([2], weights=[6]))
+
+
+def test_value_subset():
+    d = mdf.MicroDataFrame({"x": [1, 2, 3], "y": [1, 2, 2]}, weights=[4, 5, 6])
+    d2 = d[d.y > 1]
+    assert d2.y.shape == d2.weights.shape
