@@ -4,7 +4,7 @@
 # microdf
 Analysis tools for working with survey microdata as DataFrames.
 
-Includes functions for working with [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator) (`taxcalc` is an optional dependency).
+*Disclaimer: `MicroSeries` and `MicroDataFrame` are experimental features and may not consider weights after performing some operations. See open issues.*
 
 ## Installation
 Install with:
