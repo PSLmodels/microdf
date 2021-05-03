@@ -17,30 +17,21 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-base = mdf.calc_df(group_vars=['expanded_income', 'MARS'],
-                   metric_vars=['aftertax_income', 'XTOT'])
+mdf.set_plot_style()
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mImportError[0m                               Traceback (most recent call last)
-[0;32m<ipython-input-3-c4f597f02806>[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m base = mdf.calc_df(group_vars=['expanded_income', 'MARS'],
-[0m[1;32m      2[0m                    metric_vars=['aftertax_income', 'XTOT'])
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+[0;32m<ipython-input-2-0a2924149170>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mmdf[0m[0;34m.[0m[0mset_plot_style[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m~/work/microdf/microdf/microdf/style.py[0m in [0;36mset_plot_style[0;34m(dpi)[0m
+[1;32m     22[0m     [0;31m# Set up Roboto. Must be downloaded in the current directory.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     23[0m     [0;31m# See https://stackoverflow.com/a/51844978/1840471.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 24[0;31m     [0mfm[0m[0;34m.[0m[0mfontManager[0m[0;34m.[0m[0mttflist[0m [0;34m+=[0m [0mfm[0m[0;34m.[0m[0mcreateFontList[0m[0;34m([0m[0;34m[[0m[0;34m"Roboto-Regular.ttf"[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     25[0m [0;34m[0m[0m
+[1;32m     26[0m     STYLE = {
 
-[0;32m~/work/microdf/microdf/microdf/taxcalc.py[0m in [0;36mcalc_df[0;34m(records, policy, year, reform, group_vars, metric_vars, group_n65)[0m
-[1;32m     86[0m [0;34m[0m[0m
-[1;32m     87[0m     """
-[0;32m---> 88[0;31m     [0mtc[0m [0;34m=[0m [0mimport_optional_dependency[0m[0;34m([0m[0;34m"taxcalc"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     89[0m     [0;31m# Assign defaults.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     90[0m     [0;32mif[0m [0mrecords[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/work/microdf/microdf/microdf/_optional.py[0m in [0;36mimport_optional_dependency[0;34m(name, extra, raise_on_missing, on_version)[0m
-[1;32m     64[0m     [0;32mexcept[0m [0mImportError[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     65[0m         [0;32mif[0m [0mraise_on_missing[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 66[0;31m             [0;32mraise[0m [0mImportError[0m[0;34m([0m[0mmsg[0m[0;34m)[0m [0;32mfrom[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     67[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     68[0m             [0;32mreturn[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
-
-[0;31mImportError[0m: Missing optional dependency 'taxcalc'.  Use pip or conda to install taxcalc.
-ImportError: Missing optional dependency 'taxcalc'.  Use pip or conda to install taxcalc.
+[0;31mAttributeError[0m: module 'matplotlib.font_manager' has no attribute 'createFontList'
+AttributeError: module 'matplotlib.font_manager' has no attribute 'createFontList'
 
