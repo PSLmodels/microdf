@@ -111,3 +111,27 @@ def squared_poverty_gap(
     if w is None:
         return sq_gap.sum()
     return (sq_gap * df[w]).sum()
+
+
+def deep_poverty_gap(
+    df: pd.DataFrame, income: str, threshold: str, w: str = None
+) -> float:
+    """Calculate deep poverty gap, i.e., the total gap between income and
+       halved poverty thresholds for all people in deep poverty.
+
+    :param df: DataFrame with income, threshold, and possibly weight columns
+        for each household (data should represent households, not persons).
+    :type df: pd.DataFrame
+    :param income: Column indicating income.
+    :type income: str
+    :param threshold: Column indicating threshold.
+    :type threshold: str
+    :param w: Column indicating weight, defaults to None (unweighted).
+    :type w: str, optional
+    :return: Deep poverty gap.
+    :rtype: float
+    """
+    gap = np.maximum((df[threshold] / 2) - df[income], 0)
+    if w is None:
+        return gap.sum()
+    return (gap * df[w]).sum()
