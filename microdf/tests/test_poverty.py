@@ -68,5 +68,5 @@ def test_deep_poverty_gap():
     assert np.allclose(
         mdf.deep_poverty_gap(df, "income", "threshold", "weight"), RES
     )
-    # Not yet in MicroDataFrame.
-    # assert np.allclose(md.deep_poverty_gap("income", "threshold"), RES)
+    # Same in MicroDataFrame.
+    assert np.allclose(md.deep_poverty_gap("income", "threshold"), RES)
