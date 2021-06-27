@@ -11,3 +11,5 @@
 
 # Built Jupyter-Book documentation.
 docs/_build
+
+.vscode/settings.json
