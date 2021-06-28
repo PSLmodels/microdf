@@ -730,7 +730,7 @@ class MicroDataFrame(pd.DataFrame):
     @get_args_as_micro_series()
     def deep_poverty_gap(self, income: str, threshold: str) -> float:
         """Calculate deep poverty gap, i.e., the total gap between income and
-        half of poverty thresholds for all people in poverty.
+        half of poverty thresholds for all people in deep poverty.
 
         :param income: Column indicating income.
         :type income: str
