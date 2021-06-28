@@ -1,10 +1,12 @@
-- file: home
+format: jb-article
+root: home
+sections:
 - file: examples
   sections:
-    - file: agg
-    - file: charts
-    - file: custom_taxes
-    - file: demo
-    - file: gini
-    - file: income_measures
-    - file: weighting
+  - file: agg
+  - file: charts
+  - file: custom_taxes
+  - file: demo
+  - file: gini
+  - file: income_measures
+  - file: weighting

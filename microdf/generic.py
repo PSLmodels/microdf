@@ -728,6 +728,22 @@ class MicroDataFrame(pd.DataFrame):
         return gaps.sum()
 
     @get_args_as_micro_series()
+    def deep_poverty_gap(self, income: str, threshold: str) -> float:
+        """Calculate deep poverty gap, i.e., the total gap between income and
+        half of poverty thresholds for all people in deep poverty.
+
+        :param income: Column indicating income.
+        :type income: str
+        :param threshold: Column indicating threshold.
+        :type threshold: str
+        :return: Deep poverty gap.
+        :rtype: float
+        """
+        deep_threshold = threshold / 2
+        gaps = (deep_threshold - income)[deep_threshold > income]
+        return gaps.sum()
+
+    @get_args_as_micro_series()
     def squared_poverty_gap(self, income: str, threshold: str) -> float:
         """Calculate squared poverty gap, i.e., the total squared gap between
         income and poverty thresholds for all people in poverty.

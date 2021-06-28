@@ -44,6 +44,7 @@ from .poverty import (
     deep_poverty_rate,
     poverty_gap,
     squared_poverty_gap,
+    deep_poverty_gap,
 )
 from .style import AXIS_COLOR, DPI, GRID_COLOR, TITLE_COLOR, set_plot_style
 from .tax import mtr, tax_from_mtrs
@@ -132,6 +133,7 @@ __all__ = [
     "deep_poverty_rate",
     "poverty_gap",
     "squared_poverty_gap",
+    "deep_poverty_gap",
     # style.py
     "AXIS_COLOR",
     "DPI",
