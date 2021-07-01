@@ -12,5 +12,4 @@ dependencies:
 - seaborn
 - setuptools
 - pip:
-  - matplotlib-label-lines
   - jupyter-book
