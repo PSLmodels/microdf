@@ -22,7 +22,7 @@ mdf.set_plot_style()
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mAttributeError[0m                            Traceback (most recent call last)
-[0;32m<ipython-input-2-0a2924149170>[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_2837/2467399410.py[0m in [0;36m<module>[0;34m[0m
 [0;32m----> 1[0;31m [0mmdf[0m[0;34m.[0m[0mset_plot_style[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m
 [0;32m~/work/microdf/microdf/microdf/style.py[0m in [0;36mset_plot_style[0;34m(dpi)[0m
