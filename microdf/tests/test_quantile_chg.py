@@ -15,9 +15,5 @@ def test_quantile_chg():
     mdf.quantile_chg(DF1, DF2, "v", "w", "v", "w")
 
 
-def test_quantile_chg_plot():
-    mdf.quantile_chg_plot(DF1, DF2, "v", "w", "v", "w")
-
-
 def test_quantile_pct_chg_plot():
     mdf.quantile_pct_chg_plot(DF1, DF2, "v", "w", "v", "w")
