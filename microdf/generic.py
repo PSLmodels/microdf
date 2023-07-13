@@ -757,7 +757,7 @@ class MicroDataFrame(pd.DataFrame):
         :rtype: float
         """
         gaps = (threshold - income)[threshold > income]
-        squared_gaps = gaps ** 2
+        squared_gaps = gaps**2
         return squared_gaps.sum()
 
     @get_args_as_micro_series()
