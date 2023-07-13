@@ -4,12 +4,10 @@ channels:
 dependencies:
 - codecov
 - flake8
-- matplotlib
 - numpy
 - pandas
 - pip
 - pytest
-- seaborn
 - setuptools
 - pip:
   - jupyter-book
