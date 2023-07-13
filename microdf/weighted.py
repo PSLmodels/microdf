@@ -33,7 +33,7 @@ def weighted_sum(df, col, w=None, groupby=None):
     """
 
     def _weighted_sum(df, col, w):
-        """ For weighted sum with provided weight. """
+        """For weighted sum with provided weight."""
         return weight(df, col, w).sum()
 
     if groupby is None:
@@ -59,7 +59,7 @@ def weighted_mean(df, col, w=None, groupby=None):
     """
 
     def _weighted_mean(df, col, w=None):
-        """ For weighted mean with provided weight. """
+        """For weighted mean with provided weight."""
         return weighted_sum(df, col, w) / df[w].sum()
 
     if groupby is None:
@@ -118,7 +118,7 @@ def weighted_median(df, col, w=None, groupby=None):
     """
 
     def _weighted_median(df, col, w):
-        """ For weighted median with provided weight. """
+        """For weighted median with provided weight."""
         return weighted_quantile(df, col, w, 0.5)
 
     if groupby is None:
