@@ -661,7 +661,9 @@ class MicroDataFrame(pd.DataFrame):
 
     @get_args_as_micro_series()
     def groupby(self, by: Union[str, list], *args, **kwargs):
-        """Returns a GroupBy object with MicroSeriesGroupBy objects for each column
+        """
+        Returns a GroupBy object with MicroSeriesGroupBy objects for
+        each column
 
         :param by: column to group by
         :type by: Union[str, list]
@@ -766,7 +768,9 @@ class MicroDataFrame(pd.DataFrame):
         income: Union[MicroSeries, str],
         threshold: Union[MicroSeries, str],
     ) -> int:
-        """Calculates the number of entities with income below a poverty threshold.
+        """
+        Calculates the number of entities with income below a poverty
+        threshold.
 
         :param income: income array or column name
         :type income: Union[MicroSeries, str]
