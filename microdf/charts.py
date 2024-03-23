@@ -34,7 +34,7 @@ def quantile_pct_chg_plot(df1, df2, col1, col2, w1=None, w2=None, q=None):
     # Plot.
     fig, ax = plt.subplots()
     markerline, stemlines, baseline = ax.stem(
-        df.index_newline, df.pct_chg, use_line_collection=True
+        df.index_newline, df.pct_chg
     )
     plt.setp(baseline, color="gray", linewidth=0)
     ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(integer=True))
