@@ -14,7 +14,7 @@ def differences(actual, expected, f_actual, f_expected):
     :param f_actual: Filename of the actual CSV.
     :param f_expected: Filename of the expected CSV.
     """
-    if not actual.equals(expected):
+    if not np.allclose(actual, expected):
         msg = "COMPARE RESULTS DIFFER\n"
         msg += "-------------------------------------------------\n"
         msg += "--- NEW RESULTS IN {} FILE ---\n"
