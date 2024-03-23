@@ -1,8 +1,9 @@
 import io
 import zipfile
-from urllib.request import urlopen
-
+import requests
 import pandas as pd
+
+HEADER = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
 
 def read_stata_zip(url: str, **kwargs) -> pd.DataFrame:
@@ -19,8 +20,8 @@ def read_stata_zip(url: str, **kwargs) -> pd.DataFrame:
     :returns: DataFrame.
 
     """
-    with urlopen(url) as request:
-        data = io.BytesIO(request.read())
+    r = requests.get(url, headers=HEADER)
+    data = io.BytesIO(r.content)
     with zipfile.ZipFile(data) as archive:
         with archive.open(archive.namelist()[0]) as stata:
             return pd.read_stata(stata, **kwargs)
