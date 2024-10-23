@@ -251,23 +251,24 @@ class MicroSeries(pd.Series):
         ranks = np.array(self.weights.values)[order].cumsum()[inverse_order]
         if pct:
             ranks /= self.weights.values.sum()
+            np.where(ranks > 1.0, 1.0, ranks)
         return pd.Series(ranks, index=self.index)
 
     @vector_function
     def decile_rank(self):
-        return MicroSeries(np.ceil(self.rank(pct=True) * 10))
+        return MicroSeries(np.minimum(np.ceil(self.rank(pct=True) * 10), 10))
 
     @vector_function
     def quintile_rank(self):
-        return MicroSeries(np.ceil(self.rank(pct=True) * 5))
+        return MicroSeries(np.minimum(np.ceil(self.rank(pct=True) * 5), 5))
 
     @vector_function
     def quartile_rank(self):
-        return MicroSeries(np.ceil(self.rank(pct=True) * 4))
+        return MicroSeries(np.minimum(np.ceil(self.rank(pct=True) * 4), 4))
 
     @vector_function
     def percentile_rank(self):
-        return MicroSeries(np.ceil(self.rank(pct=True) * 100))
+        return MicroSeries(np.minimum(np.ceil(self.rank(pct=True) * 100), 100))
 
     def groupby(self, *args, **kwargs):
         gb = super().groupby(*args, **kwargs)
