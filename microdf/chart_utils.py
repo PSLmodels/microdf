@@ -1,6 +1,3 @@
-import matplotlib as mpl
-
-
 def dollar_format(suffix=""):
     """Dollar formatter for matplotlib.
 
@@ -19,6 +16,14 @@ def currency_format(currency="USD", suffix=""):
     :returns: FuncFormatter.
 
     """
+    try:
+        import matplotlib as mpl
+    except ImportError:
+        raise ImportError(
+            "The function you've called requires extra dependencies. " +
+            "Please install microdf with the 'charts' extra by running " +
+            "'pip install microdf[charts]'"
+        )
 
     prefix = {"USD": "$", "GBP": "£"}[currency]
 

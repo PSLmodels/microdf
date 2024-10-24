@@ -10,12 +10,16 @@ setup(
     license="MIT",
     packages=["microdf"],
     install_requires=[
-        "matplotlib",
-        "matplotlib-label-lines",
         "numpy",
         "pandas",
-        "seaborn",
     ],
-    extras_require={"taxcalc": ["taxcalc"]},
+    extras_require={
+      "taxcalc": ["taxcalc"],
+      "charts": [
+        "seaborn",
+        "matplotlib",
+        "matplotlib-label-lines"
+      ]
+    },
     zip_safe=False,
 )
