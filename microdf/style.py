@@ -1,7 +1,3 @@
-import matplotlib as mpl
-import matplotlib.font_manager as fm
-
-
 TITLE_COLOR = "#212121"
 AXIS_COLOR = "#757575"
 GRID_COLOR = "#eeeeee"  # Previously lighter #f5f5f5.
@@ -17,6 +13,8 @@ def set_plot_style(dpi: int = DPI):
     """
     try:
         import seaborn as sns
+        import matplotlib as mpl
+        import matplotlib.font_manager as fm
     except ImportError:
         raise ImportError(
             "The function you've called requires extra dependencies. Please install microdf with the 'charts' extra by running 'pip install microdf[charts]'"

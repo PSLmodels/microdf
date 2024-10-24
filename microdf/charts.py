@@ -1,5 +1,3 @@
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 import numpy as np
 
 import microdf as mdf
@@ -20,6 +18,8 @@ def quantile_pct_chg_plot(df1, df2, col1, col2, w1=None, w2=None, q=None):
     """
     try:
         import seaborn as sns
+        import matplotlib as mpl
+        import matplotlib.pyplot as plt
     except ImportError:
         raise ImportError(
             "The function you've called requires extra dependencies. Please install microdf with the 'charts' extra by running 'pip install microdf[charts]'"
